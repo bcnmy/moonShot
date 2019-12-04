@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import LandingPage from './components/LandingPage';
+
+
+const WAITING = "waiting";
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentState: WAITING
+    }
+    this.changeState = this.changeState.bind(this);
+  }
+
+  changeState(newState) {
+    this.setState({currentState: newState});
+  }
+
+  render() {
+    return (
+      <div className="App" id="Home">
+        <LandingPage currentState={this.state.currentState} changeState={this.changeState}/>
+      </div>
+    );
+  }
 }
 
 export default App;

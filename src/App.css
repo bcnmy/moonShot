@@ -7,7 +7,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #091647;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,3 +20,195 @@
 .App-link {
   color: #09d3ac;
 }
+
+.main-section {
+  background-color: #091647;
+}
+.menu-bar{
+  width :100%;
+  display: flex;
+  flex-direction: row;
+  height: 130px;
+  background-color: #091647;
+  align-items: center;
+}
+.gameName{
+  display: flex;
+  flex-direction: column;
+  width:300px;
+  margin-left: 80px;
+}
+.game-shortform{
+  color:#2046F5;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  width:100%;
+}
+.game-fullform{
+  color:#fff;
+  font-weight: 400;
+  font-size: 15px;
+  /* opacity: 0.8; */
+  width:100%;
+}
+.center{
+  display: flex;
+  flex-direction: row;
+  height: 600px;
+}
+
+/*--- Wait Page-> Left component --- */
+.wait-page-left{
+  border-right: 1px ridge #fff;
+  height: 700px;
+}
+.wait-page-heading{
+  margin-top:70px;
+  width:60%;
+  text-align:left; 
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+
+#wait-heading{
+  color:#fff;
+  font-weight: 600;
+  font-size: 35px;
+}
+
+.wait-page-content{
+  margin-top:50px;
+  width:60%;
+  text-align:left; 
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+#wait-content{
+  color:#fff;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 30px;
+  opacity: 0.8;
+}
+
+/*  ----Home -> Left component ---- */
+.leftSection{
+  width :60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.description-heading{
+  margin-top:70px;
+  width:60%;
+  text-align:left; 
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+#heading{
+  color:#fff;
+  font-weight: 600;
+  font-size: 35px;
+}
+.description-content{
+  margin-top:50px;
+  width:60%;
+  text-align:left; 
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+#content{
+  color:#fff;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 30px;
+  opacity: 0.8;
+}
+.launch-button{
+  margin-top: 50px;
+  display: flex;
+  margin-left:170px;
+}
+.play-button{
+  text-transform: capitalize !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #0000ff!important;
+  width: 35%;
+  height: 50px;
+  border-radius: 30px!important;
+  transition: all 0.4s ease 0s;
+}
+
+#start-playing{
+  font-size: 18px;
+  font-weight: 600;
+  vertical-align: middle;
+  color: #fff !important;
+}
+
+.social-media-icon{
+  margin-top: 50px;
+  margin-left: 150px;
+  
+}
+
+.icons{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  
+}
+.social-icons{
+  color:white;
+  opacity: .8;
+  margin-right:40px;
+}
+
+.disclaimer{
+  color:#fff;
+  margin-top: 70px;
+  letter-spacing: 1px;
+  text-align: left;
+  margin-left:170px;
+  font-size:12px;
+  opacity: 0.5;
+  bottom: 0;
+}
+
+.video-popup{
+  color:#fff;
+}
+
+/* ----Home -> Right component ----- */
+.rightSection{
+  width :40%;
+  color:#fff;
+}
+
+.current-staking-price{
+  margin-top:10px;
+  font-weight: 800;
+  text-transform: capitalize;
+  font-size:20px;
+  opacity: 0.9;
+}
+
+.matic-staking-price{
+  margin-top:50px;
+  opacity: 0.8;
+  font-size:16px;
+  font-weight: 600;
+
+}
+
+
+
