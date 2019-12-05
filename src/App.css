@@ -252,6 +252,168 @@
   color:#fff;
   
 }
+
+/*--- Start Page-> Left component --- */
+.start-page-left{
+  border-right: 1px ridge #fff;
+  height: 600px;
+}
+.start-page-heading{
+  margin-top:30px;
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+#start-heading{
+  color:#fff;
+  width: 30%;
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 172px;
+}
+#start-timer{
+  color:#fff;
+  width: 30%;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 172px;
+  text-align: center;
+}
+
+.start-page-content{
+  margin-top:80px;
+  width:60%;
+  /* background-color: #09d3ac; */
+  text-align:left; 
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.price-container{
+  width: 200px;
+  font-weight: 800;
+  font-size: 18px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.price-heading{
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  opacity: 0.6;
+}
+#fluctuating-price{
+  color: green;
+}
+#current-stake-price{
+  color:#fff;
+}
+
+.bet-buttons{
+  /* background-color: #09d3ac; */
+  display: flex;
+  flex-direction: row;
+  margin-left:auto;
+  margin-right:auto;
+  width:60%;
+  margin-top:10px;
+  justify-content: space-between;
+  
+}
+.bet-placed{
+  text-transform: capitalize !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 45%;
+  height: 50px;
+  border-radius: 10px!important;
+  transition: all 0.4s ease 0s;
+}
+#up-button{
+  border:2px solid #3A8347;
+  background-color: #081647;
+  color:#3A8347;
+  font-size: 20px;
+  font-weight: 800;
+}
+#down-button{
+  border:2px solid #A92626;
+  background-color: #081647;
+  color:#A92626;
+  font-size: 20px;
+  font-weight: 800; 
+}
+
+.field {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  height: 56px;
+  border-radius: 4px;
+  position: relative;
+  background-color: rgba(255,255,255,0.3);
+  transition: 0.3s all;
+}
+.field:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+.field.focussed input {
+  padding: 24px 16px 8px 16px;
+}
+
+.field input {
+  width: 100%;
+  height: 56px;
+  position: relative;
+  padding: 0px 16px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  background-color: transparent;
+  color: #fff;
+  outline: none;
+  box-shadow: 0px 4px 20px 0px transparent;
+  transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out, 0.1s padding ease-in-out;
+  -webkit-appearance: none;
+}
+.field input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+.field input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+.field input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+.field input:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/*--- Start Page ->  Right Component--- */
+.go-fast{
+  width:250px;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #09d3ac;
+}
 /*--- Wait Page-> Left component --- */
 .wait-page-left{
   border-right: 1px ridge #fff;
@@ -352,3 +514,4 @@
   font-weight: 400;
   opacity: 0.9;
 }
+

@@ -1,37 +1,42 @@
 import React, { Component } from 'react';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Button } from '@material-ui/core';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import TelegramIcon from '@material-ui/icons/Telegram';
-import Modal from '@material-ui/core/Modal';
-
-class StartGameLeftComponent extends Component{
-
+class StartGameLeftComponent extends Component {
     render(){
-        return(
-            <section className="wait-page-left">
-                <div className="wait-page-heading">
-                    <div id="wait-heading">
-                    Waiting Phase
-                    </div>
-                    <div id="timer">
-                    0:19 seconds
-                    </div>
+    return(
+        <section className="start-page-left">
+            <div className="start-page-heading">
+                <div id="start-heading">
+                Place Your Bet
                 </div>
-                <div className="wait-page-content">
-                    <div id="wait-content">
-                        Result Calculation in Progress ...
-                    </div>
-
-                    <div className="staking-price-value mb-4">
-                        Current Stake Price  0.02967 matic/usdt
-                    </div>
-                    <div className="staking-price">
-                    </div>
-                </div>             
-            </section>
-        );
+                <div id="start-timer">
+                0:19 seconds
+                </div>
+            </div>
+            <div className="start-page-content">
+                <div className="price-container" id="fluctuating-price">
+                    <div className="price-heading">Current Price</div>
+                    <div>0.02950</div>
+                </div>
+                <div className="price-container" id="current-stake-price">
+                    <div className="price-heading">Betting Price</div>
+                    <div>0.02950</div>
+                </div>
+            </div>   
+            <div className="place-bet">
+                <div className="field">
+                    <input id="" type="text"  placeholder="Enter price"/>
+                </div>
+            </div>   
+            <div className="bet-buttons">
+                <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="up-button">
+                    Will go Up
+                </Button>
+                <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="down-button">
+                    will go down
+                </Button>
+            </div>          
+        </section>
+    );
     }
 }
 

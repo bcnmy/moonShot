@@ -4,7 +4,6 @@ import { Button } from '@material-ui/core';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TelegramIcon from '@material-ui/icons/Telegram';
-import Modal from '@material-ui/core/Modal';
 
 class LaunchLeftComponent extends Component{
 
