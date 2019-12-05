@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import LaunchLeftComponent from './LaunchLeftComponent';
 import WaitLeftComponent from './WaitLeftComponent';
+import PrepareGameLeftComponent from './PrepareGameLeftComponent';
+import StartGameLeftComponent from './StartGameLeftComponent';
 
 const LAUNCH = "launch";
-const STAKING = "start";
+const PREPARE = "prepare";
 const WAITING = "waiting";
+const START='start';
 
 class LeftSection extends Component{
 
@@ -27,6 +30,8 @@ class LeftSection extends Component{
             <section className = "leftSection">
                 {this.props.currentState == LAUNCH && <LaunchLeftComponent changeComponent={this.changeComponent}/>}
                 {this.props.currentState == WAITING && <WaitLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState == PREPARE && <PrepareGameLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState == START && <StartGameLeftComponent changeComponent={this.changeComponent}/>}
             </section>
         );
     }

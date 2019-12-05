@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -40,7 +40,7 @@
 }
 .game-shortform{
   color:#2046F5;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 40px;
   text-align: center;
   width:100%;
@@ -49,51 +49,13 @@
   color:#fff;
   font-weight: 400;
   font-size: 15px;
-  /* opacity: 0.8; */
+  text-align: center;
   width:100%;
 }
 .center{
   display: flex;
   flex-direction: row;
   height: 600px;
-}
-
-/*--- Wait Page-> Left component --- */
-.wait-page-left{
-  border-right: 1px ridge #fff;
-  height: 700px;
-}
-.wait-page-heading{
-  margin-top:70px;
-  width:60%;
-  text-align:left; 
-  letter-spacing: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
-}
-
-#wait-heading{
-  color:#fff;
-  font-weight: 600;
-  font-size: 35px;
-}
-
-.wait-page-content{
-  margin-top:50px;
-  width:60%;
-  text-align:left; 
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
-}
-#wait-content{
-  color:#fff;
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 30px;
-  opacity: 0.8;
 }
 
 /*  ----Home -> Left component ---- */
@@ -104,7 +66,7 @@
 }
 
 .description-heading{
-  margin-top:70px;
+  margin-top:30px;
   width:60%;
   text-align:left; 
   letter-spacing: 2px;
@@ -200,6 +162,7 @@
   text-transform: capitalize;
   font-size:20px;
   opacity: 0.9;
+  text-align: center;
 }
 
 .matic-staking-price{
@@ -207,8 +170,185 @@
   opacity: 0.8;
   font-size:16px;
   font-weight: 600;
+  text-align: center;
 
 }
 
+/*--- Prepare Page-> Left component --- */
+.prepare-page-left{
+  border-right: 1px ridge #fff;
+  height: 600px;
+}
 
+.prepare-page-heading{
+  margin-top:30px;
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
 
+#prepare-heading{
+  color:#fff;
+  width: 50%;
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 177px;
+}
+#prepare-timer{
+  color:#fff;
+  width: 30%;
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 172px;
+}
+
+.prepare-page-content{
+  margin-top:120px;
+  width:60%;
+  text-align:left; 
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+
+.staking-price{
+  border:5px solid #fff;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*--- Prepare Page-> Right component --- */
+.Gaming-rules{
+  text-align: center;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width:25%;
+}
+
+#rules{
+  font-size:18px;
+  font-weight: 600;
+  opacity: 0.8;
+  color:#fff;
+  line-height: 1.8em;
+}
+
+#rule-points li{
+  margin-top: 20px;
+  font-size:14px;
+  font-weight: 600;
+  opacity: 0.6;
+  color:#fff;
+  
+}
+/*--- Wait Page-> Left component --- */
+.wait-page-left{
+  border-right: 1px ridge #fff;
+  height: 600px;
+}
+.wait-page-heading{
+  margin-top:30px;
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+#wait-heading{
+  color:#fff;
+  width: 30%;
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 172px;
+}
+#timer{
+  color:#fff;
+  width: 30%;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 172px;
+  text-align: center;
+}
+
+.wait-page-content{
+  margin-top:10px;
+  width:60%;
+  text-align:left; 
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+#wait-content{
+  color:#fff;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 30px;
+  /* opacity: 0.8; */
+}
+
+.staking-price-value{
+  margin-top:80px;
+  color:#F0BA43;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.staking-price{
+  border:5px solid #fff;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*--- Wait Page-> Right component --- */
+.bet-up-list{
+  height: 300px;;
+}
+.bet-header{
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width:25%;
+  font-size:16px;
+  font-weight: 700;
+  opacity: 0.8;
+  text-align: center;
+}
+#bet-down-header{
+  border: 2px solid #D1302B;
+  background-color: #D1302B;
+}
+
+#bet-up-header{
+  border: 2px solid #48A049;
+  background-color: #48A049;
+}
+
+#bet-list{
+  text-align:justify;
+  margin-left: auto;
+  margin-right: auto;
+  width:60%;
+  font-size:14px;
+  font-weight: 400;
+  opacity: 0.9;
+}

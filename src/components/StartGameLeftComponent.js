@@ -6,7 +6,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import Modal from '@material-ui/core/Modal';
 
-class WaitLeftComponent extends Component{
+class StartGameLeftComponent extends Component{
 
     render(){
         return(
@@ -35,4 +35,4 @@ class WaitLeftComponent extends Component{
     }
 }
 
-export default WaitLeftComponent;
+export default StartGameLeftComponent;
