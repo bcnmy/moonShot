@@ -1,5 +1,5 @@
 body {
-  background: #060e2d;
+  background: #081547;
 }
 
 .App {
@@ -11,7 +11,7 @@ body {
 }
 
 .App-header {
-  background-color: #060e2d;
+  background-color: #091647;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@ body {
   display: flex;
   flex-direction: row;
   height: 100px;
-  background-color: #060e2d;
+  background-color: #091647;
   /* background-color:red; */
   border-bottom: 1px solid grey;
   align-items: center;
@@ -60,13 +60,13 @@ body {
   width:100%;
 }
 #login-button {
-  color: #060e2d;
+  color: #081547;
   font-weight: bold;
 }
 /****** ENDS *****/
 
 .main-section {
-  background-color: #060e2d;
+  background-color: #091647;
   padding-left: 14%;
   padding-right: 14%;
 }
@@ -312,14 +312,14 @@ body {
 }
 #up-button{
   border:2px solid #3A8347;
-  background-color: #060e2d;
+  background-color: #081647;
   color:#3A8347;
   font-size: 20px;
   font-weight: 800;
 }
 #down-button{
   border:2px solid #A92626;
-  background-color: #060e2d;
+  background-color: #081647;
   color:#A92626;
   font-size: 20px;
   font-weight: 800;
