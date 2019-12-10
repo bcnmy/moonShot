@@ -16,7 +16,7 @@ class LandingPage extends Component{
                     <LeftSection currentState={this.props.currentState} changeState={this.props.changeState}/>
                     <RightSection currentState={this.props.currentState} changeState={this.props.changeState}/>
                 </div>
-                <Footer />
+                {this.props.currentState=="launch" && <Footer />}
             </div>
         );
     }

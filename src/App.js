@@ -30,7 +30,7 @@ const web3 = new Web3(portis.provider);
 
 function App() {
   const { enqueueSnackbar } = useSnackbar();
-  const [currentState, changeState] = React.useState(LAUNCH);
+  const [currentState, changeState] = React.useState(START);
   const [userLogin, setUserLogin] = React.useState(false);
 
   const onLogin = () => {

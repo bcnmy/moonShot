@@ -13,13 +13,12 @@ class LaunchRightComponent extends Component{
      render() {
         return(
             <div>
-                <div className="current-staking-price">
-                    Current Staking Price-Matic
-                </div>
-                <div className="matic-staking-price">
-                    0.02960 matic/usdt
+                
+                <div>
+                    <img className="launch-page-img" src="/images/gambling.gif" alt="Biconomy logo white" />
                 </div>
             </div>
+            
         );
     }
 }

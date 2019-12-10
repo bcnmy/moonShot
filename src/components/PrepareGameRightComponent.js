@@ -11,7 +11,7 @@ class PrepareGameRightComponent extends Component{
                     </div>
                 </div>
                 <div className="rules-container">
-                    <div id="rule-points" className="mt-4 pt-4 pl-5">
+                    <div id="rule-points" className="pt-3 pl-5">
                         <ul>
                             <li className="m1">SDSDSDFSD</li>
                             <li className="m1">SDFSDFSDFS</li>

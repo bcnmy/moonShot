@@ -1,5 +1,5 @@
 body {
-  background: #081547;
+  background: #060e2d;
 }
 
 .App {
@@ -11,7 +11,7 @@ body {
 }
 
 .App-header {
-  background-color: #091647;
+  background-color: #060e2d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -34,8 +34,10 @@ body {
   width :100%;
   display: flex;
   flex-direction: row;
-  height: 130px;
-  background-color: #091647;
+  height: 100px;
+  background-color: #060e2d;
+  /* background-color:red; */
+  border-bottom: 1px solid grey;
   align-items: center;
   justify-content: space-between;
 }
@@ -58,13 +60,13 @@ body {
   width:100%;
 }
 #login-button {
-  color: #081547;
+  color: #060e2d;
   font-weight: bold;
 }
 /****** ENDS *****/
 
 .main-section {
-  background-color: #091647;
+  background-color: #060e2d;
   padding-left: 14%;
   padding-right: 14%;
 }
@@ -72,43 +74,44 @@ body {
 .center{
   display: flex;
   flex-direction: row;
+  height: 520px;
 }
 
 /*  ----Home -> Left component ---- */
 .leftSection{
-  width :60%;
+  width :70%;
   display: flex;
   flex-direction: column;
 }
 
 .description-heading{
-  margin-top:30px;
-  width:60%;
+  width:70%;
+  margin-top:100px;
   text-align:left;
-  letter-spacing: 2px;
-  text-align: justify;
+  letter-spacing: 1px;
+  text-align: left;
 }
 #heading{
   color:#fff;
-  font-weight: 600;
-  font-size: 35px;
+  font-weight: 700;
+  font-size: 25px;
 }
 .description-content{
-  margin-top:50px;
-  width:60%;
+  margin-top:10px;
+  width:70%;
   text-align:left;
   text-align: justify;
 }
 #content{
   color:#fff;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0.5px;
   line-height: 30px;
   opacity: 0.8;
 }
 .launch-button{
-  margin-top: 50px;
+  margin-top: 60px;
   display: flex;
 }
 .play-button{
@@ -117,7 +120,7 @@ body {
   background-color: #0000ff!important;
   width: 35%;
   height: 50px;
-  border-radius: 30px!important;
+  border-radius: 15px!important;
   transition: all 0.4s ease 0s;
 }
 
@@ -128,66 +131,63 @@ body {
   color: #fff !important;
 }
 
-.video-popup{
-  color:#fff;
-}
-
 /* ----Home -> Right component ----- */
 .rightSection{
-  width :40%;
+  width :30%;
   color:#fff;
 }
 
 .current-staking-price{
-  margin-top:10px;
-  font-weight: 800;
+  /* margin-top:100px; */
+  font-weight: 600;
   text-transform: capitalize;
-  font-size:20px;
-  opacity: 0.9;
-  text-align: center;
+  font-size:17px;
+  opacity: 0.6;
+  text-align: right;
 }
 
 .matic-staking-price{
-  margin-top:50px;
+  /* margin-top:10px; */
   opacity: 0.8;
-  font-size:16px;
+  font-size:14px;
   font-weight: 600;
-  text-align: center;
+  text-align: right;
 
 }
+.launch-page-img{
+  margin-top:80px;
+  width: 300px;
+  height: 300px;
+  
+}
+
 
 /*--- Prepare Page-> Left component --- */
 .prepare-page-left{
-  border-right: 1px ridge #fff;
   height: 600px;
 }
 
 .prepare-page-heading{
-  margin-top:30px;
+  margin-top: 30px;
   letter-spacing: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
+  text-align: left;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.8;
+  justify-content: space-between;
+  opacity: 0.5;
 }
 
 #prepare-heading{
-  color:#fff;
-  width: 50%;
+  color: #fff;
+  width: 40%;
   font-weight: 600;
   font-size: 18px;
-  margin-left: 177px;
 }
 #prepare-timer{
-  color:#fff;
-  width: 30%;
-  font-weight: 600;
-  font-size: 18px;
-  margin-left: 172px;
+  color: #fff;
+    width: 30%;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .prepare-page-content{
@@ -199,36 +199,32 @@ body {
   text-align: justify;
 }
 
-.staking-price{
-  border:5px solid #fff;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /*--- Prepare Page-> Right component --- */
+.prepare-page-right{
+  border-left: 1px dotted grey;
+  height: 100%;
+}
 .Gaming-rules{
+  margin-top: 30px;
   text-align: center;
-  border: 2px solid #fff;
+  /* border: 2px solid #fff; */
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-  width:25%;
+  width:50%;
 }
 
 #rules{
   font-size:18px;
   font-weight: 600;
   opacity: 0.8;
-  color:#fff;
+  color:#48A049;
   line-height: 1.8em;
 }
 
 #rule-points li{
-  margin-top: 20px;
-  font-size:14px;
+  margin-top: 10px;
+  font-size:12px;
   font-weight: 600;
   opacity: 0.6;
   color:#fff;
@@ -241,15 +237,12 @@ body {
   height: 600px;
 }
 .start-page-heading{
-  margin-top:30px;
+  margin-top: 30px;
   letter-spacing: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
+  text-align: left;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   opacity: 0.5;
 }
 
@@ -258,21 +251,17 @@ body {
   width: 30%;
   font-weight: 600;
   font-size: 18px;
-  margin-left: 172px;
 }
 #start-timer{
   color:#fff;
   width: 30%;
   font-weight: 600;
   font-size: 16px;
-  margin-left: 172px;
-  text-align: center;
 }
 
 .start-page-content{
-  margin-top:80px;
-  width:60%;
-  /* background-color: #09d3ac; */
+  margin-top:50px;
+  width:70%;
   text-align:left;
   margin-left: auto;
   margin-right: auto;
@@ -282,7 +271,7 @@ body {
   justify-content: space-between;
 }
 .price-container{
-  width: 200px;
+  /* background-color: #A92626; */
   font-weight: 800;
   font-size: 18px;
   height: 200px;
@@ -296,24 +285,22 @@ body {
   font-size: 18px;
   color: #fff;
   opacity: 0.6;
+  
 }
 #fluctuating-price{
-  color: green;
+  color:#fff;
+  width: 50%;
 }
 #current-stake-price{
-  color:#fff;
+  color: green;
 }
 
 .bet-buttons{
-  /* background-color: #09d3ac; */
   display: flex;
   flex-direction: row;
-  margin-left:auto;
-  margin-right:auto;
-  width:60%;
-  margin-top:10px;
+  width:90%;
+  margin-top:20px;
   justify-content: space-between;
-
 }
 .bet-placed{
   text-transform: capitalize !important;
@@ -325,23 +312,21 @@ body {
 }
 #up-button{
   border:2px solid #3A8347;
-  background-color: #081647;
+  background-color: #060e2d;
   color:#3A8347;
   font-size: 20px;
   font-weight: 800;
 }
 #down-button{
   border:2px solid #A92626;
-  background-color: #081647;
+  background-color: #060e2d;
   color:#A92626;
   font-size: 20px;
   font-weight: 800;
 }
 
 .field {
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 90%;
   margin-top: 80px;
   height: 56px;
   border-radius: 4px;
@@ -394,49 +379,45 @@ body {
   height: 250px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #09d3ac;
+  /* background-color: #09d3ac; */
 }
 /*--- Wait Page-> Left component --- */
 .wait-page-left{
-  border-right: 1px ridge #fff;
-  height: 600px;
+  /* border-right: 1px ridge #fff; */
+  height: 100%;
 }
 .wait-page-heading{
   margin-top:30px;
   letter-spacing: 2px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
+  text-align: left;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   opacity: 0.5;
 }
 
 #wait-heading{
   color:#fff;
-  width: 30%;
+  width: 40%;
   font-weight: 600;
   font-size: 18px;
-  margin-left: 172px;
 }
 #timer{
   color:#fff;
   width: 30%;
   font-weight: 600;
   font-size: 16px;
-  margin-left: 172px;
-  text-align: center;
 }
 
 .wait-page-content{
   margin-top:10px;
-  width:60%;
-  text-align:left;
-  margin-left: auto;
   margin-right: auto;
-  text-align: justify;
+  margin-left: auto;
+  width:60%;
+  align-items: center;
+  justify-content: center;
+  text-align:left;
+  text-align: center;
 }
 #wait-content{
   color:#fff;
@@ -464,37 +445,60 @@ body {
 }
 
 /*--- Wait Page-> Right component --- */
-.bet-up-list{
-  height: 300px;;
+.wait-page-right{
+  margin-top: 30px;
+  height: 100%;
 }
+
 .bet-header{
-  border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-  width:25%;
+  width:80%;
+  height: 35px;
   font-size:16px;
   font-weight: 700;
   opacity: 0.8;
   text-align: center;
+  display: flex;
+    align-items: center;
+    /* justify-items: center; */
+    justify-content: center;
 }
 #bet-down-header{
-  border: 2px solid #D1302B;
-  background-color: #D1302B;
+  color: white;
+  background: #D1302B;
+  border-radius: 10px 10px 0 0;
+  margin-top: 30px;
 }
 
 #bet-up-header{
-  border: 2px solid #48A049;
-  background-color: #48A049;
+  background: #48A049;
+  border-radius: 10px 10px 0 0;
+  color: white; 
 }
-
-#bet-list{
+#bet-up-list{
+  border: 2px solid #48A049;
+}
+#bet-down-list{
+  border: 2px solid #D1302B;
+}
+.bet-list{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 220px;
+  border-radius: 0 0 10px 10px;
   text-align:justify;
   margin-left: auto;
   margin-right: auto;
-  width:60%;
-  font-size:14px;
+  width:80%;
+  font-size:12px;
   font-weight: 400;
   opacity: 0.9;
+}
+
+.bet-list ul {
+  overflow-y: scroll;
+  height: 100%;
 }
 
 
@@ -502,13 +506,13 @@ body {
 
 .footer {
   display: flex;
-  justify-content: space-between;
-  margin: 100px 0px 10px 0px;
+  flex-direction: column;
   bottom: 0px;
 }
 
-.icons{
+ .icons{
   list-style: none;
+  padding-left: 0px;
   display: flex;
   flex-direction: row;
   margin-bottom: 0px;
@@ -516,15 +520,16 @@ body {
 .social-icons{
   color:white;
   opacity: .8;
-  margin-right:40px;
+  margin-right:30px;
 }
 
 .disclaimer{
-  color:#fff;
-  letter-spacing: 1px;
+  margin-top: 30px;
+  letter-spacing: 0.5px;
   text-align: left;
-  font-size:12px;
-  opacity: 0.5;
+  font-size: 12px;
+  color: #888888;
   display: flex;
   align-items: center;
+  /* padding-left: 40px; */
 }

@@ -14,18 +14,19 @@ class WaitLeftComponent extends Component{
                 <div className="wait-page-heading">
                     <div id="wait-heading">
                     Waiting Phase
+                        <div id="wait-content">
+                            Result Calculation in Progress ...
+                        </div>
                     </div>
                     <div id="timer">
                     0:19 seconds
                     </div>
                 </div>
                 <div className="wait-page-content">
-                    <div id="wait-content">
-                        Result Calculation in Progress ...
-                    </div>
+                    
 
                     <div className="staking-price-value mb-4">
-                        Current Stake Price  0.02967 matic/usdt
+                        Current Stake Price  <br /> $ 0.02967
                     </div>
                     <div className="staking-price">
                     </div>
