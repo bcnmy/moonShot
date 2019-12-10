@@ -1,3 +1,7 @@
+body {
+  background: #081547;
+}
+
 .App {
   /* text-align: center; */
 }
@@ -21,9 +25,11 @@
   color: #09d3ac;
 }
 
-.main-section {
-  background-color: #091647;
+.hidden {
+  display: none!important;
 }
+
+/* MAIN HEADER */
 .menu-bar{
   width :100%;
   display: flex;
@@ -31,12 +37,11 @@
   height: 130px;
   background-color: #091647;
   align-items: center;
+  justify-content: space-between;
 }
 .gameName{
   display: flex;
   flex-direction: column;
-  width:300px;
-  margin-left: 80px;
 }
 .game-shortform{
   color:#2046F5;
@@ -52,10 +57,21 @@
   text-align: center;
   width:100%;
 }
+#login-button {
+  color: #081547;
+  font-weight: bold;
+}
+/****** ENDS *****/
+
+.main-section {
+  background-color: #091647;
+  padding-left: 14%;
+  padding-right: 14%;
+}
+
 .center{
   display: flex;
   flex-direction: row;
-  height: 600px;
 }
 
 /*  ----Home -> Left component ---- */
@@ -68,10 +84,8 @@
 .description-heading{
   margin-top:30px;
   width:60%;
-  text-align:left; 
+  text-align:left;
   letter-spacing: 2px;
-  margin-left: auto;
-  margin-right: auto;
   text-align: justify;
 }
 #heading{
@@ -82,9 +96,7 @@
 .description-content{
   margin-top:50px;
   width:60%;
-  text-align:left; 
-  margin-left: auto;
-  margin-right: auto;
+  text-align:left;
   text-align: justify;
 }
 #content{
@@ -98,7 +110,6 @@
 .launch-button{
   margin-top: 50px;
   display: flex;
-  margin-left:170px;
 }
 .play-button{
   text-transform: capitalize !important;
@@ -115,35 +126,6 @@
   font-weight: 600;
   vertical-align: middle;
   color: #fff !important;
-}
-
-.social-media-icon{
-  margin-top: 50px;
-  margin-left: 150px;
-  
-}
-
-.icons{
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  
-}
-.social-icons{
-  color:white;
-  opacity: .8;
-  margin-right:40px;
-}
-
-.disclaimer{
-  color:#fff;
-  margin-top: 70px;
-  letter-spacing: 1px;
-  text-align: left;
-  margin-left:170px;
-  font-size:12px;
-  opacity: 0.5;
-  bottom: 0;
 }
 
 .video-popup{
@@ -211,7 +193,7 @@
 .prepare-page-content{
   margin-top:120px;
   width:60%;
-  text-align:left; 
+  text-align:left;
   margin-left: auto;
   margin-right: auto;
   text-align: justify;
@@ -250,7 +232,7 @@
   font-weight: 600;
   opacity: 0.6;
   color:#fff;
-  
+
 }
 
 /*--- Start Page-> Left component --- */
@@ -291,7 +273,7 @@
   margin-top:80px;
   width:60%;
   /* background-color: #09d3ac; */
-  text-align:left; 
+  text-align:left;
   margin-left: auto;
   margin-right: auto;
   text-align: justify;
@@ -331,7 +313,7 @@
   width:60%;
   margin-top:10px;
   justify-content: space-between;
-  
+
 }
 .bet-placed{
   text-transform: capitalize !important;
@@ -353,7 +335,7 @@
   background-color: #081647;
   color:#A92626;
   font-size: 20px;
-  font-weight: 800; 
+  font-weight: 800;
 }
 
 .field {
@@ -451,7 +433,7 @@
 .wait-page-content{
   margin-top:10px;
   width:60%;
-  text-align:left; 
+  text-align:left;
   margin-left: auto;
   margin-right: auto;
   text-align: justify;
@@ -515,3 +497,34 @@
   opacity: 0.9;
 }
 
+
+/************** FOOTER ***************/
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 100px 0px 10px 0px;
+  bottom: 0px;
+}
+
+.icons{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+}
+.social-icons{
+  color:white;
+  opacity: .8;
+  margin-right:40px;
+}
+
+.disclaimer{
+  color:#fff;
+  letter-spacing: 1px;
+  text-align: left;
+  font-size:12px;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+}
