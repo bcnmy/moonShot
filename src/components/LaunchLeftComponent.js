@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 
-import Modal from '@material-ui/core/Modal';
-
 class LaunchLeftComponent extends Component{
 
     constructor(props) {
