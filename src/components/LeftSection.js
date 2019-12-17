@@ -3,11 +3,14 @@ import LaunchLeftComponent from './LaunchLeftComponent';
 import WaitLeftComponent from './WaitLeftComponent';
 import PrepareGameLeftComponent from './PrepareGameLeftComponent';
 import StartGameLeftComponent from './StartGameLeftComponent';
+import ResultLeftComponent from './ResultLeftComponent';
 
 const LAUNCH = "launch";
 const PREPARE = "prepare";
-const WAITING = "waiting";
 const START='start';
+const WAITING = "waiting";
+const RESULT = "result";
+
 
 class LeftSection extends Component{
 
@@ -29,9 +32,10 @@ class LeftSection extends Component{
         return(
             <section className = "leftSection">
                 {this.props.currentState == LAUNCH && <LaunchLeftComponent changeComponent={this.changeComponent}/>}
-                {this.props.currentState == WAITING && <WaitLeftComponent changeComponent={this.changeComponent}/>}
                 {this.props.currentState == PREPARE && <PrepareGameLeftComponent changeComponent={this.changeComponent}/>}
                 {this.props.currentState == START && <StartGameLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState == WAITING && <WaitLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState == RESULT && <ResultLeftComponent changeComponent={this.changeComponent}/>}
             </section>
         );
     }

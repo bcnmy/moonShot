@@ -28,8 +28,10 @@ export default function Header(props) {
     return(
         <section className = "menu-bar" id="top">
             <div className="gameName">
-                <div className="game-shortform" onClick={displayHome}> G T P </div>
-                <div className="game-fullform"> Guess The Price </div>
+                <div className="game-shortform" onClick={displayHome}> 
+                    <img className="logo" src="/images/moonshot-1.png" alt="Biconomy logo white" /> 
+                </div>
+                <div className="game-fullform">  </div>
             </div>
             <div className="login-section" ref={loginSectionRef}>
                 <Button id="login-button" className={`gtp-buttons ${props.userLogin ? "hidden":""}`} variant="contained"

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Button } from '@material-ui/core';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -21,6 +22,8 @@ class PrepareGameLeftComponent extends Component{
                 </div>
                 <div className="prepare-page-content">
                     <div className="staking-price">
+                   
+    
                     </div>
                 </div>             
             </section>

@@ -10,7 +10,7 @@ class LaunchLeftComponent extends Component{
     }
 
     showGame() {
-        this.changeComponent("waiting");
+        this.changeComponent("result");
     }
 
     render() {
