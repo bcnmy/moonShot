@@ -28,16 +28,20 @@ const WAITING = "waiting";
 const START='start';
 const RESULT='result';
 
-let wallet = require("./components/wallet/portis").default;
+let wallet = require("./components/wallet/metamask").default;
 console.log(wallet);
 const web3 = new Web3(wallet.getProvider());
 const socket = openSocket(config.baseURL);
 
+// socket.on("stateChange", (message)=>{
+//   alert('sdf');
+//   console.log(message);
+// });
 
 function App(props) {
 
   const { enqueueSnackbar } = useSnackbar();
-  const [currentState, changeState] = useState(RESULT);
+  const [currentState, changeState] = useState(WAITING);
   const [userLogin, setUserLogin] = useState(false);
   const [openNameDialog, setOpenNameDialog] = useState(false);
   const [username, setUsername] = useState("");
@@ -59,10 +63,11 @@ function App(props) {
     } else {
       clearUserLoginData();
     }
-
-    socket.on("stateChange", (message)=>{
-      console.log(message);
-    })
+    console.log(socket);
+    if(socket) {
+      console.log("setting socket listener");
+    }
+  
   }, []);
 
 

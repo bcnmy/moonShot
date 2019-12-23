@@ -10,7 +10,7 @@ class LaunchLeftComponent extends Component{
     }
 
     showGame() {
-        this.changeComponent("result");
+        this.changeComponent("prepare");
     }
 
     render() {
@@ -18,19 +18,20 @@ class LaunchLeftComponent extends Component{
             <section>
                 <div className="description-heading">
                     <div id="heading">
-                    Short Term Options Trading, Gamified
+                    /**Page Heading */
                     </div>
                 </div>
                 <div className="description-content">
                     <div id="content">
-                    YOLOrekt is a new take on short term options trading. Through gamification,
-                    YOLOrekt is any traders new best friend. Each game lasts three minutes and is
-                    broken into three phases. Click below to begin playing!
+                    /**Page Content */ /**Page Content */  /**Page Content */ /**Page Content */
+                    /**Page Content */ /**Page Content */ /**Page Content */ /**Page Content */
+                    /**Page Content */ /**Page Content */ /**Page Content */ /**Page Content */ 
+
                     </div>
                 </div>
                 <div className="launch-button">
                 <Button onClick={this.showGame} target="_blank" variant="contained" className="play-button" id="start-playing">
-                    Start Rolling
+                    Start Playing
                 </Button>
                 </div>
             </section>

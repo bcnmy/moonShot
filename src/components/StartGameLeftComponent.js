@@ -5,7 +5,7 @@ class StartGameLeftComponent extends Component {
 
     state = {
         minutes: 0,
-        seconds: 10,
+        seconds: 60,
     }
     
     componentDidMount() {
@@ -51,11 +51,11 @@ class StartGameLeftComponent extends Component {
                 <div className="start-page-content">
                     <div className="price-container" id="current-stake-price">
                         <div className="price-heading">Current Price</div>
-                        <div>$ 0.02950</div>
+                        <div className="price-value">$ 0.02950</div>
                     </div>
                     <div className="price-container" id="fluctuating-price">
                         <div className="price-heading">Betting Price</div>
-                        <div>$ 0.02950</div>
+                        <div className="price-value">$ 0.02950</div>
                     </div>
                 </div>   
                 <div className="place-bet">

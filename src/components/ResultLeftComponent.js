@@ -19,8 +19,9 @@ class ResultLeftComponent extends Component{
                     </div>
                 </div>
                 <div className="result-page-content">
-                    <div className="final-result">
-                        You Loose
+                    <div className="final-result"> Below either one the message can be shown<br/> <br/> 
+                        You Loose :( <br/> 
+                        You Win :) <br/>OR<br/> You din't place a bet
                     </div>
                 </div>             
             </section>

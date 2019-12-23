@@ -1,5 +1,8 @@
 body {
-  background: #081547;
+  /* background: #081547; */
+  background-image: url("/images/space.jpg");
+  background-size: 100%;
+  font-family: Rubik, sans-serif;
 }
 
 .flex {
@@ -19,14 +22,14 @@ body {
 }
 
 .App-header {
-  background-color: #091647;
+  /* background-color: #091647; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #444;
 }
 
 .App-link {
@@ -43,9 +46,9 @@ body {
   display: flex;
   flex-direction: row;
   height: 100px;
-  background-color: #091647;
+  /* background-color: #091647; */
   /* background-color:red; */
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #444;
   /* border-right: 1px solid grey; */
   align-items: center;
   justify-content: space-between;
@@ -63,10 +66,12 @@ body {
 }
 .logo{
   height: 60px;
-  /* border-radius: 40px; */
+  /* padding:20px; */
+  border-radius: 40px;
+  color:#444;
 }
 .game-fullform{
-  color:#fff;
+  color:#444;
   font-weight: 400;
   font-size: 15px;
   text-align: center;
@@ -82,7 +87,7 @@ body {
 }
 
 .user-info-container {
-  color: #fff;
+  color: #444;
   display: flex;
   align-items: center;
 }
@@ -102,7 +107,7 @@ body {
   justify-content: center;
   background: #b71c1c!important;
   border-radius: 5px;
-  color: white;
+  color: #444;
 }
 
 .username-missing button {
@@ -232,7 +237,7 @@ body {
 /****** ENDS *****/
 
 .main-section {
-  background-color: #091647;
+  /* background-color: #091647; */
   padding-left: 14%;
   padding-right: 14%;
 }
@@ -245,13 +250,14 @@ body {
 
 /*  ----Home -> Left component ---- */
 .leftSection{
-  width :70%;
+  width :65%;
+  height: 600px;
   display: flex;
   flex-direction: column;
 }
 
 .description-heading{
-  width:70%;
+  /* width:70%; */
   margin-top:100px;
   text-align:left;
   letter-spacing: 1px;
@@ -264,7 +270,9 @@ body {
 }
 .description-content{
   margin-top:10px;
-  width:70%;
+  /* margin-left: auto;
+  margin-right: auto; */
+  width:90%;
   text-align:left;
   text-align: justify;
 }
@@ -282,8 +290,8 @@ body {
 }
 .play-button{
   text-transform: capitalize !important;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: #0000ff!important;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  background-color: #000!important;
   width: 35%;
   height: 50px;
   border-radius: 15px!important;
@@ -299,8 +307,10 @@ body {
 
 /* ----Home -> Right component ----- */
 .rightSection{
-  width :30%;
-  color:#fff;
+  width :35%;
+  margin-left: auto;
+  margin-right: auto;
+  color:#444;
 }
 
 .current-staking-price{
@@ -322,31 +332,81 @@ body {
 }
 .launch-page-img{
   margin-top:80px;
-  width: 300px;
-  height: 300px;
-
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  /* height: 400px; */
 }
 
 
 /*--- Prepare Page-> Left component --- */
+
+
+/****/
+#countdown {
+  position: relative;
+  margin: auto;
+  margin-top: 100px;
+  height: 140px;
+  width: 140px;
+  text-align: center;
+}
+
+#countdown-number {
+  color: white;
+  display: inline-block;
+  line-height: 40px;
+}
+
+svgx {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+
+svgx circle {
+  stroke-dasharray: 113px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  stroke: white;
+  fill: none;
+  animation: countdown 30s linear infinite forwards;
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 113px;
+  }
+}
+
+/****/
 .prepare-page-left{
-  height: 600px;
+  /* height: 600px; */
 }
 
 .prepare-page-heading{
   margin-top: 30px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-align: left;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  opacity: 0.5;
+  opacity: 0.9;
 }
-
+#prepare-matic-price{
+  opacity: 0.7;
+}
 #prepare-heading{
   color: #fff;
-  width: 40%;
-  font-weight: 600;
+  /* width: 40%; */
+  font-weight: 700;
   font-size: 18px;
 }
 #prepare-timer{
@@ -357,7 +417,7 @@ body {
 }
 
 .prepare-page-content{
-  margin-top:120px;
+  margin-top:70px;
   width:60%;
   text-align:left;
   margin-left: auto;
@@ -367,20 +427,31 @@ body {
 
 /*--- Prepare Page-> Right component --- */
 .prepare-page-right{
-  border-left: 1px dotted grey;
+  border-left: 1px solid rgb(202, 199, 199);
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.Gaming-rules{
-  margin-top: 30px;
+/* .Gaming-rules{
   text-align: center;
-  /* border: 2px solid #fff; */
   border-radius: 10px;
+  width:50%;
+  margin:auto;
+} */
+
+.quotes-container{
   margin-left: auto;
   margin-right: auto;
-  width:50%;
+  text-align: justify;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-decoration: chartreuse;
+  font-style: italic;
+  opacity: 0.8;
+  line-height: 5px;
 }
 
-#rules{
+/* #rules{
   font-size:18px;
   font-weight: 600;
   opacity: 0.8;
@@ -395,21 +466,21 @@ body {
   opacity: 0.6;
   color:#fff;
 
-}
+} */
 
 /*--- Start Page-> Left component --- */
 .start-page-left{
   border-right: 1px ridge #fff;
-  height: 600px;
+ 
 }
 .start-page-heading{
   margin-top: 30px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-align: left;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 #start-heading{
@@ -438,8 +509,8 @@ body {
 }
 .price-container{
   /* background-color: #A92626; */
-  font-weight: 800;
-  font-size: 18px;
+  /* font-weight: 800; */
+  font-size: 16px;
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -448,17 +519,21 @@ body {
 }
 .price-heading{
   font-weight: 800;
-  font-size: 18px;
+  font-size: 14px;
   color: #fff;
   opacity: 0.6;
 
+}
+.price-value{
+  font-size: 26px;
+  letter-spacing: 1px;
 }
 #fluctuating-price{
   color:#fff;
   width: 50%;
 }
 #current-stake-price{
-  color: green;
+  color: rgb(252, 252, 4);
 }
 
 .bet-buttons{
@@ -471,22 +546,22 @@ body {
 .bet-placed{
   text-transform: capitalize !important;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 45%;
+  width: 48%;
   height: 50px;
   border-radius: 10px!important;
   transition: all 0.4s ease 0s;
 }
 #up-button{
-  border:2px solid #3A8347;
-  background-color: #081647;
+  /* border:2px solid grey; */
+  background-color: rgb(219, 219, 219);
   color:#3A8347;
   font-size: 20px;
   font-weight: 800;
 }
 #down-button{
-  border:2px solid #A92626;
-  background-color: #081647;
-  color:#A92626;
+  /* border:2px solid black; */
+  background-color: rgb(219, 219, 219);
+  color:rgb(214, 17, 17);
   font-size: 20px;
   font-weight: 800;
 }
@@ -547,6 +622,26 @@ body {
   margin-right: auto;
 }
 
+.blockchain-confirmation-block{
+  /* background: #A92626; */
+  width:80%;
+  font-size:20px;
+  margin-top: 100px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.rules-container{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-decoration: chartreuse;
+  font-style: italic;
+  opacity: 0.8;
+  line-height: 5px;
+}
+
 /*--- Result Page-> Left component --- */
 
 .result-page-left{
@@ -582,7 +677,7 @@ body {
   color:#CECFDA;
 }
 .result-page-content{
-  margin-top:10px;
+  margin-top:100px;
   margin-right: auto;
   margin-left: auto;
   width:60%;
@@ -605,7 +700,7 @@ body {
   width: 60%;
 }
 .staking-price{
-  border:5px solid #fff;
+  /* border:5px solid #fff; */
   border-radius: 50%;
   width: 200px;
   height: 200px;
@@ -614,7 +709,10 @@ body {
 
 .final-result{
   color:white;
-  background: #A92626;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top:510px;
+  /* background: #A92626; */
   margin:auto;
 }
 /*--- result Page-> Right component --- */
@@ -676,17 +774,15 @@ body {
 
 /*--- Wait Page-> Left component --- */
 .wait-page-left{
-  /* border-right: 1px ridge #fff; */
   height: 100%;
 }
 .wait-page-heading{
   margin-top:30px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-align: left;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  opacity: 0.5;
 }
 
 #wait-heading{
@@ -694,7 +790,16 @@ body {
   width: 40%;
   font-weight: 600;
   font-size: 18px;
+  opacity: 0.9;
 }
+
+#wait-content{
+  color:#fff;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+}
+
 #timer{
   color:#fff;
   width: 30%;
@@ -703,7 +808,7 @@ body {
 }
 
 .wait-page-content{
-  margin-top:10px;
+  margin-top:25%;
   margin-right: auto;
   margin-left: auto;
   width:60%;
@@ -712,30 +817,87 @@ body {
   text-align:left;
   text-align: center;
 }
-#wait-content{
-  color:#fff;
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 30px;
-  /* opacity: 0.8; */
+
+
+.staking-price{
+  color: #fff;
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.staking-price-value{
-  margin-top:80px;
-  color:#F0BA43;
-  width: 60%;
+#price-gauge-container {
+  margin-top: 50px;
+  height: 10px;
+  border-bottom: 1px solid #eee;
+  /* width: 80%; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
-.staking-price{
-  border:5px solid #fff;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  margin-left: auto;
-  margin-right: auto;
+
+#stake-price-badge{
+  width: 0.25%;
 }
+
+#stake-price-badge .price-gauge-bars {
+  width: 100%;  
+}
+
+#stake-price-container {
+  position: absolute;
+  width: 9rem;
+  left: -4.5rem;
+  top: -2.5rem;
+}
+
+#stake-price-container .price-value {
+  background: #63120F;
+  font-size: 1.1rem;
+  border-radius: 10px;
+}
+
+#stake-price-arrow {
+  position: relative;
+  top: -10.5px;
+  fill: #63120F;
+}
+
+
+#current-price-container {
+  position: absolute;
+  width: 34%;
+  left: 33%;
+  bottom: -2.5rem;
+}
+
+#current-price-container .price-value {
+  background:#3bc56c;
+  font-size: 1.1rem;
+  border-radius: 10px;
+}
+
+#current-price-arrow {
+  position: relative;
+  top: 10.5px;
+  fill: #3bc56c;
+}
+.price-gauge-bars {
+  width: 0.25%;
+  height: 100%; 
+  background: #eee;
+  top: 50%;
+  position: relative;
+}
+
+/* #faded{
+  background: rgb(124, 124, 124);
+} */
 
 /*--- Wait Page-> Right component --- */
 .wait-page-right{
@@ -819,15 +981,21 @@ body {
   bottom: 0px;
 }
 
- .icons{
+.social-media-icon{
+  display:flex;
+  flex-direction: column;
+  
+}
+.icons{
   list-style: none;
   padding-left: 0px;
   display: flex;
   flex-direction: row;
+ 
   margin-bottom: 0px;
 }
 .social-icons{
-  color:white;
+  color:white!important;
   opacity: .8;
   margin-right:30px;
 }
@@ -837,7 +1005,8 @@ body {
   letter-spacing: 0.5px;
   text-align: left;
   font-size: 12px;
-  color: #888888;
+  font-weight: 500;
+  color: #fff;
   display: flex;
   align-items: center;
   /* padding-left: 40px; */

@@ -15,7 +15,7 @@ class LaunchRightComponent extends Component{
             <div>
                 
                 <div>
-                    <img className="launch-page-img" src="/images/gambling.gif" alt="Biconomy logo white" />
+                    <img className="launch-page-img" src="/images/gamble.png" alt="Biconomy logo white" />
                 </div>
             </div>
             
