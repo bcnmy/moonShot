@@ -13,9 +13,9 @@ body {
   margin-right: .5em;
 }
 
-.App {
-  /* text-align: center; */
-}
+/* .App {
+  text-align: center;
+} */
 
 .App-logo {
   height: 40vmin;
@@ -168,9 +168,9 @@ body {
   margin-top: 0px;
 }
 
-.show-wallet-row .MuiButton-text {
-  /* color: white; */
-}
+/* .show-wallet-row .MuiButton-text {
+  color: white;
+} */
 
 .deposit-withdraw-row button {
   margin: 0 10px;
@@ -387,9 +387,9 @@ svgx circle {
 }
 
 /****/
-.prepare-page-left{
-  /* height: 600px; */
-}
+/* .prepare-page-left{
+  height: 600px;
+} */
 
 .prepare-page-heading{
   margin-top: 30px;
@@ -951,26 +951,26 @@ svgx circle {
   opacity: 0.9;
 }
 /************* OVERLAY LOADER ***********/
-.gtp-overlay-wrapper {
+/* .gtp-overlay-wrapper {
 
-}
+} */
 
 .bet-list ul {
   overflow-y: scroll;
   height: 100%;
 }
 
-.gtp-overlay-overlay {
+/* .gtp-overlay-overlay {
 
-}
+} */
 
-.gtp-overlay-content {
+/* .gtp-overlay-content {
 
 }
 
 .gtp-overlay-spinner {
 
-}
+} */
 /********** ENDS ***************/
 
 /************** FOOTER ***************/
