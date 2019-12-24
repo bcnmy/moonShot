@@ -14,38 +14,11 @@ class WaitLeftComponent extends Component{
         };
     }
 
-    async componentWillMount() {
-        let price = await this.props.getPrice(config.symbol);
-        if(typeof price == 'string') {
-            try {
-                price = parseFloat(price);
-            } catch(error) {
-                console.log(`Error while converting string value ${price} to float value`);
-            }
-        }
-
-        if(price) {
-            if(typeof price == 'number') {
-                this.setState({maticPrice: price.toFixed(5)})
-            } else {
-                this.setState({maticPrice: price})
-            }
-            
-        }
-    }
-
-    async componentDidMount() {
-        setInterval(
-            () => {
-                this.setState({
-                    value: Math.ceil(Math.random() * 50)
-                });
-            },
-        1000);
+    componentDidMount() {
 
         this.myInterval = setInterval(() => {
             const { seconds, minutes } = this.state
-    
+
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
                     seconds: seconds - 1
@@ -60,13 +33,14 @@ class WaitLeftComponent extends Component{
                         seconds: 59
                     }))
                 }
-            } 
+            }
         }, 1000)
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.myInterval)
     }
+
     render(){
         const { minutes, seconds } = this.state
         return(
@@ -87,10 +61,10 @@ class WaitLeftComponent extends Component{
                 </div>
                 <div className="wait-page-content">
                     <div className="staking-price">
-                       <PriceScaleGauge stakePrice={this.state.maticPrice} stakePriceUnit="USDT" 
+                       <PriceScaleGauge stakePrice={this.state.maticPrice} stakePriceUnit="USDT"
                        currentPrice={this.state.maticPrice} currentPriceUnit="USDT" getPrice={this.props.getPrice}/>
                     </div>
-                </div>             
+                </div>
             </section>
         );
     }

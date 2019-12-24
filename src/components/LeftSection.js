@@ -5,12 +5,8 @@ import PrepareGameLeftComponent from './PrepareGameLeftComponent';
 import StartGameLeftComponent from './StartGameLeftComponent';
 import ResultLeftComponent from './ResultLeftComponent';
 
-const LAUNCH = "launch";
-const PREPARE = "prepare";
-const START='start';
-const WAITING = "waiting";
-const RESULT = "result";
-
+const {config} = require("./../config");
+const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
 class LeftSection extends Component{
 
@@ -20,7 +16,7 @@ class LeftSection extends Component{
             currentState: props.currentState
         }
         this.changeState = props.changeState;
-        
+
         this.changeComponent = this.changeComponent.bind(this);
     }
 
@@ -31,11 +27,13 @@ class LeftSection extends Component{
     render() {
         return(
             <section className = "leftSection">
-                {this.props.currentState == LAUNCH && <LaunchLeftComponent changeComponent={this.changeComponent}/>}
-                {this.props.currentState == PREPARE && <PrepareGameLeftComponent changeComponent={this.changeComponent}/>}
-                {this.props.currentState == START && <StartGameLeftComponent changeComponent={this.changeComponent}/>}
-                {this.props.currentState == WAITING && <WaitLeftComponent changeComponent={this.changeComponent} getPrice={this.props.getPrice}/>}
-                {this.props.currentState == RESULT && <ResultLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState === LAUNCH && <LaunchLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState === PREPARE &&
+                    <PrepareGameLeftComponent changeComponent={this.changeComponent} counter={this.props.counter} />
+                }
+                {this.props.currentState === START && <StartGameLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState === WAITING && <WaitLeftComponent changeComponent={this.changeComponent} getPrice={this.props.getPrice}/>}
+                {this.props.currentState === RESULT && <ResultLeftComponent changeComponent={this.changeComponent}/>}
             </section>
         );
     }

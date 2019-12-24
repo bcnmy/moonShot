@@ -3,15 +3,18 @@ import { Button } from '@material-ui/core';
 
 class StartGameLeftComponent extends Component {
 
-    state = {
-        minutes: 0,
-        seconds: 60,
+    constructor(props) {
+        super(props);
+        this.state = {
+            minutes: 0,
+            seconds: 60,
+        }
     }
-    
+
     componentDidMount() {
         this.myInterval = setInterval(() => {
             const { seconds, minutes } = this.state
-    
+
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
                     seconds: seconds - 1
@@ -26,10 +29,10 @@ class StartGameLeftComponent extends Component {
                         seconds: 59
                     }))
                 }
-            } 
+            }
         }, 1000)
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.myInterval)
     }
@@ -57,12 +60,12 @@ class StartGameLeftComponent extends Component {
                         <div className="price-heading">Betting Price</div>
                         <div className="price-value">$ 0.02950</div>
                     </div>
-                </div>   
+                </div>
                 <div className="place-bet">
                     <div className="field">
                         <input id="" type="text"  placeholder="Enter price"/>
                     </div>
-                </div>   
+                </div>
                 <div className="bet-buttons">
                     <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="up-button">
                         Will go Up
@@ -70,7 +73,7 @@ class StartGameLeftComponent extends Component {
                     <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="down-button">
                         will go down
                     </Button>
-                </div>          
+                </div>
             </section>
         );
     }

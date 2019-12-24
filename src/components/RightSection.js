@@ -5,11 +5,8 @@ import PrepareGameRightComponent from './PrepareGameRightComponent';
 import StartGameRightComponent from './StartGameRightComponent';
 import ResultRightComponent from './ResultRightComponent';
 
-const LAUNCH = "launch";
-const PREPARE = "prepare";
-const START='start';
-const WAITING = "waiting";
-const RESULT = "result";
+const {config} = require("./../config");
+const {LAUNCH, PREPARE, WAITING, START, RESULT} = config;
 
 class RightSection extends Component{
 
@@ -18,7 +15,7 @@ class RightSection extends Component{
     }
 
     render() {
-        return ( 
+        return (
             <section className = "rightSection">
                 {this.props.currentState == LAUNCH && <LaunchRightComponent changeComponent={this.changeComponent}/>}
                 {this.props.currentState == PREPARE && <PrepareGameRightComponent changeComponent={this.changeComponent}/>}

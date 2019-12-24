@@ -4,6 +4,8 @@ import LeftSection from './LeftSection';
 import RightSection from './RightSection';
 import Footer from './Footer';
 
+const {config} = require("./../config");
+const {LAUNCH} = config.state;
 
 class LandingPage extends Component{
 
@@ -16,10 +18,11 @@ class LandingPage extends Component{
                 setOverlayActive={this.props.setOverlayActive} setOverlayMessage={this.props.setOverlayMessage}
                 showSnack={this.props.showSnack}/>
                 <div className="center">
-                    <LeftSection currentState={this.props.currentState} changeState={this.props.changeState} getPrice={this.props.getPrice}/>
+                    <LeftSection currentState={this.props.currentState} changeState={this.props.changeState}
+                    getPrice={this.props.getPrice} counter={this.props.counter}/>
                     <RightSection currentState={this.props.currentState} changeState={this.props.changeState}/>
                 </div>
-                {this.props.currentState==="launch" && <Footer />}
+                {this.props.currentState===LAUNCH && <Footer />}
             </div>
         );
     }
