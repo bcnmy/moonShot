@@ -4,7 +4,10 @@ import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Chip from '@material-ui/core/Chip';
 import UserInfoPopover from './UserInfoPopover';
+
 const loginSectionRef = React.createRef();
+const {config} = require("./../config");
+const {LAUNCH} = config.state;
 
 export default function Header(props) {
 
@@ -12,7 +15,7 @@ export default function Header(props) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const displayHome = () => {
-        props.changeState("launch");
+        props.changeState(LAUNCH);
     }
 
     const handleAccountClick = (event) => {
@@ -28,8 +31,8 @@ export default function Header(props) {
     return(
         <section className = "menu-bar" id="top">
             <div className="gameName">
-                <div className="game-shortform" onClick={displayHome}> 
-                    <img className="logo" src="/images/moonShot.png" alt="Biconomy logo white" /> 
+                <div className="game-shortform" onClick={displayHome}>
+                    <img className="logo" src="/images/moonShot.png" alt="Biconomy logo white" />
                     {/* <div className="logo">MoonShot</div> */}
                 </div>
                 <div className="game-fullform">  </div>

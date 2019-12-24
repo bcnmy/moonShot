@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
+const {config} = require("./../config");
+const {PREPARE} = config.state;
 
 class LaunchLeftComponent extends Component{
 
@@ -10,7 +12,7 @@ class LaunchLeftComponent extends Component{
     }
 
     showGame() {
-        this.changeComponent("prepare");
+        this.changeComponent(PREPARE);
     }
 
     render() {
@@ -25,7 +27,7 @@ class LaunchLeftComponent extends Component{
                     <div id="content">
                     /**Page Content */ /**Page Content */  /**Page Content */ /**Page Content */
                     /**Page Content */ /**Page Content */ /**Page Content */ /**Page Content */
-                    /**Page Content */ /**Page Content */ /**Page Content */ /**Page Content */ 
+                    /**Page Content */ /**Page Content */ /**Page Content */ /**Page Content */
 
                     </div>
                 </div>

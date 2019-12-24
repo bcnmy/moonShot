@@ -7,17 +7,32 @@ import {config} from "./../config";
 const Box = posed.div({
     state1: {
         x : ({diff})=>{return diff},
+        y : 2,
         transition: {
-            duration: 500
+            default:{
+                duration: 500
+            },
+            y: {
+                ease: 'easeInOut', duration: 2000
+            }
         }
     },
     state2: {
         x : ({diff})=>{return diff},
+        y : -2,
         transition: {
-            duration: 500
+            default:{
+                duration: 500
+            },
+            y: {
+                ease: 'easeInOut', duration: 2000
+            }
         }
     }
   });
+
+const maxPriceDiff = 200;
+const minPriceDiff = -200;
 
 export default function PriceScaleGauge(props) {
 
@@ -26,12 +41,12 @@ export default function PriceScaleGauge(props) {
     const [stakePriceUnit, setStakePriceUint] = useState(props.stakePriceUnit);
     const [currentPriceUnit, setCurrentPriceUint] = useState(props.currentPriceUnit);
     const [currentAnimationState, setCurrentAnimationState] = useState('state1');
-    const [diff, setDiff] = useState(1);
+    const [diff, setDiff] = useState(0);
     const currentAnimationRef = useRef(currentAnimationState)
     const stakePriceRef = useRef(stakePrice);
 
     useEffect(() => {
-        const interval = setInterval(async ()=> {
+        const interval = setTimeout(async ()=> {
             let stakePrice = stakePriceRef.current;
             let newPrice = await props.getPrice(config.symbol);
             if(typeof newPrice == 'string') {
@@ -46,21 +61,27 @@ export default function PriceScaleGauge(props) {
             }
             setCurrentPrice(newPrice);
 
-            let priceDiff = newPrice - stakePrice;
+            let priceDiff = parseInt((newPrice - stakePrice)*(10e5));
             console.log(`Difference in price is ${priceDiff}`)
 
+            if(priceDiff > maxPriceDiff) {
+                priceDiff = maxPriceDiff;
+            } else if(priceDiff < minPriceDiff) {
+                priceDiff = minPriceDiff;
+            }
 
-            if(currentAnimationRef.current == "state1") {
+
+            if(currentAnimationRef.current === "state1") {
                 setCurrentAnimationState("state2");
-                setDiff(diff=>diff+(Math.random()*10));
+                setDiff(diff=>priceDiff);
             } else {
                 setCurrentAnimationState("state1");
-                setDiff(diff=>diff-(Math.random()*10));
+                setDiff(diff=>priceDiff);
             }
-        }, 1000);
+        }, 500);
 
         return () => {
-            clearInterval(interval);
+            clearTimeout(interval);
         };
     }, []);
 
@@ -80,14 +101,15 @@ export default function PriceScaleGauge(props) {
             <div className="price-gauge-bars"/>
             <div className="price-gauge-bars"/>
             <div className="price-gauge-bars"/>
-            
+
             <div className="price-gauge-bars">
                 <div id="stake-price-container">
+                    <div className="price-label">stake price</div>
                     <div className="price-value">{`${props.stakePrice} ${stakePriceUnit}`}</div>
                     <ArrowDropDownIcon id="stake-price-arrow"/>
                 </div>
             </div>
-            
+
             <div className="price-gauge-bars"/>
             <div className="price-gauge-bars"/>
             <div className="price-gauge-bars"/>
@@ -95,8 +117,9 @@ export default function PriceScaleGauge(props) {
             <div className="price-gauge-bars"/>
 
             <Box id="current-price-container" pose={currentAnimationState} diff={diff}>
-                <ArrowDropUpIcon id="current-price-arrow"/>
-                <div className="price-value">{`${currentPrice} ${currentPriceUnit}`}</div>
+                <ArrowDropUpIcon id="current-price-arrow" className={diff >= 0 ? 'high-price-icon' : 'low-price-icon'}/>
+                <div className={`price-value ${diff >= 0 ? 'high-price' : 'low-price'}`} >{`${currentPrice} ${currentPriceUnit}`}</div>
+                <div className="price-label">current price</div>
             </Box>
         </div>
     );

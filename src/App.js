@@ -11,7 +11,6 @@ import Web3 from 'web3';
 import axios from 'axios';
 import LoadingOverlay from 'react-loading-overlay';
 import openSocket from 'socket.io-client';
-
 const notistackRef = React.createRef();
 const useStyles = makeStyles(theme => ({
   close: {
@@ -21,17 +20,12 @@ const useStyles = makeStyles(theme => ({
 
 let appRoot = require('app-root-path');
 const {config, LS_KEY} = require(`${appRoot}/config`);
-
-const LAUNCH = "launch";
-const PREPARE = "prepare";
-const WAITING = "waiting";
-const START='start';
-const RESULT='result';
+const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
 let wallet = require("./components/wallet/metamask").default;
 console.log(wallet);
 const web3 = new Web3(wallet.getProvider());
-const socket = openSocket(config.baseURL);
+const socket = openSocket(config.socketConnectionURL);
 
 // socket.on("stateChange", (message)=>{
 //   alert('sdf');
@@ -41,13 +35,14 @@ const socket = openSocket(config.baseURL);
 function App(props) {
 
   const { enqueueSnackbar } = useSnackbar();
-  const [currentState, changeState] = useState(WAITING);
+  const [currentState, changeState] = useState(LAUNCH);
   const [userLogin, setUserLogin] = useState(false);
   const [openNameDialog, setOpenNameDialog] = useState(false);
   const [username, setUsername] = useState("");
   const [userInfo, setUserInfo] = useState({balanceInWei: 0, balanceInEther: 0, balanceInUSDT: 0});
   const [userAddress, setUserAddress] = useState("");
   const [updateUserMessage, setUpdateUserMessage] = useState("");
+  const [counter, setCounter] = useState(0);
   const setOverlayActive = props.setOverlayActive;
   const setOverlayMessage = props.setOverlayMessage;
 
@@ -66,10 +61,33 @@ function App(props) {
     console.log(socket);
     if(socket) {
       console.log("setting socket listener");
+
+      socket.on("event", (data)=>{
+        console.log(`Game state change event recieved: ${JSON.stringify(data)}`);
+      })
+
+      socket.on("stateChange", (data)=>{
+        console.log(data);
+        if(data && data.state) {
+          changeState(data.state);
+        }
+        if(data.counter) {
+          setCounter(data.counter);
+        }
+      })
+
+      socket.on("error", (data)=> {
+        console.log(data);
+        showSnack(`Error while getting game data. Try refreshing the page.`, {variant: 'error'});
+      });
     }
-  
+
+
   }, []);
 
+  useEffect(()=>{
+    console.log( `current state is now ${currentState}`);
+  },[currentState]);
 
   const promptForUserName = async () => {
     setOpenNameDialog(true);
@@ -305,7 +323,7 @@ function App(props) {
         <LandingPage currentState={currentState} changeState={changeState} onLogin={onLogin}
           userLogin={userLogin} username={username} promptForUsername={promptForUserName} onLogout={onLogout}
           wallet={wallet} userInfo={userInfo} getPrice={getPrice} setOverlayActive={props.setOverlayActive}
-          setOverlayMessage={props.setOverlayMessage} showSnack={showSnack}/>
+          setOverlayMessage={props.setOverlayMessage} showSnack={showSnack} counter={counter}/>
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}
           children={nameDialogContent} cancelText="Skip"/>
