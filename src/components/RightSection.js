@@ -6,7 +6,7 @@ import StartGameRightComponent from './StartGameRightComponent';
 import ResultRightComponent from './ResultRightComponent';
 
 const {config} = require("./../config");
-const {LAUNCH, PREPARE, WAITING, START, RESULT} = config;
+const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
 class RightSection extends Component{
 

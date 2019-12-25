@@ -18,10 +18,18 @@ class PrepareGameRightComponent extends Component{
                                     Never Let failure <br/>get to your heart.
                             </h4>
                             <h4> 
-                                No Risk, No Gain
+                                No Risk,<br/><br/> No Gain
                             </h4>
                             <h4> 
-                                God Helps those who GAMBLE 
+                                Harder the Battle <br/><br/>
+                                Sweeter the Victory 
+                            </h4>
+                            <h4> 
+                                It Never gets Easier,<br/><br/>
+                                You just get Better
+                            </h4>
+                            <h4> 
+                                In the End we will only<br/><br/><center> REGRET</center><br/> The changes we didn't take 
                             </h4>
                         </TextLoop>
                 </div>

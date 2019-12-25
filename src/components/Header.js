@@ -32,7 +32,7 @@ export default function Header(props) {
         <section className = "menu-bar" id="top">
             <div className="gameName">
                 <div className="game-shortform" onClick={displayHome}>
-                    <img className="logo" src="/images/moonShot.png" alt="Biconomy logo white" />
+                    <img className="logo" src="/images/moonShot-widoutCap.png" alt="Biconomy logo white" />
                     {/* <div className="logo">MoonShot</div> */}
                 </div>
                 <div className="game-fullform">  </div>

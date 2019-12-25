@@ -77,11 +77,11 @@ class PrepareGameLeftComponent extends Component{
                 <div className="prepare-page-heading">
                     <div id="prepare-heading">
                         Estimating Stake Price
-                        <div id="prepare-matic-price">$ 0.19</div>
+                        {/* <div id="prepare-matic-price">$ 0.19</div> */}
                     </div>
                 </div>
                 <div className="prepare-page-content">
-                    <div className="staking-price">
+                    <div className="prepare-staking-price">
                         {
                             !this.state.counterSet
                             ? <h3>Fetching game data ...</h3>

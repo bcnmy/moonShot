@@ -63,8 +63,8 @@ class StartGameLeftComponent extends Component {
                     </div>
                     <div id="start-timer">
                     { minutes === 0 && seconds === 0
-                    ? <p>Busted!</p>
-                    : <p>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</p>
+                    ? <span>Moving on to next phase</span>
+                    : <p><span>Time Remaining:</span> {seconds} sec</p>
                     }
                     </div>
                 </div>
@@ -80,14 +80,14 @@ class StartGameLeftComponent extends Component {
                 </div>
                 <div className="place-bet">
                     <div className="field">
-                        <input id="" type="text"  placeholder="Enter price"/>
+                        <input id="" type="number"  placeholder="Enter price" disabled={seconds==0?true:false}/>
                     </div>
                 </div>
                 <div className="bet-buttons">
-                    <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="up-button">
+                    <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="up-button" disabled={seconds==0?true:false} >
                         Will go Up
                     </Button>
-                    <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="down-button">
+                    <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="down-button" disabled={seconds==0?true:false}>
                         will go down
                     </Button>
                 </div>

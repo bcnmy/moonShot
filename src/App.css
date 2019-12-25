@@ -67,7 +67,7 @@ body {
 .logo{
   height: 60px;
   /* padding:20px; */
-  border-radius: 40px;
+  border-radius: 20px;
   color:#444;
 }
 .game-fullform{
@@ -386,11 +386,6 @@ svgx circle {
   }
 }
 
-/****/
-/* .prepare-page-left{
-  height: 600px;
-} */
-
 .prepare-page-heading{
   margin-top: 30px;
   letter-spacing: 1px;
@@ -402,12 +397,13 @@ svgx circle {
 }
 #prepare-matic-price{
   opacity: 0.7;
+  font-size: 19px;
 }
 #prepare-heading{
   color: #fff;
   /* width: 40%; */
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
 }
 #prepare-timer{
   color: #fff;
@@ -417,7 +413,7 @@ svgx circle {
 }
 
 .prepare-page-content{
-  margin-top:70px;
+  margin-top:80px;
   width:60%;
   text-align:left;
   margin-left: auto;
@@ -425,6 +421,13 @@ svgx circle {
   text-align: justify;
 }
 
+.prepare-staking-price{
+  color: #fff;
+  border-radius: 50%;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
 /*--- Prepare Page-> Right component --- */
 .prepare-page-right{
   border-left: 1px solid rgb(202, 199, 199);
@@ -446,6 +449,7 @@ svgx circle {
   text-align: justify;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-decoration: chartreuse;
+  color : yellow;
   font-style: italic;
   opacity: 0.8;
   line-height: 5px;
@@ -470,7 +474,7 @@ svgx circle {
 
 /*--- Start Page-> Left component --- */
 .start-page-left{
-  border-right: 1px ridge #fff;
+  border-right: 1px ridge #444444;
 
 }
 .start-page-heading{
@@ -487,13 +491,22 @@ svgx circle {
   color:#fff;
   width: 30%;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
 }
 #start-timer{
   color:#fff;
-  width: 30%;
+  width: 50%;
+  margin-right: 10px;
+  text-align: right;
   font-weight: 600;
   font-size: 16px;
+}
+
+#start-timer span{
+  color:lightgreen;
+  font-style:italic;
+  font-size: 15px;
+
 }
 
 .start-page-content{
@@ -615,31 +628,78 @@ svgx circle {
 }
 
 /*--- Start Page ->  Right Component--- */
-.go-fast{
-  width:250px;
-  height: 250px;
-  margin-left: auto;
+.start-page-right{
+  margin-top: 30px;
+  height: 100%;
+}
+.players{
+  /* border-left: 1px solid grey; */
+  width:100%;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   margin-right: auto;
+  margin-left: auto;
 }
 
-.blockchain-confirmation-block{
-  /* background: #A92626; */
-  width:80%;
-  font-size:20px;
-  margin-top: 100px;
-  margin-left:auto;
-  margin-right:auto;
+.player-list{
+  width:30%;
 }
-
-.rules-container{
+.player-header{
   margin-left: auto;
   margin-right: auto;
-  text-align: justify;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  text-decoration: chartreuse;
-  font-style: italic;
+  height: 35px;
+  font-size:18px;
+  font-weight: 700;
   opacity: 0.8;
-  line-height: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#player-up-bet{
+  color: greenyellow;
+}
+
+#player-down-bet{
+  color: red;
+}
+
+.play-list{
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  text-align:center;
+  font-size:16px;
+  font-weight: 400;
+  opacity: 0.9;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid grey;
+}
+
+.player-name{
+  font-size:16px;
+  font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.partition{
+  margin-left: auto;
+  margin-right: auto;
+  border-right: 1px solid grey;
+}
+
+.win-amount{
+  font-size:16px;
+  font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*--- Result Page-> Left component --- */
@@ -697,7 +757,7 @@ svgx circle {
 .staking-price-value{
   margin:auto;
   color:#fff;
-  width: 60%;
+  width: 50%;
 }
 .staking-price{
   /* border:5px solid #fff; */
@@ -819,12 +879,10 @@ svgx circle {
   text-align: center;
 }
 
-
 .staking-price{
   color: #fff;
   border-radius: 50%;
-  width: 400px;
-  height: 400px;
+  width: 350px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -923,11 +981,13 @@ svgx circle {
 .wait-page-right{
   margin-top: 30px;
   height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bet-header{
   margin-left: auto;
-  margin-right: auto;
+  /* margin-right: auto; */
   width:80%;
   height: 35px;
   font-size:16px;
@@ -935,9 +995,9 @@ svgx circle {
   opacity: 0.8;
   text-align: center;
   display: flex;
-    align-items: center;
-    /* justify-items: center; */
-    justify-content: center;
+  align-items: center;
+  /* justify-items: center; */
+  justify-content: center;
 }
 #bet-down-header{
   color: white;
@@ -957,15 +1017,21 @@ svgx circle {
 #bet-down-list{
   border: 2px solid #D1302B;
 }
+
+#list{
+  list-style: none;
+}
 .bet-list{
+  list-style: none;
   padding-top: 10px;
   padding-bottom: 10px;
   height: 220px;
   border-radius: 0 0 10px 10px;
   text-align:justify;
   margin-left: auto;
-  margin-right: auto;
+  /* margin-right: auto; */
   width:80%;
+  color:#fff;
   font-size:12px;
   font-weight: 400;
   opacity: 0.9;
