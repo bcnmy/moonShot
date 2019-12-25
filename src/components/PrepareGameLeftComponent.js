@@ -11,17 +11,17 @@ class PrepareGameLeftComponent extends Component{
         this.state = {
             minutes: 0,
             seconds: props.counter,
-            initialValue: 30,
+            initialValue: props.counter,
             initialPercentage: 100,
             percentage: 100,
-            counterSet: false
+            counterSet: (props.counter > 0) ? true : false
         }
         this.startTimer = this.startTimer.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         let self = this;
-        if(nextProps.counter) {
+        if(nextProps.counter !== this.state.seconds) {
             this.setState({
                 seconds: nextProps.counter,
                 initialValue: nextProps.counter,
@@ -34,7 +34,11 @@ class PrepareGameLeftComponent extends Component{
     }
 
     componentDidMount() {
-
+        if(this.state.counterSet) {
+            if(!this.myInterval) {
+                this.startTimer();
+            }
+        }
     }
 
     startTimer() {

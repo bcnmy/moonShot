@@ -7,7 +7,15 @@ class StartGameLeftComponent extends Component {
         super(props);
         this.state = {
             minutes: 0,
-            seconds: 60,
+            seconds: props.counter,
+        }
+        this.betUp = this.betUp.bind(this);
+        this.betDown = this.betDown.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.counter) {
+            this.setState({seconds: nextProps.counter});
         }
     }
 
@@ -36,6 +44,15 @@ class StartGameLeftComponent extends Component {
     componentWillUnmount() {
         clearInterval(this.myInterval)
     }
+
+    betUp() {
+        console.log('bet up');
+    }
+
+    betDown() {
+        console.log('bet down');
+    }
+
     render(){
         const { minutes, seconds } = this.state
         return(

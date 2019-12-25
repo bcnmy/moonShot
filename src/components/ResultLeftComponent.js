@@ -2,6 +2,41 @@ import React, { Component } from 'react';
 
 class ResultLeftComponent extends Component{
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: 0,
+            seconds: props.counter
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.counter) {
+            this.setState({seconds: nextProps.counter});
+        }
+    }
+
+    componentDidMount() {
+
+        this.myInterval = setInterval(() => {
+            const { seconds } = this.state
+
+            if (seconds > 0) {
+                this.setState(({ seconds }) => ({
+                    seconds: seconds - 1
+                }))
+            }
+            if (seconds === 0) {
+                clearInterval(this.myInterval)
+            }
+        }, 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.myInterval)
+    }
+
     render(){
         return(
             <section className="result-page-left">
@@ -11,7 +46,7 @@ class ResultLeftComponent extends Component{
                         <div id="result-content">
                         </div>
                         <div id="result-page-timer" className="mt-4">
-                            0:19 seconds
+                            {this.state.seconds} seconds
                         </div>
                     </div>
                     <div className="last-game">
@@ -19,11 +54,11 @@ class ResultLeftComponent extends Component{
                     </div>
                 </div>
                 <div className="result-page-content">
-                    <div className="final-result"> Below either one the message can be shown<br/> <br/> 
-                        You Loose :( <br/> 
+                    <div className="final-result"> Below either one the message can be shown<br/> <br/>
+                        You Loose :( <br/>
                         You Win :) <br/>OR<br/> You din't place a bet
                     </div>
-                </div>             
+                </div>
             </section>
         );
     }

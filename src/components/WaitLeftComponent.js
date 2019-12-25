@@ -9,9 +9,15 @@ class WaitLeftComponent extends Component{
         this.state = {
             value: 0,
             minutes: 0,
-            seconds: 60,
+            seconds: props.counter,
             maticPrice: 0
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.counter) {
+            this.setState({seconds: nextProps.counter});
+        }
     }
 
     componentDidMount() {

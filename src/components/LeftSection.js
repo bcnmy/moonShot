@@ -31,9 +31,16 @@ class LeftSection extends Component{
                 {this.props.currentState === PREPARE &&
                     <PrepareGameLeftComponent changeComponent={this.changeComponent} counter={this.props.counter} />
                 }
-                {this.props.currentState === START && <StartGameLeftComponent changeComponent={this.changeComponent}/>}
-                {this.props.currentState === WAITING && <WaitLeftComponent changeComponent={this.changeComponent} getPrice={this.props.getPrice}/>}
-                {this.props.currentState === RESULT && <ResultLeftComponent changeComponent={this.changeComponent}/>}
+                {this.props.currentState === START &&
+                    <StartGameLeftComponent changeComponent={this.changeComponent} counter={this.props.counter}/>
+                }
+                {this.props.currentState === WAITING &&
+                    <WaitLeftComponent changeComponent={this.changeComponent} getPrice={this.props.getPrice}
+                    counter={this.props.counter}/>
+                }
+                {this.props.currentState === RESULT &&
+                    <ResultLeftComponent changeComponent={this.changeComponent} counter={this.props.counter}/>
+                }
             </section>
         );
     }

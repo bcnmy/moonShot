@@ -25,12 +25,7 @@ const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 let wallet = require("./components/wallet/metamask").default;
 console.log(wallet);
 const web3 = new Web3(wallet.getProvider());
-const socket = openSocket(config.socketConnectionURL);
-
-// socket.on("stateChange", (message)=>{
-//   alert('sdf');
-//   console.log(message);
-// });
+let socket;
 
 function App(props) {
 
@@ -58,7 +53,17 @@ function App(props) {
     } else {
       clearUserLoginData();
     }
-    console.log(socket);
+  }, []);
+
+  useEffect(()=>{
+    console.log( `current state is now ${currentState}`);
+    if(currentState === PREPARE && !socket) {
+      startSocketConnection();
+    }
+  },[currentState]);
+
+  const startSocketConnection = () => {
+    socket = openSocket(config.socketConnectionURL);
     if(socket) {
       console.log("setting socket listener");
 
@@ -81,14 +86,7 @@ function App(props) {
         showSnack(`Error while getting game data. Try refreshing the page.`, {variant: 'error'});
       });
     }
-
-
-  }, []);
-
-  useEffect(()=>{
-    console.log( `current state is now ${currentState}`);
-  },[currentState]);
-
+  }
   const promptForUserName = async () => {
     setOpenNameDialog(true);
   }
