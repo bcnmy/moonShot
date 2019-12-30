@@ -5,6 +5,16 @@ body {
   font-family: Rubik, sans-serif;
 }
 
+@font-face {
+  font-family: GTPFont;
+  src: url("/font/Roboto-Medium.ttf");
+}
+
+@font-face {
+  font-family: GTPFontThin;
+  src: url("/font/Roboto-Regular.ttf");
+}
+
 .flex {
   display: flex;
 }
@@ -761,9 +771,6 @@ svgx circle {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-}
-
-.bet-list-item {
   background-color:rgb(125, 125, 124, .8);
   border-radius: 5px;
 }
@@ -826,19 +833,51 @@ svgx circle {
   margin-top:100px;
   margin-right: auto;
   margin-left: auto;
-  width:60%;
+  width:95%;
   align-items: center;
   justify-content: center;
   text-align:left;
   text-align: center;
 }
-#result-content{
-  color:#fff;
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 30px;
+
+.result-content{
+  display: flex;
+  flex-direction: column;
+  font-family: GTPFontThin;
+  letter-spacing: 2px;
 }
+
+.result-page-content #price-gauge-container {
+  margin-top: 110px;
+  margin-bottom: 100px;
+}
+
+.result-span {
+  margin-top: 10px;
+}
+
+.focus-style {
+  letter-spacing: 2px;
+  background-color: #222;
+  padding: 2px 18px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+}
+
+.buckle-up {
+  margin-top: 20px;
+}
+
+.result-content .winner {
+  color: #5BC66D;
+}
+
+.result-content .looser {
+  color: #E57373;
+}
+
 
 .staking-price-value{
   margin:auto;
@@ -863,6 +902,17 @@ svgx circle {
   margin:auto;
 }
 /*--- result Page-> Right component --- */
+
+.result-list-item {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  background-color:rgb(125, 125, 124, .8);
+  border-radius: 5px;
+  color: #fff;
+}
+
 .result-page-right{
   margin-top: 30px;
   height: 100%;
@@ -873,12 +923,13 @@ svgx circle {
 }
 .winner-header{
   margin-left: auto;
-  background: rgb(5, 175, 138);
+  font-family: GTPFont;
+  color: #fff;
   border-radius: 4px;
   margin-right: auto;
   width:80%;
   height: 35px;
-  font-size:18px;
+  font-size:36px;
   font-weight: 700;
   opacity: 0.8;
   text-align: center;
@@ -890,7 +941,7 @@ svgx circle {
 .win-list{
   /* background: #D1302B; */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   text-align:center;
   font-size:16px;
   font-weight: 400;
@@ -898,8 +949,10 @@ svgx circle {
   padding-top: 20px;
   padding-bottom: 10px;
   margin-left: auto;
-  border-bottom: 1px solid grey;
+  margin-right: auto;
+  width: 80%;
 }
+
 .winner-name{
   font-size:16px;
   font-weight: 400;
@@ -1015,6 +1068,24 @@ svgx circle {
   fill: #fff;
 }
 
+.bet-result-string {
+  color: white;
+  margin-bottom: 20px;
+  background: none;
+  font-size: 25px;
+}
+
+.price-label {
+  color: white;
+  background: #222;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px;
+  border-radius: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
 
 #current-price-container {
   position: absolute;

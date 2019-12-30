@@ -28,6 +28,14 @@ const Box = posed.div({
                 ease: 'easeInOut', duration: 2000
             }
         }
+    },
+    result: {
+        x : ({diff})=>{return diff},
+        transition: {
+            default:{
+                duration: 500
+            }
+        }
     }
   });
 
@@ -45,6 +53,7 @@ export default function PriceScaleGauge(props) {
     const currentAnimationRef = useRef(currentAnimationState)
     const stakePriceRef = useRef(stakePrice);
     const currentPriceRef = useRef(currentPrice);
+
 
     const trimPrice = (price)=>{
         let trimmedPrice = price;
@@ -64,40 +73,58 @@ export default function PriceScaleGauge(props) {
     }
 
     useEffect(() => {
-        const interval = setInterval(async ()=> {
+        if(props.isLive === undefined || props.isLive) {
+            const interval = setInterval(async ()=> {
 
-            let stakePrice = stakePriceRef.current;
-            let newPrice = currentPriceRef.current;
-            console.log(`New price is ${newPrice}`)
-            console.log(`Current price is ${currentPrice}`);
+                let stakePrice = stakePriceRef.current;
+                let newPrice = currentPriceRef.current;
+                console.log(`New price is ${newPrice}`)
+                console.log(`Current price is ${currentPrice}`);
 
-            let priceDiff = 0;
-            if(newPrice) {
-                newPrice = trimPrice(newPrice);
-                setCurrentPrice(newPrice);
+                let priceDiff = 0;
+                if(newPrice) {
+                    newPrice = trimPrice(newPrice);
+                    setCurrentPrice(newPrice);
 
-                priceDiff = parseInt((newPrice - stakePrice)*(10e5));
-                console.log(`Difference in price is ${priceDiff}`)
+                    priceDiff = parseInt((newPrice - stakePrice)*(10e5));
+                    console.log(`Difference in price is ${priceDiff}`)
 
-                if(priceDiff > maxPriceDiff) {
-                    priceDiff = maxPriceDiff;
-                } else if(priceDiff < minPriceDiff) {
-                    priceDiff = minPriceDiff;
+                    if(priceDiff > maxPriceDiff) {
+                        priceDiff = maxPriceDiff;
+                    } else if(priceDiff < minPriceDiff) {
+                        priceDiff = minPriceDiff;
+                    }
                 }
-            }
 
-            if(currentAnimationRef.current === "state1") {
-                setCurrentAnimationState("state2");
-                setDiff(diff=>priceDiff);
-            } else {
-                setCurrentAnimationState("state1");
-                setDiff(diff=>priceDiff);
-            }
-        }, 1000);
+                if(currentAnimationRef.current === "state1") {
+                    setCurrentAnimationState("state2");
+                    setDiff(diff=>priceDiff);
+                } else {
+                    setCurrentAnimationState("state1");
+                    setDiff(diff=>priceDiff);
+                }
+            }, 1000);
+            return () => {
+                clearTimeout(interval);
+            };
+        } else {
 
-        return () => {
-            clearTimeout(interval);
-        };
+            console.log(`type of props.currentPrice ${typeof props.currentPrice}`)
+            console.log(`type of props.stakePrice ${typeof props.stakePrice}`)
+            let priceDiff = 0;
+            priceDiff = parseInt((props.currentPrice - props.stakePrice)*(10e5));
+            console.log(`Difference in price is ${priceDiff}`)
+
+            if(priceDiff > maxPriceDiff) {
+                priceDiff = maxPriceDiff;
+            } else if(priceDiff < minPriceDiff) {
+                priceDiff = minPriceDiff;
+            }
+            console.log("PRICE DIFFF",priceDiff)
+            setDiff(diff=>priceDiff);
+            setCurrentAnimationState("result");
+
+        }
     }, []);
 
     useEffect(()=>{
@@ -146,7 +173,7 @@ export default function PriceScaleGauge(props) {
             <Box id="current-price-container" pose={currentAnimationState} diff={diff}>
                 <ArrowDropUpIcon id="current-price-arrow" className={diff >= 0 ? 'high-price-icon' : 'low-price-icon'}/>
                 <div className={`price-value ${diff >= 0 ? 'high-price' : 'low-price'}`} >{`${currentPrice} ${currentPriceUnit}`}</div>
-                <div className="price-label">current price</div>
+                <div className="price-label">{props.currentPriceText?props.currentPriceText:"current price"}</div>
             </Box>
         </div>
     );

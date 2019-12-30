@@ -29,7 +29,8 @@ class LandingPage extends Component{
                     userAddress={this.props.userAddress} userLogin={this.props.userLogin} userInfo={this.props.userInfo}
                     showSnack={this.props.showSnack} placeBet={this.props.placeBet} betUpList={this.props.betUpList}
                     betDownList={this.props.betDownList} winners={this.props.winners}
-                    loosers={this.props.loosers} resultBetValue={this.props.resultBetValue} betPlaced={this.props.betPlaced}/>
+                    loosers={this.props.loosers} resultBetValue={this.props.resultBetValue} betPlaced={this.props.betPlaced}
+                    isWinner={this.props.isWinner} resultPrice={this.props.resultPrice}/>
 
                     <RightSection currentState={this.props.currentState} changeState={this.props.changeState}
                     requestCurrentPrice={this.props.requestCurrentPrice} lastPrice={this.props.lastPrice}

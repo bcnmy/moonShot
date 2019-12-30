@@ -7,6 +7,7 @@ config.getPricePath = `/v1/price/getPrice`;
 config.getSmartContractPath = `/v1/game/smartContract`;
 config.symbol = "MATICUSDT";
 config.lastPriceUnit = "USDT";
+config.betDisplayUnit = "USDT";
 config.requestPriceIntervalInSec = 3;
 config.socketConnectionURL = `http://localhost:3005`;
 

@@ -24,7 +24,7 @@ let appRoot = require('app-root-path');
 const {config, LS_KEY} = require(`${appRoot}/config`);
 const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
-let wallet = require("./components/wallet/metamask").default;
+let wallet = require("./components/wallet/portis").default;
 console.log(wallet);
 const web3 = new Web3(wallet.getProvider());
 let socket;
@@ -45,8 +45,10 @@ function App(props) {
   const [stakePrice, setStakePrice] = useState(0);
   const [winners, setWinners] = useState([]);
   const [loosers, setLoosers] = useState([]);
+  const [isWinner, setIsWinner] = useState(false);
   const [resultBetValue, setResultBetValue] = useState(0);
-  const [betPlaced, setBetPlaced] = useState({betValue:0, betAmountUSDT: 0, betCurrency: config.betCurrency});
+  const [resultPrice, setResultPrice] = useState(0);
+  const [betPlaced, setBetPlaced] = useState({betCurrency: config.betCurrency});
   const [betUpList, setBetUpList] = useState([
     // {userName: 'sachint', betAmountUSDT: '0.017'},
     // {userName: 'sachint', betAmountUSDT: '0.017'},
@@ -128,13 +130,27 @@ function App(props) {
             setWinners([]);
             setLoosers([]);
             setResultBetValue(0);
+            setIsWinner(false);
+            setResultPrice(0);
             setBetPlaced({betCurrency: config.betCurrency});
           } else if(data.state === RESULT) {
+            console.log(`result data :`);
+            console.log(data);
             let game = data.game;
-            let {winners, loosers, resultBetValue} = game;
-            setWinners(winners);
+            let {loosers, resultBetValue, resultPrice} = game;
+            let winnersInfo = data.winnersInfo;
+            setWinners(winnersInfo);
+            setResultPrice(resultPrice);
             setLoosers(loosers);
             setResultBetValue(resultBetValue);
+
+            console.log(resultBetValue.toString());
+            console.log(betPlaced.betValue);
+            if(betPlaced && betPlaced.betValue) {
+              if(betPlaced.betValue === resultBetValue.toString()) {
+                setIsWinner(true);
+              }
+            }
           }
           if(data.counter) {
             console.log(`Counter is now starting from ${data.counter} sec`)
@@ -169,9 +185,15 @@ function App(props) {
 
         let betUserAddress = data.userAddress;
         if(betUserAddress.toLowerCase() === userAddress.toLowerCase()) {
+          let betPlaced = {};
           betPlaced.betAmountUSDT = betAmountUSDT;
           betPlaced.betValue = betValue;
-          setBetPlaced(...betPlaced);
+          if(betValue === "1") {
+            betPlaced.betValueString = "UP";
+          } else if(betValue === "2") {
+            betPlaced.betValueString = "DOWN";
+          }
+          setBetPlaced(betPlaced);
         }
 
         if(betValue === "1") {
@@ -521,7 +543,8 @@ function App(props) {
           requestCurrentPrice={requestCurrentPrice} lastPrice={lastPrice} lastPriceUnit={config.lastPriceUnit}
           stakePrice={stakePrice} requestStakePrice={requestStakePrice} userAddress={userAddress}
           placeBet={placeBet} betUpList={betUpList} betDownList={betDownList} winners={winners}
-          loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced}/>
+          loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced} isWinner={isWinner}
+          resultPrice={resultPrice}/>
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}

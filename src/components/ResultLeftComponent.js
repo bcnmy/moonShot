@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PriceScaleGauge from './PriceScaleGauge';
 
 class ResultLeftComponent extends Component{
 
@@ -18,6 +19,9 @@ class ResultLeftComponent extends Component{
     }
 
     componentDidMount() {
+        if(this.props.requestStakePrice) {
+            this.props.requestStakePrice();
+        }
 
         this.myInterval = setInterval(() => {
             const { seconds } = this.state
@@ -39,6 +43,9 @@ class ResultLeftComponent extends Component{
 
     render(){
         const { seconds } = this.state
+        console.log(this.props.isWinner);
+        console.log(this.props.betPlaced);
+
         return(
             <section className="result-page-left">
 
@@ -55,7 +62,38 @@ class ResultLeftComponent extends Component{
                     </div>
                 </div>
                 <div className="result-page-content">
+
+                    <PriceScaleGauge stakePrice={this.props.stakePrice} stakePriceUnit={this.props.lastPriceUnit}
+                        currentPrice={this.props.resultPrice} currentPriceUnit={this.props.lastPriceUnit}
+                        getPrice={this.props.getPrice} isLive={false} currentPriceText="result price"/>
+
+                    <div className="bet-result-string focus-style">
+                        {this.props.resultBetValue === 1 && <span>Price went UP</span>}
+                        {this.props.resultBetValue === 2 && <span>Price went DOWN</span>}
+                    </div>
+
                     <div className="final-result">
+                        {this.props.betPlaced && this.props.betPlaced.betValueString && this.props.isWinner &&
+                        <div className="result-content">
+                            <span className="winner">Hurray!! You Won</span>
+                            <span className="result-span focus-style">Prize money is transfered to your account</span>
+                            <span className="result-span buckle-up focus-style">Buckle up! Next game is about to start</span>
+                        </div>
+                        }
+
+                        {this.props.betPlaced && this.props.betPlaced.betValueString && !this.props.isWinner &&
+                        <div className="result-content">
+                            <span className="looser focus-style">You Lost</span>
+                            <span className="result-span">Next game is about to start</span>
+                            <span className="result-span buckle-up focus-style">May the Odds be in your Favor</span>
+                        </div>
+                        }
+
+                        {this.props.betPlaced && !this.props.betPlaced.betValueString &&
+                        <div className="result-content">
+                            <span className="focus-style">You did not place any bet</span>
+                        </div>
+                        }
 
                     </div>
                 </div>

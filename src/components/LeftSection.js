@@ -70,6 +70,8 @@ export default function LeftSection(props) {
                 <ResultLeftComponent changeComponent={props.changeState} counter={props.counter}
                     stakePrice={props.stakePrice} requestStakePrice={props.requestStakePrice} winners={props.winners}
                     loosers={props.loosers} resultBetValue={props.resultBetValue} betPlaced={props.betPlaced}
+                    isWinner={props.isWinner} resultPrice={props.resultPrice} lastPriceUnit={props.lastPriceUnit}
+                    getPrice={props.getPrice}
                 />
             }
 

@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+const {config} = require("./../config");
 
 class ResultRightComponent extends Component{
 
-    render(){
-        const winners = this.props.winners.map((item, key) => {return <div className="result-list-item">
-            <span className="user-name">{item}</span>
-            {/* <span className="bet-amount">{item.betAmountUSDT}</span> */}
-        </div>});
+    render() {
+
+        let winners = [];
+        if(this.props.winners) {
+            winners = this.props.winners.map((item, key) => {return <div className="result-list-item">
+                <span className="user-name">{item.username}</span>
+                <span className="user-name">{item.betAmountUSDT} {config.betDisplayUnit}</span>
+            </div>});
+        }
 
         return(
             <section className="result-page-right">
