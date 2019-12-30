@@ -1,11 +1,15 @@
 let config = {};
-config.baseURL = `http://localhost:3005/v1`;
-config.loginPath = `/users/login`;
-config.updatePath = `/users/update`;
-config.getNoncePath = `/users/getNonce`;
-config.getPricePath = `/price/getPrice`;
+config.baseURL = `http://localhost:3005`;
+config.loginPath = `/v1/users/login`;
+config.updatePath = `/v1/users/update`;
+config.getNoncePath = `/v1/users/getNonce`;
+config.getPricePath = `/v1/price/getPrice`;
+config.getSmartContractPath = `/v1/game/smartContract`;
 config.symbol = "MATICUSDT";
+config.lastPriceUnit = "USDT";
+config.requestPriceIntervalInSec = 3;
 config.socketConnectionURL = `http://localhost:3005`;
+
 
 config.state = {
     LAUNCH: "LAUNCH",

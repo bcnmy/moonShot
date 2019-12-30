@@ -2,59 +2,34 @@ import React, { Component } from 'react';
 
 class WaitRightComponent extends Component{
 
-    render(){
+    render() {
+        const upList = this.props.betUpList.map((item, key) => {return <div className="bet-list-item">
+            <span className="user-name">{item.userName}</span>
+            <span className="bet-amount">{item.betAmountUSDT}</span>
+        </div>});
+        const downList = this.props.betDownList.map((item, key) => <div className="bet-list-item">
+            <span className="user-name">{item.userName}</span>
+            <span className="bet-amount">{item.betAmountUSDT}</span>
+        </div>);
+
         return(
             <section className="wait-page-right">
-                <div className="betting-list">
-                    <div className="bet-up-list">
-                        <div id="bet-up-header" className="bet-header">UP BET</div>
-                        <div className="bet-list" id="bet-up-list">
-                            <ul id="list">
-                                <li className="m1">SDSDSDFSD</li>
-                                <li className="m1">SDFSDFSDFS</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">SFDGSFGSG</li>
-                                <li className="m1">SDSDSDFSD</li>
-                                <li className="m1">SDFSDFSDFS</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1 ">SFDGSFGSG</li>
-                                <li className="m1">SDSDSDFSD</li>
-                                <li className="m1">SDFSDFSDFS</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                
-                            </ul>
+                <div className="players">
+                    <div className="player-list">
+                        <div id="player-up-bet" className="player-header">Bet Up (In USDT)</div>
+                        <div className="play-list" id="play-list">
+                            {upList}
                         </div>
-                    </div>
 
-                    <div className="bet-down-list">
-                        <div id="bet-down-header" className="bet-header">DOWN BET</div>
-                        <div className="bet-list" id="bet-down-list">
-                            <ul id="list">
-                                <li className="m1">SDSDSDFSD</li>
-                                <li className="m1">SDFSDFSDFS</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1 ">SFDGSFGSG</li>
-                                <li className="m1">SDSDSDFSD</li>
-                                <li className="m1">SDFSDFSDFS</li>
-                                <li className="m1">FGHDFGHDFGDFG</li>
-                                <li className="m1 ">SFDGSFGSG</li>
-                                <li className="m1">SDSDSDFSD</li>
-                                <li className="m1">SDFSDFSDFS</li>
-                                
-                            </ul>
-                        </div>
                     </div>
-                </div>             
+                    <div className="player-list">
+                        <div id="player-down-bet" className="player-header">Bet Down (In USDT)</div>
+                        <div className="play-list" id="play-list">
+                            {downList}
+                        </div>
+
+                    </div>
+                </div>
             </section>
         );
     }

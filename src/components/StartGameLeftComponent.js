@@ -1,42 +1,43 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
+import PriceScaleGauge from './PriceScaleGauge';
+import {web3} from '../App';
+import axios from 'axios';
+import Chip from '@material-ui/core/Chip';
+const {config} = require("./../config");
+
 
 class StartGameLeftComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            minutes: 0,
             seconds: props.counter,
+            betAmount: undefined
         }
         this.betUp = this.betUp.bind(this);
         this.betDown = this.betDown.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.counter) {
-            this.setState({seconds: nextProps.counter});
-        }
+        this.onBetAmountChanged = this.onBetAmountChanged.bind(this);
     }
 
     componentDidMount() {
         this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state
+            const { seconds } = this.state
 
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
                     seconds: seconds - 1
                 }))
+
+                if(seconds % config.requestPriceIntervalInSec === 0) {
+                    if(this.props.requestCurrentPrice) {
+                        console.log(`Request current price is ${JSON.stringify(this.props.requestCurrentPrice)}`)
+                        this.props.requestCurrentPrice();
+                    }
+                }
             }
             if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                } else {
-                    this.setState(({ minutes }) => ({
-                        minutes: minutes - 1,
-                        seconds: 59
-                    }))
-                }
+                clearInterval(this.myInterval)
             }
         }, 1000)
     }
@@ -46,48 +47,72 @@ class StartGameLeftComponent extends Component {
     }
 
     betUp() {
-        console.log('bet up');
+        if(this.props.placeBet) {
+            if(this.state.betAmount) {
+                this.props.placeBet(1, this.state.betAmount);
+            } else {
+                this.props.showSnack("Please enter bet amount", {variant: 'error'});
+            }
+        }
     }
 
     betDown() {
-        console.log('bet down');
+        if(this.props.placeBet) {
+            if(this.state.betAmount) {
+                this.props.placeBet(2, this.state.betAmount);
+            } else {
+                this.props.showSnack("Please enter bet amount", {variant: 'error'});
+            }
+        }
+    }
+
+    onBetAmountChanged(event) {
+        if(event.target.value) {
+            this.setState({betAmount: event.target.value});
+        } else {
+            this.setState({betAmount: undefined});
+        }
     }
 
     render(){
-        const { minutes, seconds } = this.state
+        const { seconds } = this.state
         return(
             <section className="start-page-left">
-                <div className="start-page-heading">
-                    <div id="start-heading">
-                    Place Your Bet
-                    </div>
-                    <div id="start-timer">
-                    { minutes === 0 && seconds === 0
-                    ? <span>Moving on to next phase</span>
-                    : <p><span>Time Remaining:</span> {seconds} sec</p>
+                <div className="state-page-heading">
+                    <div className="state-heading-timer">
+                    { seconds === 0
+                    ? <span>Starting next phase</span>
+                    : <p><span className="time-remaining-counter">{`${seconds}`}</span>seconds</p>
                     }
+                    </div>
+
+                    <div className="state-heading-desc">
+                        Start betting now
                     </div>
                 </div>
                 <div className="start-page-content">
-                    <div className="price-container" id="current-stake-price">
-                        <div className="price-heading">Current Price</div>
-                        <div className="price-value">$ 0.02950</div>
-                    </div>
-                    <div className="price-container" id="fluctuating-price">
-                        <div className="price-heading">Betting Price</div>
-                        <div className="price-value">$ 0.02950</div>
+                    <div className="staking-price">
+                       <PriceScaleGauge stakePrice={this.props.stakePrice} stakePriceUnit={this.props.lastPriceUnit}
+                        currentPrice={this.props.lastPrice} currentPriceUnit={this.props.lastPriceUnit}
+                        getPrice={this.props.getPrice}/>
                     </div>
                 </div>
+
                 <div className="place-bet">
                     <div className="field">
-                        <input id="" type="number"  placeholder="Enter price" disabled={seconds==0?true:false}/>
+                        <Chip label={`Balance: ${this.props.userInfo.balanceInUSDT} USDT`} className="start-page-user-balance" />
+                        <input id="" type="number" placeholder="Enter betting price (In USDT)"
+                        disabled={seconds===0 || !this.props.userLogin ? true : false}
+                        value={this.state.betAmount} onChange={this.onBetAmountChanged}/>
                     </div>
                 </div>
                 <div className="bet-buttons">
-                    <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="up-button" disabled={seconds==0?true:false} >
+                    <Button onClick={this.betUp} target="_blank" variant="contained" className="bet-placed" id="up-button"
+                    disabled={seconds===0 || !this.props.userLogin ? true : false} >
                         Will go Up
                     </Button>
-                    <Button onClick="" target="_blank" variant="contained" className="bet-placed" id="down-button" disabled={seconds==0?true:false}>
+                    <Button onClick={this.betDown} target="_blank" variant="contained" className="bet-placed" id="down-button"
+                    disabled={seconds===0 || !this.props.userLogin ? true : false}>
                         will go down
                     </Button>
                 </div>

@@ -14,31 +14,26 @@ class WaitLeftComponent extends Component{
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.counter) {
-            this.setState({seconds: nextProps.counter});
-        }
-    }
-
     componentDidMount() {
+        if(this.props.requestCurrentPrice) {
+            this.props.requestCurrentPrice();
+        }
+
+        if(this.props.requestStakePrice) {
+            this.props.requestStakePrice();
+        }
 
         this.myInterval = setInterval(() => {
-            const { seconds, minutes } = this.state
+            const { seconds } = this.state
 
             if (seconds > 0) {
-                this.setState(({ seconds }) => ({
-                    seconds: seconds - 1
-                }))
+                this.setState(({ seconds }) => ({seconds: seconds - 1}))
+                if(seconds%3 === 0 && this.props.requestCurrentPrice) {
+                    this.props.requestCurrentPrice();
+                }
             }
             if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                } else {
-                    this.setState(({ minutes }) => ({
-                        minutes: minutes - 1,
-                        seconds: 59
-                    }))
-                }
+                clearInterval(this.myInterval)
             }
         }, 1000)
     }
@@ -48,27 +43,26 @@ class WaitLeftComponent extends Component{
     }
 
     render(){
-        const { minutes, seconds } = this.state
+        const { seconds } = this.state
         return(
             <section className="wait-page-left">
-                <div className="wait-page-heading">
-                    <div id="wait-heading">
-                        Waiting Phase
-                        <div id="wait-content">
-                            Result Calculation in Progress ...
-                        </div>
-                    </div>
-                    <div id="timer">
-                    { minutes === 0 && seconds === 0
-                    ? <p>Busted!</p>
-                    : <p>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</p>
+                <div className="state-page-heading">
+                    <div className="state-heading-timer">
+                    { seconds === 0
+                    ? <span>Hold your breath </span>
+                    : <p><span className="time-remaining-counter">{`${seconds}`}</span>seconds</p>
                     }
+                    </div>
+
+                    <div className="state-heading-desc">
+                        Results are being calculated
                     </div>
                 </div>
                 <div className="wait-page-content">
                     <div className="staking-price">
-                       <PriceScaleGauge stakePrice={this.state.maticPrice} stakePriceUnit="USDT"
-                       currentPrice={this.state.maticPrice} currentPriceUnit="USDT" getPrice={this.props.getPrice}/>
+                       <PriceScaleGauge stakePrice={this.props.stakePrice} stakePriceUnit={this.props.lastPriceUnit}
+                        currentPrice={this.props.lastPrice} currentPriceUnit={this.props.lastPriceUnit}
+                        getPrice={this.props.getPrice}/>
                     </div>
                 </div>
             </section>

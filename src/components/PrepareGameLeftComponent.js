@@ -9,7 +9,6 @@ class PrepareGameLeftComponent extends Component{
         super(props);
         console.log(props.counter);
         this.state = {
-            minutes: 0,
             seconds: props.counter,
             initialValue: props.counter,
             initialPercentage: 100,
@@ -46,7 +45,7 @@ class PrepareGameLeftComponent extends Component{
         let percentageInterval = initialPercentage/initialValue;
 
         this.myInterval = setInterval(() => {
-            const { seconds, minutes, percentage } = this.state
+            const { seconds, percentage } = this.state
             if (seconds > 0) {
                 this.setState({
                     seconds: seconds - 1,
@@ -54,14 +53,7 @@ class PrepareGameLeftComponent extends Component{
                 })
             }
             if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                } else {
-                    this.setState(({ minutes }) => ({
-                        minutes: minutes - 1,
-                        seconds: 59
-                    }))
-                }
+                clearInterval(this.myInterval)
             }
         }, 1000)
     }
@@ -71,28 +63,26 @@ class PrepareGameLeftComponent extends Component{
     }
 
     render(){
-        const { minutes, seconds, percentage } = this.state
+        const {seconds, percentage } = this.state
         return(
             <section className="prepare-page-left">
                 <div className="prepare-page-heading">
-                    <div id="prepare-heading">
-                        Estimating Stake Price
-                        {/* <div id="prepare-matic-price">$ 0.19</div> */}
-                    </div>
+
                 </div>
                 <div className="prepare-page-content">
                     <div className="prepare-staking-price">
                         {
+                            this.state.seconds !== 0
+                            ? <div className="prepare-page-message">Please wait while we get Matic average price</div>
+                            : <div className="prepare-page-message">Game is Starting Now</div>
+                        }
+                        {
                             !this.state.counterSet
                             ? <h3>Fetching game data ...</h3>
-                            : this.state.minutes === 0 && this.state.seconds === 0
-                                ? <h3>Game is Starting NOW !!!</h3>
+                            : this.state.seconds === 0
+                                ? ""
                                 : <CircularProgressbar className="circularProgressBar" value={percentage} text={seconds}
-                                    styles={buildStyles({
-                                        textColor: "white",
-                                        pathColor: "gold",
-                                        trailColor: "white"
-                                    })}/>
+                                    styles={buildStyles({ textColor: "white", pathColor: "gold", trailColor: "white"})}/>
                         }
                     </div>
                 </div>

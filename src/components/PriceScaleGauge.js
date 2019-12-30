@@ -36,40 +36,55 @@ const minPriceDiff = -200;
 
 export default function PriceScaleGauge(props) {
 
-    const [stakePrice, setStakePrice] = useState(props.stakePrice);
-    const [currentPrice, setCurrentPrice] = useState(props.currentPrice);
+    const [stakePrice, setStakePrice] = useState(props.stakePrice?props.stakePrice:0);
+    const [currentPrice, setCurrentPrice] = useState(props.currentPrice?props.currentPrice:0);
     const [stakePriceUnit, setStakePriceUint] = useState(props.stakePriceUnit);
     const [currentPriceUnit, setCurrentPriceUint] = useState(props.currentPriceUnit);
     const [currentAnimationState, setCurrentAnimationState] = useState('state1');
     const [diff, setDiff] = useState(0);
     const currentAnimationRef = useRef(currentAnimationState)
     const stakePriceRef = useRef(stakePrice);
+    const currentPriceRef = useRef(currentPrice);
 
-    useEffect(() => {
-        const interval = setTimeout(async ()=> {
-            let stakePrice = stakePriceRef.current;
-            let newPrice = await props.getPrice(config.symbol);
-            if(typeof newPrice == 'string') {
+    const trimPrice = (price)=>{
+        let trimmedPrice = price;
+        if(trimmedPrice) {
+            if(typeof trimmedPrice == 'string') {
                 try {
-                    newPrice = parseFloat(newPrice);
+                    trimmedPrice = parseFloat(trimmedPrice);
                 } catch(error) {
-                    console.log(`Error while converting string value ${newPrice} to float value`);
+                    console.log(`Error while converting string value ${trimmedPrice} to float value`);
                 }
             }
-            if(newPrice && typeof newPrice == 'number') {
-                newPrice =  newPrice.toFixed(5);
+            if(trimmedPrice && typeof trimmedPrice == 'number') {
+                trimmedPrice =  trimmedPrice.toFixed(5);
             }
-            setCurrentPrice(newPrice);
+        }
+        return trimmedPrice;
+    }
 
-            let priceDiff = parseInt((newPrice - stakePrice)*(10e5));
-            console.log(`Difference in price is ${priceDiff}`)
+    useEffect(() => {
+        const interval = setInterval(async ()=> {
 
-            if(priceDiff > maxPriceDiff) {
-                priceDiff = maxPriceDiff;
-            } else if(priceDiff < minPriceDiff) {
-                priceDiff = minPriceDiff;
+            let stakePrice = stakePriceRef.current;
+            let newPrice = currentPriceRef.current;
+            console.log(`New price is ${newPrice}`)
+            console.log(`Current price is ${currentPrice}`);
+
+            let priceDiff = 0;
+            if(newPrice) {
+                newPrice = trimPrice(newPrice);
+                setCurrentPrice(newPrice);
+
+                priceDiff = parseInt((newPrice - stakePrice)*(10e5));
+                console.log(`Difference in price is ${priceDiff}`)
+
+                if(priceDiff > maxPriceDiff) {
+                    priceDiff = maxPriceDiff;
+                } else if(priceDiff < minPriceDiff) {
+                    priceDiff = minPriceDiff;
+                }
             }
-
 
             if(currentAnimationRef.current === "state1") {
                 setCurrentAnimationState("state2");
@@ -78,7 +93,7 @@ export default function PriceScaleGauge(props) {
                 setCurrentAnimationState("state1");
                 setDiff(diff=>priceDiff);
             }
-        }, 500);
+        }, 1000);
 
         return () => {
             clearTimeout(interval);
@@ -90,9 +105,21 @@ export default function PriceScaleGauge(props) {
     }, [currentAnimationState])
 
     useEffect(()=>{
-        stakePriceRef.current = props.stakePrice;
-        setStakePrice(props.stakePrice);
+        if(props.stakePrice) {
+            let trimmedStakePrice = trimPrice(props.stakePrice);
+            stakePriceRef.current = trimmedStakePrice;
+            setStakePrice(trimmedStakePrice);
+        }
     }, [props.stakePrice]);
+
+    useEffect(()=>{
+        console.log("props.current price changed",props.currentPrice);
+        if(props.currentPrice !== undefined) {
+            let trimmedCurrentPrice = trimPrice(props.currentPrice);
+            currentPriceRef.current = trimmedCurrentPrice;
+            //setCurrentPrice(trimmedCurrentPrice);
+        }
+    }, [props.currentPrice]);
 
     return(
         <div id="price-gauge-container">
@@ -105,7 +132,7 @@ export default function PriceScaleGauge(props) {
             <div className="price-gauge-bars">
                 <div id="stake-price-container">
                     <div className="price-label">stake price</div>
-                    <div className="price-value">{`${props.stakePrice} ${stakePriceUnit}`}</div>
+                    <div className="price-value">{`${stakePrice} ${stakePriceUnit}`}</div>
                     <ArrowDropDownIcon id="stake-price-arrow"/>
                 </div>
             </div>

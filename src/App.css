@@ -249,8 +249,36 @@ body {
 }
 
 /*  ----Home -> Left component ---- */
+.time-remaining-counter {
+  font-size: 30px;
+  margin-right: 8px;
+}
+
+.state-heading-timer {
+  color:#fff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.state-heading-desc {
+  color: #fff;
+  font-weight: 600;
+}
+
+.state-page-heading {
+  letter-spacing: 1px;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: space-between;
+  opacity: 0.9;
+  padding:0px 30px;
+  align-items: center;
+}
+
 .leftSection{
-  width :65%;
+  width :60%;
   height: 600px;
   display: flex;
   flex-direction: column;
@@ -307,7 +335,7 @@ body {
 
 /* ----Home -> Right component ----- */
 .rightSection{
-  width :35%;
+  width :40%;
   margin-left: auto;
   margin-right: auto;
   color:#444;
@@ -338,9 +366,45 @@ body {
   /* height: 400px; */
 }
 
+/************** STEPPER *****************/
+.stepper {
+  background-color: transparent!important;
+}
+
+.stepper .MuiStepLabel-label {
+  color: #fff;
+}
+
+.stepper .MuiStepLabel-label.MuiStepLabel-completed {
+  color: #fff;
+}
+
+.stepper .MuiStepLabel-label.MuiStepLabel-active {
+  color: #5BC66D ;
+}
+
+.stepper .MuiStepIcon-root.MuiStepIcon-completed {
+  color: #fff;
+}
+
+.stepper .MuiStepIcon-root.MuiStepIcon-active {
+  color: #5BC66D;
+}
+
+.stepper .MuiStepIcon-root.MuiStepIcon-active .MuiStepIcon-text {
+  fill: #000;
+}
+
+.stepper .MuiStepIcon-root {
+  color: #fff;
+}
+
+.stepper .MuiStepIcon-text {
+  fill: #000;
+}
+/********** STEPPER ENDS ****************/
 
 /*--- Prepare Page-> Left component --- */
-
 
 /****/
 #countdown {
@@ -386,8 +450,26 @@ svgx circle {
   }
 }
 
+.phase-label {
+  background: #fff;
+  color: #1b5e20;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.prepare-page-message {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+}
+
+.CircularProgressbar {
+  width: 50%!important;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
 .prepare-page-heading{
-  margin-top: 30px;
   letter-spacing: 1px;
   text-align: left;
   display: flex;
@@ -400,7 +482,7 @@ svgx circle {
   font-size: 19px;
 }
 #prepare-heading{
-  color: #fff;
+  color: #1b5e20;
   /* width: 40%; */
   font-weight: 700;
   font-size: 20px;
@@ -413,8 +495,7 @@ svgx circle {
 }
 
 .prepare-page-content{
-  margin-top:80px;
-  width:60%;
+  margin-top:50px;
   text-align:left;
   margin-left: auto;
   margin-right: auto;
@@ -424,18 +505,30 @@ svgx circle {
 .prepare-staking-price{
   color: #fff;
   border-radius: 50%;
-  width: 350px;
   margin-left: auto;
+  display: flex;
   margin-right: auto;
+  flex-direction: column;
 }
 /*--- Prepare Page-> Right component --- */
 .prepare-page-right{
-  border-left: 1px solid rgb(202, 199, 199);
+  color: #fff;
+  border-left: 1px solid #444;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.prepare-page-right .price-container .price-container-heading {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.prepare-page-right .price-container .price-value {
+  padding: 0 15px;
+}
+
 /* .Gaming-rules{
   text-align: center;
   border-radius: 10px;
@@ -444,15 +537,7 @@ svgx circle {
 } */
 
 .quotes-container{
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  text-decoration: chartreuse;
-  color : yellow;
-  font-style: italic;
-  opacity: 0.8;
-  line-height: 5px;
+  color: #fff;
 }
 
 /* #rules{
@@ -473,18 +558,17 @@ svgx circle {
 } */
 
 /*--- Start Page-> Left component --- */
+
+.start-page-user-balance {
+  position: absolute;
+  height: 32px;
+  top: -42px;
+  right: 0px;
+}
 .start-page-left{
   border-right: 1px ridge #444444;
+  padding: 0px 24px;
 
-}
-.start-page-heading{
-  margin-top: 30px;
-  letter-spacing: 1px;
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  opacity: 0.9;
 }
 
 #start-heading{
@@ -493,25 +577,10 @@ svgx circle {
   font-weight: 600;
   font-size: 20px;
 }
-#start-timer{
-  color:#fff;
-  width: 50%;
-  margin-right: 10px;
-  text-align: right;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-#start-timer span{
-  color:lightgreen;
-  font-style:italic;
-  font-size: 15px;
-
-}
 
 .start-page-content{
   margin-top:50px;
-  width:70%;
+  width:90%;
   text-align:left;
   margin-left: auto;
   margin-right: auto;
@@ -532,27 +601,33 @@ svgx circle {
 }
 .price-heading{
   font-weight: 800;
-  font-size: 14px;
+  font-size: 24px;
   color: #fff;
-  opacity: 0.6;
-
+  margin-bottom: 18px;
 }
+
 .price-value{
   font-size: 26px;
   letter-spacing: 1px;
+  color: #222;
+  background:#3bc56c;
+  font-size: 1.5rem;
+  padding: 0px 16px;
+  border-radius: 10px;
 }
+
 #fluctuating-price{
   color:#fff;
-  width: 50%;
 }
 #current-stake-price{
-  color: rgb(252, 252, 4);
+  color: #fff;
 }
 
 .bet-buttons{
   display: flex;
   flex-direction: row;
-  width:90%;
+  width: 100%;
+  padding: 0 5%;
   margin-top:20px;
   justify-content: space-between;
 }
@@ -580,6 +655,8 @@ svgx circle {
 }
 
 .field {
+  margin-left: auto;
+  margin-right: auto;
   width: 90%;
   margin-top: 80px;
   height: 56px;
@@ -634,17 +711,15 @@ svgx circle {
 }
 .players{
   /* border-left: 1px solid grey; */
-  width:100%;
-  height: 500px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  margin-right: auto;
-  margin-left: auto;
+  justify-content: space-between;
+  padding: 6px;
 }
 
 .player-list{
-  width:30%;
+  width:48%;
+  padding: 10px 1%;
 }
 .player-header{
   margin-left: auto;
@@ -670,7 +745,7 @@ svgx circle {
 .play-list{
   color: #fff;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   text-align:center;
   font-size:16px;
   font-weight: 400;
@@ -679,7 +754,18 @@ svgx circle {
   padding-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
-  border-bottom: 1px solid grey;
+}
+
+.bet-list-item {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bet-list-item {
+  background-color:rgb(125, 125, 124, .8);
+  border-radius: 5px;
 }
 
 .player-name{
@@ -932,8 +1018,8 @@ svgx circle {
 
 #current-price-container {
   position: absolute;
-  width: 50%;
-  left: 25%;
+  width: 60%;
+  left: 20%;
   bottom: -4.7rem;
 }
 
@@ -967,6 +1053,7 @@ svgx circle {
 
 .low-price {
   background: #63120F!important;
+  color: #fff;
 }
 
 .low-price-icon {
@@ -987,7 +1074,7 @@ svgx circle {
 
 .bet-header{
   margin-left: auto;
-  /* margin-right: auto; */
+  margin-right: auto;
   width:80%;
   height: 35px;
   font-size:16px;
@@ -1029,7 +1116,7 @@ svgx circle {
   border-radius: 0 0 10px 10px;
   text-align:justify;
   margin-left: auto;
-  /* margin-right: auto; */
+  margin-right: auto;
   width:80%;
   color:#fff;
   font-size:12px;
@@ -1044,6 +1131,8 @@ svgx circle {
 .bet-list ul {
   overflow-y: scroll;
   height: 100%;
+  padding: 10px;
+  font-size: 18px;
 }
 
 /* .gtp-overlay-overlay {

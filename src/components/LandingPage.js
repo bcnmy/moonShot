@@ -9,6 +9,10 @@ const {LAUNCH} = config.state;
 
 class LandingPage extends Component{
 
+    componentDidMount() {
+        console.log(this.props.betUpList);
+    }
+
     render() {
         return(
             <div className="main-section">
@@ -19,8 +23,20 @@ class LandingPage extends Component{
                 showSnack={this.props.showSnack}/>
                 <div className="center">
                     <LeftSection currentState={this.props.currentState} changeState={this.props.changeState}
-                    getPrice={this.props.getPrice} counter={this.props.counter}/>
-                    <RightSection currentState={this.props.currentState} changeState={this.props.changeState}/>
+                    getPrice={this.props.getPrice} counter={this.props.counter} lastPrice={this.props.lastPrice}
+                    lastPriceUnit={this.props.lastPriceUnit} stakePrice={this.props.stakePrice}
+                    requestCurrentPrice={this.props.requestCurrentPrice} requestStakePrice={this.props.requestStakePrice}
+                    userAddress={this.props.userAddress} userLogin={this.props.userLogin} userInfo={this.props.userInfo}
+                    showSnack={this.props.showSnack} placeBet={this.props.placeBet} betUpList={this.props.betUpList}
+                    betDownList={this.props.betDownList} winners={this.props.winners}
+                    loosers={this.props.loosers} resultBetValue={this.props.resultBetValue} betPlaced={this.props.betPlaced}/>
+
+                    <RightSection currentState={this.props.currentState} changeState={this.props.changeState}
+                    requestCurrentPrice={this.props.requestCurrentPrice} lastPrice={this.props.lastPrice}
+                    lastPriceUnit={this.props.lastPriceUnit} requestStakePrice={this.props.requestStakePrice}
+                    betUpList={this.props.betUpList} betDownList={this.props.betDownList} winners={this.props.winners}
+                    loosers={this.props.loosers} resultBetValue={this.props.resultBetValue} userAddress={this.props.userAddress}
+                    betPlaced={this.props.betPlaced}/>
                 </div>
                 {this.props.currentState===LAUNCH && <Footer />}
             </div>
