@@ -82,10 +82,21 @@ function App(props) {
       setUserAddress(localStorage.getItem(LS_KEY.USER_ADDRESS));
       setUsername(localStorage.getItem(LS_KEY.USERNAME));
       initUserInfo();
+      initSubscription();
     } else {
       clearUserLoginData();
     }
   }, []);
+
+  const initSubscription=()=>{
+    web3.eth.subscribe('newBlockHeaders', function(error, result){
+      if (!error) {
+        initUserInfo();
+      }
+      else
+        console.error(error);
+    })
+  }
 
 
   useEffect(()=>{
@@ -337,6 +348,7 @@ function App(props) {
               setUserAddress(userAddress);
               setUserLogin(true);
               initUserInfo();
+              initSubscription();
               if(data.existingUser) {
                 showSnack(`Login successfull`, {variant: 'success'});
               } else {
