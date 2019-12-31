@@ -15,10 +15,15 @@ class LaunchRightComponent extends Component{
      }
      render() {
         return(
-            <div>
-
-                <div>
-                    <img className="launch-page-img" src="/images/gamble.png" alt="Biconomy logo white" />
+            <div className="launch-right-section">
+                <div className="rules-heading">Game Rules</div>
+                <div className="launch-page-content">
+                    <ul>
+                        <li>Game is divided into three session </li><br/>
+                        <li>15 sec spot price of matic is selected from the binance	</li><br/>
+                        <li>Next 30 secs you can predict the price of matic whether it will go up or down </li><br/>
+                        <li>Wohoa!!, if your prediction comes true, you become a trading champ</li>
+                    </ul>
                 </div>
             </div>
 

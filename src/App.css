@@ -368,12 +368,30 @@ body {
   text-align: right;
 
 }
-.launch-page-img{
+
+.rules-heading{
+  color: #fff;
+  font-weight: 700;
+  font-size: 25px;
   margin-top:80px;
+  text-align: center;
+}
+
+.launch-page-content{
+  margin-top:20px;
+  padding: 20px 10px;
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
-  /* height: 400px; */
+  color: #000;
+  width:90%;
+  background: #fff;
+  border : 2px solid #000;
+  border-radius: 10px;
+
+}
+
+.launch-right-section{
+ 
 }
 
 /************** STEPPER *****************/
