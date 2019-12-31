@@ -618,9 +618,11 @@ svgx circle {
 
 .price-value{
   font-size: 26px;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   color: #222;
-  background:#3bc56c;
+  /* background:#3bc56c; */
+  font-family: GTPFont;
+  color: #fff;
   font-size: 1.5rem;
   padding: 0px 16px;
   border-radius: 10px;
@@ -633,6 +635,11 @@ svgx circle {
   color: #fff;
 }
 
+.place-bet-container {
+  position: relative;
+  width: 100%;
+}
+
 .bet-buttons{
   display: flex;
   flex-direction: row;
@@ -641,6 +648,38 @@ svgx circle {
   margin-top:20px;
   justify-content: space-between;
 }
+
+.place-bet-cover {
+  position: absolute;
+  top: -5%;
+  left: 4%;
+  width: 92%;
+  height: 110%;
+  background-color: rgb(28, 27, 23, .99);
+  z-index: 1;
+  display: flex;
+  color: white;
+  padding: 7px 6px;
+  flex-direction: column;
+  font-family: GTPFont;
+}
+
+.place-bet-cover-close {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  flex-direction: row-reverse;
+}
+
+.place-bet-cover-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  font-size: 25px;
+  justify-content: center;
+}
+
 .bet-placed{
   text-transform: capitalize !important;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -1059,8 +1098,8 @@ svgx circle {
 }
 
 #stake-price-container .price-value {
-  background: #fff;
-  color: #345;
+  background: transparent;
+  color: #fff;
   font-size: 1.5rem;
   padding: 0px 6px;
   border-radius: 10px;
@@ -1099,7 +1138,7 @@ svgx circle {
 }
 
 #current-price-container .price-value {
-  background:#3bc56c;
+  background: transparent;
   font-size: 1.5rem;
   padding: 0px 6px;
   border-radius: 10px;
@@ -1119,7 +1158,8 @@ svgx circle {
 }
 
 .high-price {
-  background:#3bc56c!important;
+  color:#3bc56c!important;
+  border: 1px solid #3bc56c;
 }
 
 .high-price-icon {
@@ -1127,8 +1167,8 @@ svgx circle {
 }
 
 .low-price {
-  background: #63120F!important;
-  color: #fff;
+  color: #63120F!important;
+  border: 1px solid #63120F;
 }
 
 .low-price-icon {
