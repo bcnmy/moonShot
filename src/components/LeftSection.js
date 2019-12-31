@@ -38,7 +38,7 @@ export default function LeftSection(props) {
     return (
         <section className = "leftSection">
 
-            {props.currentState!=   =LAUNCH &&
+            {props.currentState!==LAUNCH &&
                 <Stepper activeStep={activeStep} className="stepper">
                     {steps.map((label, index) => {
                         return (
