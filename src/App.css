@@ -397,7 +397,7 @@ body {
 }
 
 .launch-right-section{
- 
+
 }
 
 /************** STEPPER *****************/
@@ -1122,7 +1122,7 @@ svgx circle {
 }
 
 #stake-price-container .price-value {
-  background: transparent;
+  /* background: transparent; */
   color: #fff;
   font-size: 1.5rem;
   padding: 0px 6px;
@@ -1182,12 +1182,13 @@ svgx circle {
 }
 
 .high-price {
-  color:#3bc56c!important;
-  border: 1px solid #3bc56c;
+  color:#54B644!important;
+  background-color: rgb(9, 10, 14, .5);
+  /* border: 1px solid #3bc56c; */
 }
 
 .high-price-icon {
-  fill:#3bc56c!important;
+  fill:#54B644!important;
 }
 
 .low-price {
@@ -1196,7 +1197,7 @@ svgx circle {
 }
 
 .low-price-icon {
-  fill: #63120F!important;
+  fill: #cc0000!important;
 }
 
 /* #faded{
