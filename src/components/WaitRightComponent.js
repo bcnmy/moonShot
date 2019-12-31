@@ -16,14 +16,14 @@ class WaitRightComponent extends Component{
             <section className="wait-page-right">
                 <div className="players">
                     <div className="player-list">
-                        <div id="player-up-bet" className="player-header">Bet Up (In USDT)</div>
+                        <div id="player-up-bet" className="player-header">Bet Up <div className="price-unit">(USDT)</div></div>
                         <div className="play-list" id="play-list">
                             {upList}
                         </div>
 
                     </div>
                     <div className="player-list">
-                        <div id="player-down-bet" className="player-header">Bet Down (In USDT)</div>
+                        <div id="player-down-bet" className="player-header">Bet Down <div className="price-unit">(USDT)</div></div>
                         <div className="play-list" id="play-list">
                             {downList}
                         </div>
