@@ -1,5 +1,5 @@
 body {
-  /* background: #081547; */
+  /* background: #0E0731; */
   background-image: url("/images/space.jpg");
   background-size: 100%;
   font-family: Rubik, sans-serif;
@@ -15,6 +15,12 @@ body {
   src: url("/font/Roboto-Regular.ttf");
 }
 
+.price-unit{
+  font-size: 10px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column-reverse;
+}
 .flex {
   display: flex;
 }
@@ -791,13 +797,13 @@ svgx circle {
 .player-header{
   margin-left: auto;
   margin-right: auto;
-  height: 35px;
+  /* height: 35px; */
   font-size:18px;
   font-weight: 700;
   opacity: 0.8;
   text-align: center;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 }
 
