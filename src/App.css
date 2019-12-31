@@ -1,10 +1,3 @@
-body {
-  /* background: #0E0731; */
-  background-image: url("/images/space2.jpg");
-  /* background-size: 100%; */
-  font-family: Rubik, sans-serif;
-}
-
 @font-face {
   font-family: GTPFont;
   src: url("/font/Roboto-Medium.ttf");
@@ -14,6 +7,15 @@ body {
   font-family: GTPFontThin;
   src: url("/font/Roboto-Regular.ttf");
 }
+
+body {
+  /* background: #0E0731; */
+  background-image: url("/images/space2.jpg");
+  /* background-size: 100%; */
+  font-family: GTPFont, Rubik, sans-serif;
+}
+
+
 
 .price-unit{
   font-size: 10px;
@@ -386,25 +388,44 @@ body {
   color: #fff;
   font-weight: 700;
   font-size: 25px;
-  margin-top:80px;
+  margin-top: 100px;
   text-align: center;
 }
 
-.launch-page-content{
-  margin-top:20px;
-  padding: 20px 10px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #000;
-  width:90%;
-  background: #fff;
-  border : 2px solid #000;
-  border-radius: 10px;
-
+#rule-content-container {
+  padding: 10px;
+  background: rgb(34, 34, 34,.8);
+  border-radius: 5px;
 }
 
-.launch-right-section{
+.rule-item {
+  display: flex;
+  margin-bottom: 18px;
+}
 
+.rule-number {
+  background: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  flex: none;
+  justify-content: center;
+}
+
+.rule-text {
+  padding: 5px 10px;
+  color: #fff;
+}
+
+.launch-page-content {
+  padding: 20px 5px;
+}
+
+.launch-page-content h5 {
+  color: #fff;
 }
 
 /************** STEPPER *****************/
@@ -650,7 +671,7 @@ svgx circle {
 .price-value{
   font-size: 26px;
   /* letter-spacing: 1px; */
-  color: #222;
+  background: rgb(34, 34, 34,.5);
   /* background:#3bc56c; */
   font-family: GTPFont;
   display: flex;
@@ -688,13 +709,14 @@ svgx circle {
   left: 4%;
   width: 92%;
   height: 110%;
-  background-color: rgb(28, 27, 23, .99);
+  background-color: rgb(28, 27, 23, .9);
   z-index: 1;
   display: flex;
   color: white;
   padding: 7px 6px;
   flex-direction: column;
   font-family: GTPFont;
+  border-radius: 5px;
 }
 
 .place-bet-cover-close {
@@ -810,7 +832,6 @@ svgx circle {
   font-size:18px;
   font-weight: 700;
   padding: 3px 0px;
-  opacity: 0.8;
   text-align: center;
   display: flex;
   /* align-items: center; */
@@ -819,13 +840,13 @@ svgx circle {
 
 #player-up-bet{
   color: #5BC66D;
-  background-color: #222;
+  background-color: rgb(34, 34, 34,.5);
   border-radius: 4px;
 }
 
 #player-down-bet{
-  color: #D54256;
-  background-color: #222;
+  color: #cc0000;
+  background-color: rgb(34, 34, 34,.5);
   border-radius: 4px;
 }
 
@@ -1172,7 +1193,7 @@ svgx circle {
 }
 
 #current-price-container .price-value {
-  background: #222;
+  background: rgb(34, 34, 34,.5);
   font-size: 1.5rem;
   padding: 0px 10px;
   border-radius: 10px;
@@ -1202,7 +1223,7 @@ svgx circle {
 }
 
 .low-price {
-  color: #B13A4C!important;
+  color: #cc0000!important;
   /* border: 1px solid #63120F; */
 }
 
