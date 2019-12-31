@@ -58,7 +58,7 @@ export default function LeftSection(props) {
                     stakePrice={props.stakePrice} requestCurrentPrice={props.requestCurrentPrice}
                     requestStakePrice={props.requestStakePrice} userAddress={props.userAddress}
                     userLogin={props.userLogin} userInfo={props.userInfo} showSnack={props.showSnack}
-                    placeBet={props.placeBet} />
+                    placeBet={props.placeBet} betPlaced={props.betPlaced} />
             }
             {props.currentState === WAITING &&
                 <WaitLeftComponent changeComponent={props.changeState} getPrice={props.getPrice}
