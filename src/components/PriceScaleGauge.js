@@ -164,7 +164,10 @@ export default function PriceScaleGauge(props) {
             <div className="price-gauge-bars">
                 <div id="stake-price-container">
                     <div className="price-label">stake price</div>
-                    <div className="price-value">{`${stakePrice} ${stakePriceUnit}`}</div>
+                    <div className="price-value">
+                        {stakePrice}
+                        <div className="price-unit"> {stakePriceUnit}</div>
+                    </div>
                     <ArrowDropDownIcon id="stake-price-arrow"/>
                 </div>
             </div>
@@ -177,7 +180,10 @@ export default function PriceScaleGauge(props) {
 
             <Box id="current-price-container" pose={currentAnimationState} diff={diff}>
                 <ArrowDropUpIcon id="current-price-arrow" className={diff >= 0 ? 'high-price-icon' : 'low-price-icon'}/>
-                <div className={`price-value ${diff >= 0 ? 'high-price' : 'low-price'}`} >{`${currentPrice} ${currentPriceUnit}`}</div>
+                <div className={`price-value ${diff >= 0 ? 'high-price' : 'low-price'}`} >
+                    {currentPrice}
+                    <div className="price-unit"> {currentPriceUnit}</div>
+                </div>
                 <div className="price-label">{props.currentPriceText?props.currentPriceText:"current price"}</div>
             </Box>
         </div>

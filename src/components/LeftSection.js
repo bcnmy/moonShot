@@ -38,15 +38,17 @@ export default function LeftSection(props) {
     return (
         <section className = "leftSection">
 
-            <Stepper activeStep={activeStep} className="stepper">
-                {steps.map((label, index) => {
-                    return (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
+            {props.currentState!==LAUNCH &&
+                <Stepper activeStep={activeStep} className="stepper">
+                    {steps.map((label, index) => {
+                        return (
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                        );
+                    })}
+                </Stepper>
+            }
 
             {props.currentState === LAUNCH && <LaunchLeftComponent changeComponent={props.changeState}/>}
             {props.currentState === PREPARE &&
