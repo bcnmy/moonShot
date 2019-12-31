@@ -1,7 +1,7 @@
 body {
   /* background: #0E0731; */
-  background-image: url("/images/space.jpg");
-  background-size: 100%;
+  background-image: url("/images/space2.jpg");
+  /* background-size: 100%; */
   font-family: Rubik, sans-serif;
 }
 
@@ -414,7 +414,7 @@ body {
 }
 
 .stepper .MuiStepLabel-label.MuiStepLabel-active {
-  color: #5BC66D ;
+  color: yellow ;
 }
 
 .stepper .MuiStepIcon-root.MuiStepIcon-completed {
@@ -422,7 +422,7 @@ body {
 }
 
 .stepper .MuiStepIcon-root.MuiStepIcon-active {
-  color: #5BC66D;
+  color: yellow;
 }
 
 .stepper .MuiStepIcon-root.MuiStepIcon-active .MuiStepIcon-text {
@@ -1162,7 +1162,7 @@ svgx circle {
 }
 
 #current-price-container .price-value {
-  background: transparent;
+  background: #222;
   font-size: 1.5rem;
   padding: 0px 6px;
   border-radius: 10px;
@@ -1191,8 +1191,8 @@ svgx circle {
 }
 
 .low-price {
-  color: #63120F!important;
-  border: 1px solid #63120F;
+  color: #B13A4C!important;
+  /* border: 1px solid #63120F; */
 }
 
 .low-price-icon {
