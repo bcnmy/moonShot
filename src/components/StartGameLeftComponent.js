@@ -109,7 +109,7 @@ class StartGameLeftComponent extends Component {
                 <div className="bet-buttons">
                     <Button onClick={this.betUp} target="_blank" variant="contained" className="bet-placed" id="up-button"
                     disabled={seconds===0 || !this.props.userLogin ? true : false} >
-                        Will go Up
+                        Will go Up/Same
                     </Button>
                     <Button onClick={this.betDown} target="_blank" variant="contained" className="bet-placed" id="down-button"
                     disabled={seconds===0 || !this.props.userLogin ? true : false}>

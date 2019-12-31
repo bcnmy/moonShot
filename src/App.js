@@ -24,7 +24,7 @@ let appRoot = require('app-root-path');
 const {config, LS_KEY} = require(`${appRoot}/config`);
 const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
-let wallet = require("./components/wallet/portis").default;
+let wallet = require("./components/wallet/metamask").default;
 console.log(wallet);
 const web3 = new Web3(wallet.getProvider());
 let socket;
@@ -91,13 +91,18 @@ function App(props) {
   }, []);
 
   const initSubscription=()=>{
-    web3.eth.subscribe('newBlockHeaders', function(error, result){
-      if (!error) {
-        initUserInfo();
-      }
-      else
-        console.error(error);
-    })
+    console.log(`SUBSCRIBED to topic id ${config.endGameTopicId} and ${config.betPlacedTopicId}`);
+    const endGameSubscription = web3.eth.subscribe('logs',{
+      topics: [config.endGameTopicId]
+		}, function(error, result){
+      console.log(result);
+			if(error) {
+				console.error(error);
+			}
+		}).on("data", function(log) {
+      console.log(`End Game log recieved. Updating user balance`);
+      initUserInfo();
+    });
   }
 
 
@@ -143,9 +148,9 @@ function App(props) {
             setResultPrice(resultPrice);
             setLoosers(loosers);
             setResultBetValue(resultBetValue);
-
-            console.log(resultBetValue.toString());
-            console.log(betPlaced.betValue);
+            console.log("bet placed");
+            console.log(betPlaced);
+            console.log(game);
             if(betPlaced && betPlaced.betValue) {
               if(betPlaced.betValue === resultBetValue.toString()) {
                 setIsWinner(true);
@@ -185,6 +190,8 @@ function App(props) {
 
         let betUserAddress = data.userAddress;
         if(betUserAddress.toLowerCase() === userAddress.toLowerCase()) {
+          console.log(`User placing bet with betValue ${betValue}`);
+          console.log(`typeof betValue ${typeof betValue}`)
           let betPlaced = {};
           betPlaced.betAmountUSDT = betAmountUSDT;
           betPlaced.betValue = betValue;
@@ -194,6 +201,7 @@ function App(props) {
             betPlaced.betValueString = "DOWN";
           }
           setBetPlaced(betPlaced);
+          initUserInfo();
         }
 
         if(betValue === "1") {
@@ -392,6 +400,8 @@ function App(props) {
   }
 
   const initUserInfo = async ()=>{
+
+    console.log("Getting user info now");
     // Get user balance
     let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
     if(!userAddress) {

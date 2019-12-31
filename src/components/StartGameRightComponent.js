@@ -7,7 +7,7 @@ class StartGameRightComponent extends Component{
 
     }
     render() {
-        const upList = this.props.betUpList.map((item, key) => {return <div className="bet-list-item">
+        const upList = this.props.betUpList.map((item, key) => {return <div className="bet-list-item" key={key}>
             <span className="user-name">{item.userName}</span>
             <span className="bet-amount">{item.betAmountUSDT}</span>
         </div>});

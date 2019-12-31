@@ -745,11 +745,15 @@ svgx circle {
 }
 
 #player-up-bet{
-  color: greenyellow;
+  color: #5BC66D;
+  background-color: #222;
+  border-radius: 4px;
 }
 
 #player-down-bet{
-  color: red;
+  color: #D54256;
+  background-color: #222;
+  border-radius: 4px;
 }
 
 .play-list{
@@ -1064,7 +1068,7 @@ svgx circle {
 
 #stake-price-arrow {
   position: relative;
-  top: -10.5px;
+  top: -11.5px;
   fill: #fff;
 }
 

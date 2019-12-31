@@ -43,9 +43,8 @@ class ResultLeftComponent extends Component{
 
     render(){
         const { seconds } = this.state
-        console.log(this.props.isWinner);
-        console.log(this.props.betPlaced);
-
+        console.log(`Is Winner ${this.props.isWinner}`);
+        console.log(`Bet Placed ${JSON.stringify(this.props.betPlaced)}`);
         return(
             <section className="result-page-left">
 
@@ -68,7 +67,10 @@ class ResultLeftComponent extends Component{
                         getPrice={this.props.getPrice} isLive={false} currentPriceText="result price"/>
 
                     <div className="bet-result-string focus-style">
-                        {this.props.resultBetValue === 1 && <span>Price went UP</span>}
+                        {this.props.resultBetValue === 1 && this.props.resultPrice.toString() !== this.props.stakePrice
+                             && <span>Price went UP</span>}
+                        {this.props.resultBetValue === 1 && this.props.resultPrice.toString() === this.props.stakePrice
+                             && <span>Price remained SAME</span>}
                         {this.props.resultBetValue === 2 && <span>Price went DOWN</span>}
                     </div>
 

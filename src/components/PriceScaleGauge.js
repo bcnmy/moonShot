@@ -73,6 +73,12 @@ export default function PriceScaleGauge(props) {
     }
 
     useEffect(() => {
+        console.log(`type of props.currentPrice ${typeof props.currentPrice}`)
+        console.log(`type of props.stakePrice ${typeof props.stakePrice}`)
+
+        console.log(`props.currentPrice ${props.currentPrice}`)
+        console.log(`props.stakePrice ${props.stakePrice}`)
+
         if(props.isLive === undefined || props.isLive) {
             const interval = setInterval(async ()=> {
 
@@ -109,8 +115,7 @@ export default function PriceScaleGauge(props) {
             };
         } else {
 
-            console.log(`type of props.currentPrice ${typeof props.currentPrice}`)
-            console.log(`type of props.stakePrice ${typeof props.stakePrice}`)
+
             let priceDiff = 0;
             priceDiff = parseInt((props.currentPrice - props.stakePrice)*(10e5));
             console.log(`Difference in price is ${priceDiff}`)

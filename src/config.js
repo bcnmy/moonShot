@@ -11,6 +11,8 @@ config.betDisplayUnit = "USDT";
 config.requestPriceIntervalInSec = 3;
 config.socketConnectionURL = `http://localhost:3005`;
 
+config.endGameTopicId="0xe2ec79fd400547f2a030678749b4960b85d55b2fba896e5c3267357e3dea3981";
+config.betPlacedTopicId="0x129d4e83dabdc677d13f18c9aa3ec10b867b7ca29240cd9c6f8f30611e8f10c5";
 
 config.state = {
     LAUNCH: "LAUNCH",
