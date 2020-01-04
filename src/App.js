@@ -28,9 +28,10 @@ const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
 let wallet = require("./components/wallet/portis").default;
 const biconomy = new Biconomy(wallet.getProvider(), {
-    dappId: "5e0e2cfe89d37f47e43373d8",
-    apiKey: "oc8NX5_Ms.c44f6d74-3e90-4db4-b86e-fe846e6eecee",
+    dappId: config.biconomyDappId,
+    apiKey: config.biconomyAPIKey,
     loginMessageToSign: config.loginMessageToSign,
+    messageToSign: config.betSignMessage,
     strictMode: true
   });
 
@@ -93,7 +94,8 @@ function App(props) {
   // Similar to componentDidMount and componentDidUpdate. Pass empty array as second argument,
   // to stop this effect from running each time any state or props changes
   useEffect(() => {
-
+    setOverlayActive(true);
+    setOverlayMessage("Initializing the game ...");
     biconomy.on(biconomy.READY, () => {
       // Initialize your dapp here
       let isLoggedIn = localStorage.getItem(LS_KEY.LOGGED_IN);
@@ -105,17 +107,20 @@ function App(props) {
         initUserInfo();
         initSubscription();
       } else {
+        setOverlayActive(false);
         clearUserLoginData();
       }
     }).on(biconomy.ERROR, (error, message) => {
+      setOverlayActive(false);
       // Handle error while initializing mexa
       showSnack(`Error while initializing Biconomy`, {variant: 'error'});
     });
 
-    biconomy.on(biconomy.LOGIN_CONFIRMATION, (log) => {
+    biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
       // User's Contract Wallet creation successful
       showSnack("On-chain identity created");
-      setUserContract(localStorage.getItem("BUC"));
+      setUserContract(userContract);
+      updateUserContract(userAddress, userContract);
     });
   }, []);
 
@@ -379,10 +384,9 @@ function App(props) {
 
   const login = async (userAddress)=>{
     let userLoginPath = `${config.baseURL}${config.loginPath}`;
-    const nonce = await getUserNonce(userAddress);
-    console.log(`nonce from api ${nonce}`);
-    if(nonce !== undefined) {
+    try {
       const messageToSign = await biconomy.getLoginMessageToSign(userAddress);
+      setOverlayMessage(`Getting your signature ..`);
       const signedMessage = await web3.eth.personal.sign(
         messageToSign,
         userAddress
@@ -435,6 +439,9 @@ function App(props) {
                 } else if(response.userContract) {
                   // Existing user login successful
                   setUserContract(response.userContract);
+                  if(!data.userContract) {
+                    updateUserContract(userAddress, response.userContract);
+                  }
                 }
               });
             }
@@ -445,40 +452,52 @@ function App(props) {
           console.log(error);
           showSnack(`Error during login ${error.message}`, {variant: 'error'});
         });
+      } else {
+        setOverlayActive(false);
+        showSnack(`Could not get user signature`, {variant: 'error'});
       }
-    } else {
-      showSnack(`Unable to get user tracking id from server`, {variant: 'error'});
+    } catch(error) {
+      console.log(error);
+      setOverlayActive(false);
+      showSnack(`Could not get user signature`, {variant: 'error'});
     }
   }
 
   const initUserInfo = async ()=>{
 
-    console.log("Getting user info now");
-    // Get user balance
-    let userContract = localStorage.getItem("BUC");
-
-    if(!userContract) {
-      showSnack(`Unable to get user identity. Please login again.`, {variant: 'error'});
-    }
-    console.log(userContract);
-    let balanceInWei = await web3.eth.getBalance(userContract);
-    let balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
-    let maticUSDTPrice = await getPrice(config.symbol);
-    let userInfo = {};
     try {
-      let balanceInUSDT = parseFloat(maticUSDTPrice) * parseInt(balanceInEther);
-      userInfo.balanceInUSDT = balanceInUSDT;
-    } catch(error) {
-      console.log(error);
-      console.log("Error while converting matic balance to USDT");
-      showSnack("Error while converting matic balance to USDT", {variant: "error"});
-    }
-    userInfo.balanceInWei = balanceInWei;
-    userInfo.balanceInEther = balanceInEther;
-    userInfo.userAddress = userContract;
+      console.log("Getting user info now");
+      // Get user balance
+      let userContract = localStorage.getItem("BUC");
 
-    setUserInfo(userInfo);
-    console.log(userInfo);
+      if(!userContract) {
+        showSnack(`Unable to get user identity. Please login again.`, {variant: 'error'});
+      }
+      setOverlayMessage("Getting your balance ...");
+      let balanceInWei = await web3.eth.getBalance(userContract);
+      let balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
+      let maticUSDTPrice = await getPrice(config.symbol);
+      let userInfo = {};
+      try {
+        let balanceInUSDT = parseFloat(maticUSDTPrice) * parseInt(balanceInEther);
+        userInfo.balanceInUSDT = balanceInUSDT;
+      } catch(error) {
+        console.log(error);
+        console.log("Error while converting matic balance to USDT");
+        showSnack("Error while converting matic balance to USDT", {variant: "error"});
+      }
+      userInfo.balanceInWei = balanceInWei;
+      userInfo.balanceInEther = balanceInEther;
+      userInfo.userAddress = userContract;
+
+      setUserInfo(userInfo);
+      setOverlayActive(false);
+      console.log(userInfo);
+    } catch(error) {
+      setOverlayActive(false);
+      showSnack(`Error while getting user balance`, {variant: "error"});
+    }
+
   }
 
   const updateUser = (publicAddress, username) => {
@@ -494,7 +513,7 @@ function App(props) {
     .put(userUpdatePath, payload)
     .then(function(response) {
       if(response && response.status !== 200) {
-        setUpdateUserMessage(`Login failed. Please tell us about it on support@biconomy.io.`);
+        setUpdateUserMessage(`Failed to update username. Please tell us about it on support@biconomy.io.`);
       } else {
         const data = response.data;
         if(data.code === 200) {
@@ -518,24 +537,61 @@ function App(props) {
     });
   };
 
-  const onLogin = async () => {
-    await wallet.init();
-    web3.eth.getAccounts((error, accounts) => {
-      if(error) {
-        setOverlayActive(false);
-        showSnack(`Error while fetching account from Portis`, {variant: 'error'});
+  const updateUserContract = (publicAddress, userContract) => {
+    if(!userContract || userContract.trim() === "") {
+      showSnack(`Unable to update user identity. Please tell us about it on support@biconomy.io`,{variant: "error"});
+      return;
+    }
+    let updatePath = `${config.baseURL}${config.updatePath}`;
+    let payload = {};
+    payload.publicAddress = publicAddress;
+    payload.userContract = userContract;
+    axios
+    .put(updatePath, payload)
+    .then(function(response) {
+      if(response && response.status !== 200) {
+        showSnack(`Failed to update user identity. Please tell us about it on support@biconomy.io.`,{variant: "error"});
       } else {
-        if(accounts && accounts.length > 0) {
-          let userAddress = accounts[0];
-          setOverlayMessage(`Getting your account ...`);
-          setOverlayActive(true);
-          login(userAddress);
+        const data = response.data;
+        if(data.code === 200) {
+          showSnack(`User identity updated.`, {variant: "success"});
         } else {
-          setOverlayActive(false);
-          showSnack(`Error while fetching your account`, {variant: 'error'});
+          showSnack(data.message, {variant: "error"});
         }
       }
+    })
+    .catch(function(error) {
+      setOverlayActive(false);
+      console.log(error.response);
+      showSnack(`Error during user identity update ${error.message}`, {variant: 'error'});
     });
+  };
+
+  const onLogin = async () => {
+    setOverlayActive(true);
+    setOverlayMessage("Connecting with your wallet ...");
+    try {
+      await wallet.init();
+      web3.eth.getAccounts((error, accounts) => {
+        if(error) {
+          console.log(error);
+          setOverlayActive(false);
+          showSnack(`Error while fetching account from Portis`, {variant: 'error'});
+        } else {
+          if(accounts && accounts.length > 0) {
+            let userAddress = accounts[0];
+            setOverlayMessage(`Getting your account ..`);
+            login(userAddress);
+          } else {
+            setOverlayActive(false);
+            showSnack(`Error while fetching your account`, {variant: 'error'});
+          }
+        }
+      });
+    } catch(error) {
+      setOverlayActive(false);
+      showSnack(`Error while getting your public address. Make sure your wallet is unlocked.`, {variant: 'error'});
+    }
   }
 
   const onLogout = ()=>{
