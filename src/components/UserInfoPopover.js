@@ -87,10 +87,14 @@ export default function UserInfoPopover(props) {
                   <Chip label="$ 56" color="primary"/>
                 </div> */}
           </div>
-          <div className="user-info-row deposit-withdraw-row">
+          <div className="user-info-row">
+            <div className="user-info-deposit-label">Deposit funds to below address</div>
+            <div className="user-info-deposit-address">{props.userInfo.userAddress}</div>
+          </div>
+          {/* <div className="user-info-row deposit-withdraw-row">
             <Button variant="contained">Deposit</Button>
             <Button variant="contained">Withdraw</Button>
-          </div>
+          </div> */}
           <div className="user-info-row logout-row">
             <Button startIcon={<PowerSettingsNewIcon />} onClick={onLogout}>Logout</Button>
           </div>

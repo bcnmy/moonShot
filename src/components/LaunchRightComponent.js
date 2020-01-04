@@ -21,20 +21,40 @@ class LaunchRightComponent extends Component{
 
                     <div id="rule-content-container">
                         <div className="rule-item">
-                            <span className="rule-number">1</span>
-                            <span className="rule-text">15 sec Matic price is selected</span>
+                            <span className="rule-row-heading">
+                                <span className="rule-number">1</span>
+                                <span className="rule-text-heading">PREPARATION</span>
+                            </span>
+                            <span className="rule-text">
+                                <span>Matic's average price is selected called Stake Price</span>
+                            </span>
                         </div>
                         <div className="rule-item">
-                            <span className="rule-number">2</span>
-                            <span className="rule-text">Predict whether price will go UP or DOWN</span>
+                            <span className="rule-row-heading">
+                                <span className="rule-number">2</span>
+                                <span className="rule-text-heading">START</span>
+                            </span>
+                            <span className="rule-text">
+                                <span>Predict and bet whether price will go UP or DOWN</span>
+                            </span>
                         </div>
                         <div className="rule-item">
-                            <span className="rule-number">3</span>
-                            <span className="rule-text">Matic average price is again calculated</span>
+                            <span className="rule-row-heading">
+                                <span className="rule-number">3</span>
+                                <span className="rule-text-heading">WAITING</span>
+                            </span>
+                            <span className="rule-text">
+                                <span>Matic average price is again calculated called Result Price</span>
+                            </span>
                         </div>
                         <div className="rule-item">
-                            <span className="rule-number">4</span>
-                            <span className="rule-text">Wohoa!!, If your prediction comes true, you become a trading champ</span>
+                            <span className="rule-row-heading">
+                                <span className="rule-number">4</span>
+                                <span className="rule-text-heading">RESULT</span>
+                            </span>
+                            <span className="rule-text">
+                                <span>Whoa!! If your prediction comes true, you win and become a trading champ</span>
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ class ResultRightComponent extends Component{
         if(this.props.winners) {
             winners = this.props.winners.map((item, key) => {return <div className="result-list-item">
                 <span className="user-name">{item.username}</span>
-                <span className="user-name">{item.betAmountUSDT} {config.betDisplayUnit}</span>
+                <span className="user-name">{(parseFloat(item.betAmountUSDT) + parseFloat(item.winAmountUSDT))} {config.betDisplayUnit}</span>
             </div>});
         }
 
@@ -18,6 +18,10 @@ class ResultRightComponent extends Component{
                 <div className="winners">
                     <div className="winner-list">
                         <div id="winner-header" className="winner-header">Winners</div>
+                        <div className="win-list-header">
+                            <span>USERNAME</span>
+                            <span>AMOUNT WON</span>
+                        </div>
                         <div className="win-list" id="win-list">
                             {winners}
                         </div>

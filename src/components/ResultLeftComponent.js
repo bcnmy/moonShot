@@ -12,12 +12,6 @@ class ResultLeftComponent extends Component{
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.counter) {
-            this.setState({seconds: nextProps.counter});
-        }
-    }
-
     componentDidMount() {
         if(this.props.requestStakePrice) {
             this.props.requestStakePrice();
@@ -43,8 +37,6 @@ class ResultLeftComponent extends Component{
 
     render(){
         const { seconds } = this.state
-        console.log(`Is Winner ${this.props.isWinner}`);
-        console.log(`Bet Placed ${JSON.stringify(this.props.betPlaced)}`);
         return(
             <section className="result-page-left">
 

@@ -55,7 +55,7 @@ class WaitLeftComponent extends Component{
                     </div>
 
                     <div className="state-heading-desc">
-                        Results are being calculated
+                        Matic average price is being calculated
                     </div>
                 </div>
                 <div className="wait-page-content">

@@ -20,7 +20,7 @@ class PrepareGameLeftComponent extends Component{
 
     componentWillReceiveProps(nextProps) {
         let self = this;
-        if(nextProps.counter !== this.state.seconds) {
+        if(!this.state.counterSet && nextProps.counter !== this.state.seconds) {
             this.setState({
                 seconds: nextProps.counter,
                 initialValue: nextProps.counter,
