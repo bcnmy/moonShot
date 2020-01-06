@@ -115,7 +115,6 @@ export default function PriceScaleGauge(props) {
             };
         } else {
 
-
             let priceDiff = 0;
             priceDiff = parseInt((props.currentPrice - props.stakePrice)*(10e5));
             console.log(`Difference in price is ${priceDiff}`)

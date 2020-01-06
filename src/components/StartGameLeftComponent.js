@@ -16,13 +16,20 @@ class StartGameLeftComponent extends Component {
         this.state = {
             seconds: props.counter,
             betAmount: undefined,
-            closeCover: true
+            closeCover: props.userLogin
         }
         this.betUp = this.betUp.bind(this);
         this.betDown = this.betDown.bind(this);
         this.onBetAmountChanged = this.onBetAmountChanged.bind(this);
         this.closeBetCover = this.closeBetCover.bind(this);
         this.openLoadingCover = this.openLoadingCover.bind(this);
+        this.handleSelectPriceClick = this.handleSelectPriceClick.bind(this);
+    }
+
+    componentWillReceiveProps(newProps) {
+        if(this.props.userLogin !== newProps.userLogin) {
+            this.setState({closeCover: newProps.userLogin});
+        }
     }
 
     componentDidMount() {
@@ -63,6 +70,10 @@ class StartGameLeftComponent extends Component {
         });
     }
 
+    handleSelectPriceClick(event, value) {
+        this.setState({betAmount: value});
+    }
+
     betUp() {
         if(this.props.placeBet) {
             if(this.state.betAmount) {
@@ -96,9 +107,17 @@ class StartGameLeftComponent extends Component {
     render(){
         const { seconds } = this.state
         let placingBetText = "Placing your bet";
+        if(!this.props.userLogin) {
+            placingBetText = "Login to play";
+        } else {
+            placingBetText = "Placing your bet";
+        }
+        console.log(`close cover ${this.state.closeCover}`);
+
         if(this.props.betPlaced && this.props.betPlaced.betValueString) {
             placingBetText = "Bet placed"
         }
+
         return(
             <section className="start-page-left">
                 <div className="state-page-heading">
@@ -122,19 +141,47 @@ class StartGameLeftComponent extends Component {
                 </div>
 
                 <div className="place-bet-container">
+
                     <div className={`place-bet-cover ${this.state.closeCover?'hidden':''}`}>
-                        <div className={`place-bet-cover-close ${this.props.betPlaced && this.props.betPlaced.betValueString?'hidden':""}`}>
+                        <div className={`place-bet-cover-close ${(this.props.betPlaced && this.props.betPlaced.betValueString)|| !this.props.userLogin ?'hidden':""}`}>
                             <CloseIcon onClick={this.closeBetCover}/>
                         </div>
                         <div className="place-bet-cover-content">{placingBetText}</div>
-                        <LinearProgress color="secondary" className={this.props.betPlaced && this.props.betPlaced.betValueString?'hidden':""}/>
+
+                        {this.props.userLogin &&
+                        <LinearProgress color="secondary"
+                        className={this.props.betPlaced && this.props.betPlaced.betValueString?'hidden':""}/>}
                     </div>
+
                     <div className="place-bet">
                         <div className="field">
-                            <Chip label={`Balance: ${this.props.userInfo.balanceInUSDT} USDT`} className="start-page-user-balance" />
-                            <input id="" type="number" placeholder="Enter betting price (In USDT)"
-                            disabled={seconds===0 || !this.props.userLogin ? true : false}
-                            value={this.state.betAmount} onChange={this.onBetAmountChanged}/>
+                            {this.props.userLogin &&
+                                <Chip label={`Balance: ${this.props.userInfo.balanceInUSDT} USDT`} className="start-page-user-balance" />
+                            }
+                            <div className="place-bet-min-balance-label">
+                                Min Amount: 1 MATIC ~ {this.props.lastPrice} <span className="input-price-unit">USDT</span>
+                            </div>
+                            <div className="input-field-container">
+                                <input id="" type="number" placeholder="Enter betting price (In USDT)"
+                                disabled={seconds===0 || !this.props.userLogin ? true : false}
+                                value={this.state.betAmount} onChange={this.onBetAmountChanged}/>
+
+                                <div className="input-price-buttons">
+                                    <Chip
+                                        className="input-price-chip"
+                                        label={<span>0.02 <span className="input-price-unit">USDT</span></span>}
+                                        onClick={ (e) => this.handleSelectPriceClick(e, 0.02) }/>
+                                    <Chip
+                                        className="input-price-chip"
+                                        label={<span>0.5 <span className="input-price-unit">USDT</span></span>}
+                                        onClick={ (e) => this.handleSelectPriceClick(e, 0.5) }/>
+                                    <Chip
+                                        className="input-price-chip"
+                                        label={<span>1 <span className="input-price-unit">USDT</span></span>}
+                                        onClick={ (e) => this.handleSelectPriceClick(e, 1) }/>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="bet-buttons">

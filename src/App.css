@@ -1,10 +1,3 @@
-body {
-  /* background: #0E0731; */
-  background-image: url("/images/space2.jpg");
-  /* background-size: 100%; */
-  font-family: Rubik, sans-serif;
-}
-
 @font-face {
   font-family: GTPFont;
   src: url("/font/Roboto-Medium.ttf");
@@ -13,6 +6,19 @@ body {
 @font-face {
   font-family: GTPFontThin;
   src: url("/font/Roboto-Regular.ttf");
+}
+
+body {
+  /* background: #0E0731; */
+  background-image: url("/images/space2.jpg");
+  /* background-size: 100%; */
+  font-family: GTPFont, Rubik, sans-serif;
+}
+
+.input-price-unit {
+  font-size: 10px;
+  padding-bottom: 4px;
+  flex-direction: column-reverse;
 }
 
 .price-unit{
@@ -130,12 +136,25 @@ body {
   justify-content: center;
   background: #b71c1c!important;
   border-radius: 5px;
-  color: #444;
+  color: #fff;
 }
 
 .username-missing button {
   width: fit-content;
   margin-left: 10px;
+}
+
+.user-info-deposit-address {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.user-info-deposit-label {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
 }
 
 .user-info-row .MuiTableCell-head {
@@ -167,7 +186,8 @@ body {
 
 .logout-row {
   margin-top: 0px!important;
-  padding-top: 40px;
+  padding-top: 30px;
+  padding-bottom: 10px;
   background-color: #eee;
   text-align: right;
 }
@@ -386,25 +406,64 @@ body {
   color: #fff;
   font-weight: 700;
   font-size: 25px;
-  margin-top:80px;
+  margin-top: 100px;
   text-align: center;
 }
 
-.launch-page-content{
-  margin-top:20px;
-  padding: 20px 10px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #000;
-  width:90%;
-  background: #fff;
-  border : 2px solid #000;
-  border-radius: 10px;
-
+#rule-content-container {
+  font-family: GTPFont;
+  padding: 10px;
+  background: rgb(34, 34, 34,.8);
+  border-radius: 5px;
 }
 
-.launch-right-section{
+.rule-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
 
+.rule-number {
+  background: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 25px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  flex: none;
+  justify-content: center;
+}
+
+.rule-text {
+  color: #fff;
+  margin-top: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rule-row-heading {
+  display: flex;
+  width: fit-content;
+  padding: 3px 10px;
+  background: #444;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.rule-text-heading {
+  color: #fff;
+  margin-left: 10px;
+}
+
+.launch-page-content {
+  padding: 20px 5px;
+}
+
+.launch-page-content h5 {
+  color: #fff;
 }
 
 /************** STEPPER *****************/
@@ -600,6 +659,15 @@ svgx circle {
 
 /*--- Start Page-> Left component --- */
 
+.place-bet-min-balance-label {
+  position: absolute;
+  height: 32px;
+  left: 0px;
+  top: -20px;
+  font-size: 13px;
+  color: #aaa;
+}
+
 .start-page-user-balance {
   position: absolute;
   height: 32px;
@@ -650,7 +718,7 @@ svgx circle {
 .price-value{
   font-size: 26px;
   /* letter-spacing: 1px; */
-  color: #222;
+  background: rgb(34, 34, 34,.5);
   /* background:#3bc56c; */
   font-family: GTPFont;
   display: flex;
@@ -688,13 +756,14 @@ svgx circle {
   left: 4%;
   width: 92%;
   height: 110%;
-  background-color: rgb(28, 27, 23, .99);
+  background-color: rgb(28, 27, 23, .9);
   z-index: 1;
   display: flex;
   color: white;
   padding: 7px 6px;
   flex-direction: column;
   font-family: GTPFont;
+  border-radius: 5px;
 }
 
 .place-bet-cover-close {
@@ -724,14 +793,14 @@ svgx circle {
 #up-button{
   /* border:2px solid grey; */
   background-color: rgb(219, 219, 219);
-  color:#3A8347;
+  color:#1b5e20;
   font-size: 20px;
   font-weight: 800;
 }
 #down-button{
   /* border:2px solid black; */
   background-color: rgb(219, 219, 219);
-  color:rgb(214, 17, 17);
+  color:#b71c1c;
   font-size: 20px;
   font-weight: 800;
 }
@@ -755,8 +824,21 @@ svgx circle {
   padding: 24px 16px 8px 16px;
 }
 
+.input-field-container {
+  display: flex;
+}
+
+.input-price-chip {
+  margin-right: 9px!important;
+}
+
+.input-price-buttons {
+  display: flex;
+  align-items: center;
+}
+
 .field input {
-  width: 100%;
+  width: 50%;
   height: 56px;
   position: relative;
   padding: 0px 16px;
@@ -810,7 +892,6 @@ svgx circle {
   font-size:18px;
   font-weight: 700;
   padding: 3px 0px;
-  opacity: 0.8;
   text-align: center;
   display: flex;
   /* align-items: center; */
@@ -819,13 +900,13 @@ svgx circle {
 
 #player-up-bet{
   color: #5BC66D;
-  background-color: #222;
+  background-color: rgb(34, 34, 34,.5);
   border-radius: 4px;
 }
 
 #player-down-bet{
-  color: #D54256;
-  background-color: #222;
+  color: #cc0000;
+  background-color: rgb(34, 34, 34,.5);
   border-radius: 4px;
 }
 
@@ -980,6 +1061,18 @@ svgx circle {
 }
 /*--- result Page-> Right component --- */
 
+.win-list-header {
+  width: 80%;
+  padding-top: 15px;
+
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #ccc;
+}
+
 .result-list-item {
   padding: 5px 10px;
   display: flex;
@@ -1023,7 +1116,7 @@ svgx circle {
   font-size:16px;
   font-weight: 400;
   opacity: 0.9;
-  padding-top: 20px;
+  padding-top: 5px;
   padding-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
@@ -1172,7 +1265,7 @@ svgx circle {
 }
 
 #current-price-container .price-value {
-  background: #222;
+  background: rgb(34, 34, 34,.5);
   font-size: 1.5rem;
   padding: 0px 10px;
   border-radius: 10px;
@@ -1202,7 +1295,7 @@ svgx circle {
 }
 
 .low-price {
-  color: #B13A4C!important;
+  color: #cc0000!important;
   /* border: 1px solid #63120F; */
 }
 

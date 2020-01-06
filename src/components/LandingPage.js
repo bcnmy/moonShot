@@ -20,7 +20,7 @@ class LandingPage extends Component{
                 userLogin={this.props.userLogin} username={this.props.username} promptForUsername={this.props.promptForUsername}
                 onLogout={this.props.onLogout} wallet={this.props.wallet} userInfo={this.props.userInfo} getPrice={this.props.getPrice}
                 setOverlayActive={this.props.setOverlayActive} setOverlayMessage={this.props.setOverlayMessage}
-                showSnack={this.props.showSnack}/>
+                showSnack={this.props.showSnack} userContract={this.props.userContract}/>
                 <div className="center">
                     <LeftSection currentState={this.props.currentState} changeState={this.props.changeState}
                     getPrice={this.props.getPrice} counter={this.props.counter} lastPrice={this.props.lastPrice}

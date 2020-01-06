@@ -19,7 +19,8 @@ class PrepareGameRightComponent extends Component{
                 <div className="price-container">
                     <div className="price-container-heading">Matic current price</div>
                     <div className="price-value high-price">
-                        {this.props.lastPrice} {this.props.lastPriceUnit}
+                        {this.props.lastPrice}
+                        <div className="price-unit">{this.props.lastPriceUnit}</div>
                     </div>
                 </div>
                 {/* <div className="Gaming-rules">

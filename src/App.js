@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Web3 from 'web3';
 import axios from 'axios';
+import Biconomy from "@biconomy/mexa";
+
 import LoadingOverlay from 'react-loading-overlay';
 import openSocket from 'socket.io-client';
 const notistackRef = React.createRef();
@@ -24,9 +26,17 @@ let appRoot = require('app-root-path');
 const {config, LS_KEY} = require(`${appRoot}/config`);
 const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
-let wallet = require("./components/wallet/metamask").default;
-console.log(wallet);
-const web3 = new Web3(wallet.getProvider());
+let wallet = require("./components/wallet/portis").default;
+const biconomy = new Biconomy(wallet.getProvider(), {
+    dappId: config.biconomyDappId,
+    apiKey: config.biconomyAPIKey,
+    loginMessageToSign: config.loginMessageToSign,
+    messageToSign: config.betSignMessage,
+    strictMode: true
+  });
+
+const web3 = new Web3(biconomy);
+
 let socket;
 let smartContract;
 
@@ -39,11 +49,18 @@ function App(props) {
   const [username, setUsername] = useState("");
   const [userInfo, setUserInfo] = useState({balanceInWei: 0, balanceInEther: 0, balanceInUSDT: 0});
   const [userAddress, setUserAddress] = useState("");
+  const [userContract, setUserContract] = useState("");
   const [updateUserMessage, setUpdateUserMessage] = useState("");
   const [counter, setCounter] = useState(0);
   const [lastPrice, setLastPrice] = useState(0);
   const [stakePrice, setStakePrice] = useState(0);
-  const [winners, setWinners] = useState([]);
+  const [winners, setWinners] = useState([
+    // {
+    //   username: "sachin",
+    //   betAmountUSDT: "0.02",
+    //   winAmountUSDT: "0.019"
+    // }
+  ]);
   const [loosers, setLoosers] = useState([]);
   const [isWinner, setIsWinner] = useState(false);
   const [resultBetValue, setResultBetValue] = useState(0);
@@ -77,17 +94,34 @@ function App(props) {
   // Similar to componentDidMount and componentDidUpdate. Pass empty array as second argument,
   // to stop this effect from running each time any state or props changes
   useEffect(() => {
-    // setCounter(100);
-    let isLoggedIn = localStorage.getItem(LS_KEY.LOGGED_IN);
-    if(isLoggedIn) {
-      setUserLogin(true);
-      setUserAddress(localStorage.getItem(LS_KEY.USER_ADDRESS));
-      setUsername(localStorage.getItem(LS_KEY.USERNAME));
-      initUserInfo();
-      initSubscription();
-    } else {
-      clearUserLoginData();
-    }
+    setOverlayActive(true);
+    setOverlayMessage("Initializing the game ...");
+    biconomy.on(biconomy.READY, () => {
+      // Initialize your dapp here
+      let isLoggedIn = localStorage.getItem(LS_KEY.LOGGED_IN);
+      if(isLoggedIn) {
+        setUserLogin(true);
+        setUserAddress(localStorage.getItem(LS_KEY.USER_ADDRESS));
+        setUserContract(localStorage.getItem("BUC"));
+        setUsername(localStorage.getItem(LS_KEY.USERNAME));
+        initUserInfo();
+        initSubscription();
+      } else {
+        setOverlayActive(false);
+        clearUserLoginData();
+      }
+    }).on(biconomy.ERROR, (error, message) => {
+      setOverlayActive(false);
+      // Handle error while initializing mexa
+      showSnack(`Error while initializing Biconomy`, {variant: 'error'});
+    });
+
+    biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
+      // User's Contract Wallet creation successful
+      showSnack("On-chain identity created");
+      setUserContract(userContract);
+      updateUserContract(userAddress, userContract);
+    });
   }, []);
 
   const initSubscription=()=>{
@@ -161,7 +195,10 @@ function App(props) {
             console.log(`Counter is now starting from ${data.counter} sec`)
             setCounter(data.counter);
           }
-          changeState(data.state);
+          console.log(currentState);
+          if(currentState !== LAUNCH) {
+            changeState(data.state);
+          }
         }
       })
 
@@ -189,7 +226,7 @@ function App(props) {
         let {gameId, betAmount, betValue, userName, betAmountUSDT} = data;
 
         let betUserAddress = data.userAddress;
-        if(betUserAddress.toLowerCase() === userAddress.toLowerCase()) {
+        if(betUserAddress.toLowerCase() === userContract.toLowerCase()) {
           console.log(`User placing bet with betValue ${betValue}`);
           console.log(`typeof betValue ${typeof betValue}`)
           let betPlaced = {};
@@ -224,49 +261,55 @@ function App(props) {
   const placeBet = async(betValue, betAmount) => {
     try {
       if(smartContract && betValue && betAmount) {
-        let betIndicator = betValue===1?"up":betValue===2?"down":"Invalid Bet Value";
 
-        let maticUSDTPrice = await getPrice("MATICUSDT");
-        console.log(`Bet Matic USDT price ${maticUSDTPrice}`);
-        if(maticUSDTPrice > 0) {
-          let maticAmount = betAmount/maticUSDTPrice;
-          console.log(`Bet Matic bet Amount ${maticAmount}`);
-          let amountInWei = web3.utils.toWei(`${maticAmount}`);
-          console.log(`Bet Amount in wei ${amountInWei}`);
-          let txOptions = {
-            from: userAddress,
-            value: amountInWei
-          };
-
-          smartContract.methods.placeTheBet(betValue, getTimeInSeconds()).estimateGas(txOptions)
-          .then(function(gasAmount){
-            txOptions.gas = gasAmount;
-
-            smartContract.methods.placeTheBet(betValue, getTimeInSeconds()).send(txOptions)
-            .on('transactionHash', function(hash){
-              console.log(`Bet placed with value ${betIndicator} and betAmount ${betAmount} with txHash ${hash}`);
-              showSnack("Place bet transaction sent. Waiting for confirmation ...", {variant: 'info'});
-            })
-            .once('confirmation', function(confirmationNumber, receipt){
-              console.log(`Bet placed Confirmation`);
-              console.log(receipt);
-              showSnack("Successfully placed the bet. Lets wait for the results ...", {variant: 'success'});
-            })
-            .on('error', function(error, receipt) {
-              console.error(error);
-              showSnack('Error while placing the bet', {variant: 'error'});
-            });
-          })
-          .catch(function(error){
-              console.error(error);
-              showSnack(
-                'Error while placing the bet. Make sure you have sufficient amount of matic tokens in your account',
-                {variant: 'error'}
-              );
-          });
+        if(userInfo.balanceInUSDT < betAmount) {
+          showSnack("Not enough funds to place this bet. Please deposit funds in your wallet", {variant: "error"});
         } else {
-          console.error(`Matic-USDT price should be greater than 0. Current value ${maticUSDTPrice}`);
+          let betIndicator = betValue===1?"up":betValue===2?"down":"Invalid Bet Value";
+
+          let maticUSDTPrice = await getPrice("MATICUSDT");
+          console.log(`Bet Matic USDT price ${maticUSDTPrice}`);
+          if(maticUSDTPrice > 0) {
+            let maticAmount = betAmount/maticUSDTPrice;
+            console.log(`Bet Matic bet Amount ${maticAmount}`);
+            let amountInWei = web3.utils.toWei(`${maticAmount}`);
+            console.log(`Bet Amount in wei ${amountInWei}`);
+            let txOptions = {
+              from: userAddress,
+              value: amountInWei
+            };
+
+            smartContract.methods.placeTheBet(betValue, getTimeInSeconds()).estimateGas(txOptions)
+            .then(function(gasAmount){
+              txOptions.gas = gasAmount;
+              console.log(`GAS AMOUNT FOR PLACING BET IS ${gasAmount}`)
+              smartContract.methods.placeTheBet(betValue, getTimeInSeconds()).send(txOptions)
+              .on('transactionHash', function(hash){
+                console.log(`Bet placed with value ${betIndicator} and betAmount ${betAmount} with txHash ${hash}`);
+                showSnack("Place bet transaction sent. Waiting for confirmation ...", {variant: 'info'});
+              })
+              .once('confirmation', function(confirmationNumber, receipt){
+                console.log(`Bet placed Confirmation`);
+                console.log(receipt);
+                showSnack("Successfully placed the bet. Lets wait for the results ...", {variant: 'success'});
+              })
+              .on('error', function(error, receipt) {
+                console.error(error);
+                showSnack('Error while placing the bet', {variant: 'error'});
+              });
+            })
+            .catch(function(error){
+                console.error(error);
+                showSnack(
+                  'Make sure you have sufficient amount of matic tokens in your account',
+                  {variant: 'error'}
+                );
+            });
+          } else {
+            console.error(`Matic-USDT price should be greater than 0. Current value ${maticUSDTPrice}`);
+          }
         }
+
 
       }
     } catch(error) {
@@ -341,11 +384,9 @@ function App(props) {
 
   const login = async (userAddress)=>{
     let userLoginPath = `${config.baseURL}${config.loginPath}`;
-    const nonce = await getUserNonce(userAddress);
-    console.log(`nonce from api ${nonce}`);
-    if(nonce !== undefined) {
-      const rawMessage = "Sign message to prove your identity with tracking id ";
-      const messageToSign = `${rawMessage}${nonce}`;
+    try {
+      const messageToSign = await biconomy.getLoginMessageToSign(userAddress);
+      setOverlayMessage(`Getting your signature ..`);
       const signedMessage = await web3.eth.personal.sign(
         messageToSign,
         userAddress
@@ -354,10 +395,10 @@ function App(props) {
       if(signedMessage) {
         console.log(signedMessage);
         let payload = {};
-        payload.walletId = 1;
+        payload.walletId = wallet.getWalletId();
         payload.publicAddress = userAddress;
         payload.signature =  signedMessage;
-        payload.message = rawMessage;
+        payload.message = config.loginMessageToSign;
         payload.signer = userAddress;
         axios
         .post(userLoginPath, payload)
@@ -385,6 +426,24 @@ function App(props) {
                 showSnack(`Registration successfull`, {variant: 'success'});
                 promptForUserName();
               }
+
+              biconomy.accountLogin(userAddress, signedMessage, (error, response)=>{
+                if(error) {
+                  showSnack("Error while login to Biconomy", {variant: "error"});
+                  return;
+                }
+
+                if(response.transactionHash) {
+                  // First time user. Contract wallet transaction pending.
+                  showSnack("Creating your identity on chain. Please wait", {variant: "info"});
+                } else if(response.userContract) {
+                  // Existing user login successful
+                  setUserContract(response.userContract);
+                  if(!data.userContract) {
+                    updateUserContract(userAddress, response.userContract);
+                  }
+                }
+              });
             }
           }
         })
@@ -393,41 +452,52 @@ function App(props) {
           console.log(error);
           showSnack(`Error during login ${error.message}`, {variant: 'error'});
         });
+      } else {
+        setOverlayActive(false);
+        showSnack(`Could not get user signature`, {variant: 'error'});
       }
-    } else {
-      showSnack(`Unable to get user tracking id from server`, {variant: 'error'});
+    } catch(error) {
+      console.log(error);
+      setOverlayActive(false);
+      showSnack(`Could not get user signature`, {variant: 'error'});
     }
   }
 
   const initUserInfo = async ()=>{
 
-    console.log("Getting user info now");
-    // Get user balance
-    let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
-    if(!userAddress) {
-      userAddress = await wallet.getUserAccount(web3);
-    }
-    if(!userAddress) {
-      showSnack(`Unable to get user account`, {variant: 'error'});
-    }
-    console.log(userAddress);
-    let balanceInWei = await web3.eth.getBalance(userAddress);
-    let balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
-    let maticUSDTPrice = await getPrice(config.symbol);
-    let userInfo = {};
     try {
-      let balanceInUSDT = parseFloat(maticUSDTPrice) * parseInt(balanceInEther);
-      userInfo.balanceInUSDT = balanceInUSDT;
-    } catch(error) {
-      console.log(error);
-      console.log("Error while converting matic balance to USDT");
-      showSnack("Error while converting matic balance to USDT", {variant: "error"});
-    }
-    userInfo.balanceInWei = balanceInWei;
-    userInfo.balanceInEther = balanceInEther;
+      console.log("Getting user info now");
+      // Get user balance
+      let userContract = localStorage.getItem("BUC");
 
-    setUserInfo(userInfo);
-    console.log(userInfo);
+      if(!userContract) {
+        showSnack(`Unable to get user identity. Please login again.`, {variant: 'error'});
+      }
+      setOverlayMessage("Getting your balance ...");
+      let balanceInWei = await web3.eth.getBalance(userContract);
+      let balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
+      let maticUSDTPrice = await getPrice(config.symbol);
+      let userInfo = {};
+      try {
+        let balanceInUSDT = parseFloat(maticUSDTPrice) * parseInt(balanceInEther);
+        userInfo.balanceInUSDT = balanceInUSDT;
+      } catch(error) {
+        console.log(error);
+        console.log("Error while converting matic balance to USDT");
+        showSnack("Error while converting matic balance to USDT", {variant: "error"});
+      }
+      userInfo.balanceInWei = balanceInWei;
+      userInfo.balanceInEther = balanceInEther;
+      userInfo.userAddress = userContract;
+
+      setUserInfo(userInfo);
+      setOverlayActive(false);
+      console.log(userInfo);
+    } catch(error) {
+      setOverlayActive(false);
+      showSnack(`Error while getting user balance`, {variant: "error"});
+    }
+
   }
 
   const updateUser = (publicAddress, username) => {
@@ -443,7 +513,7 @@ function App(props) {
     .put(userUpdatePath, payload)
     .then(function(response) {
       if(response && response.status !== 200) {
-        setUpdateUserMessage(`Login failed. Please tell us about it on support@biconomy.io.`);
+        setUpdateUserMessage(`Failed to update username. Please tell us about it on support@biconomy.io.`);
       } else {
         const data = response.data;
         if(data.code === 200) {
@@ -467,24 +537,61 @@ function App(props) {
     });
   };
 
-  const onLogin = async () => {
-    await wallet.init();
-    web3.eth.getAccounts((error, accounts) => {
-      if(error) {
-        setOverlayActive(false);
-        showSnack(`Error while fetching account from Portis`, {variant: 'error'});
+  const updateUserContract = (publicAddress, userContract) => {
+    if(!userContract || userContract.trim() === "") {
+      showSnack(`Unable to update user identity. Please tell us about it on support@biconomy.io`,{variant: "error"});
+      return;
+    }
+    let updatePath = `${config.baseURL}${config.updatePath}`;
+    let payload = {};
+    payload.publicAddress = publicAddress;
+    payload.userContract = userContract;
+    axios
+    .put(updatePath, payload)
+    .then(function(response) {
+      if(response && response.status !== 200) {
+        showSnack(`Failed to update user identity. Please tell us about it on support@biconomy.io.`,{variant: "error"});
       } else {
-        if(accounts && accounts.length > 0) {
-          let userAddress = accounts[0];
-          setOverlayMessage(`Getting your account ...`);
-          setOverlayActive(true);
-          login(userAddress);
+        const data = response.data;
+        if(data.code === 200) {
+          showSnack(`User identity updated.`, {variant: "success"});
         } else {
-          setOverlayActive(false);
-          showSnack(`Error while fetching your account`, {variant: 'error'});
+          showSnack(data.message, {variant: "error"});
         }
       }
+    })
+    .catch(function(error) {
+      setOverlayActive(false);
+      console.log(error.response);
+      showSnack(`Error during user identity update ${error.message}`, {variant: 'error'});
     });
+  };
+
+  const onLogin = async () => {
+    setOverlayActive(true);
+    setOverlayMessage("Connecting with your wallet ...");
+    try {
+      await wallet.init();
+      web3.eth.getAccounts((error, accounts) => {
+        if(error) {
+          console.log(error);
+          setOverlayActive(false);
+          showSnack(`Error while fetching account from Portis`, {variant: 'error'});
+        } else {
+          if(accounts && accounts.length > 0) {
+            let userAddress = accounts[0];
+            setOverlayMessage(`Getting your account ..`);
+            login(userAddress);
+          } else {
+            setOverlayActive(false);
+            showSnack(`Error while fetching your account`, {variant: 'error'});
+          }
+        }
+      });
+    } catch(error) {
+      setOverlayActive(false);
+      showSnack(`Error while getting your public address. Make sure your wallet is unlocked.`, {variant: 'error'});
+    }
   }
 
   const onLogout = ()=>{
@@ -554,7 +661,7 @@ function App(props) {
           stakePrice={stakePrice} requestStakePrice={requestStakePrice} userAddress={userAddress}
           placeBet={placeBet} betUpList={betUpList} betDownList={betDownList} winners={winners}
           loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced} isWinner={isWinner}
-          resultPrice={resultPrice}/>
+          resultPrice={resultPrice} userContract={userContract}/>
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}
