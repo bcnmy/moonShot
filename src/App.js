@@ -118,6 +118,7 @@ function App(props) {
 
     biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
       // User's Contract Wallet creation successful
+      let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
       showSnack("On-chain identity created");
       setUserContract(userContract);
       updateUserContract(userAddress, userContract);
