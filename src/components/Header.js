@@ -43,7 +43,7 @@ export default function Header(props) {
                     Login
                 </Button>
                 <div id="logged-in-user-info" className={props.userLogin ? "user-info-container":"hidden"}>
-                    <Chip label={`${props.userInfo.balanceInUSDT} USDT`} className="user-chips"/>
+                    <Chip label={`${props.userInfo.balanceInUSDT} USDT`} className="user-chips non-mobile"/>
                     <Chip icon={<EmojiEmotionsIcon />} id="username-chip"
                         className="user-chips"
                         label={props.username?props.username:"Anonymous"}

@@ -14,6 +14,9 @@ class WaitRightComponent extends Component{
 
         return(
             <section className="wait-page-right">
+                <div className="mobile current-bets">
+                    Bets Placed
+                </div>
                 <div className="players">
                     <div className="player-list">
                         <div id="player-up-bet" className="player-header">Bet Up <div className="price-unit">(USDT)</div></div>

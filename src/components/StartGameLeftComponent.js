@@ -158,9 +158,13 @@ class StartGameLeftComponent extends Component {
                             {this.props.userLogin &&
                                 <Chip label={`Balance: ${this.props.userInfo.balanceInUSDT} USDT`} className="start-page-user-balance" />
                             }
-                            <div className="place-bet-min-balance-label">
+                            <div className="place-bet-min-balance-label non-mobile">
                                 Min Amount: 1 MATIC ~ {this.props.lastPrice} <span className="input-price-unit">USDT</span>
                             </div>
+                            <div className="place-bet-min-balance-label mobile">
+                                Min Amount: {this.props.lastPrice} <span className="input-price-unit">USDT</span>
+                            </div>
+
                             <div className="input-field-container">
                                 <input id="" type="number" placeholder="Enter betting price (In USDT)"
                                 disabled={seconds===0 || !this.props.userLogin ? true : false}

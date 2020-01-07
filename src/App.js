@@ -14,7 +14,7 @@ import Biconomy from "@biconomy/mexa";
 import LoadingOverlay from 'react-loading-overlay';
 import openSocket from 'socket.io-client';
 const notistackRef = React.createRef();
-const {getTimeInSeconds} = require("./utils");
+const {getTimeInSeconds, trim} = require("./utils");
 
 const useStyles = makeStyles(theme => ({
   close: {
@@ -119,7 +119,7 @@ function App(props) {
     biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
       // User's Contract Wallet creation successful
       let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
-      showSnack("On-chain identity created");
+      showSnack("On-chain identity created", {variant: 'success'});
       setUserContract(userContract);
       updateUserContract(userAddress, userContract);
     });
@@ -287,12 +287,12 @@ function App(props) {
               smartContract.methods.placeTheBet(betValue, getTimeInSeconds()).send(txOptions)
               .on('transactionHash', function(hash){
                 console.log(`Bet placed with value ${betIndicator} and betAmount ${betAmount} with txHash ${hash}`);
-                showSnack("Place bet transaction sent. Waiting for confirmation ...", {variant: 'info'});
+                showSnack("Place bet transaction sent.", {variant: 'info'});
               })
               .once('confirmation', function(confirmationNumber, receipt){
                 console.log(`Bet placed Confirmation`);
                 console.log(receipt);
-                showSnack("Successfully placed the bet. Lets wait for the results ...", {variant: 'success'});
+                showSnack("Successfully placed the bet.", {variant: 'success'});
               })
               .on('error', function(error, receipt) {
                 console.error(error);
@@ -465,7 +465,6 @@ function App(props) {
   }
 
   const initUserInfo = async ()=>{
-
     try {
       console.log("Getting user info now");
       // Get user balance
@@ -481,7 +480,7 @@ function App(props) {
       let userInfo = {};
       try {
         let balanceInUSDT = parseFloat(maticUSDTPrice) * parseInt(balanceInEther);
-        userInfo.balanceInUSDT = balanceInUSDT;
+        userInfo.balanceInUSDT = trim(balanceInUSDT,5);
       } catch(error) {
         console.log(error);
         console.log("Error while converting matic balance to USDT");
