@@ -30,12 +30,8 @@ export default function Header(props) {
 
     return(
         <section className = "menu-bar" id="top">
-            <div className="gameName">
-                <div className="game-shortform" onClick={displayHome}>
-                    <img className="logo" src="/images/moonshot.png" alt="Biconomy logo white" />
-                    {/* <div className="logo">MoonShot</div> */}
-                </div>
-                <div className="game-fullform">  </div>
+            <div className="gameName" onClick={displayHome}>
+                <img className="logo" src="/images/moonshot.png" alt="Biconomy logo white" />
             </div>
             <div className="login-section" ref={loginSectionRef}>
                 <Button id="login-button" className={`gtp-buttons ${props.userLogin ? "hidden":""}`} variant="contained"
@@ -43,7 +39,7 @@ export default function Header(props) {
                     Login
                 </Button>
                 <div id="logged-in-user-info" className={props.userLogin ? "user-info-container":"hidden"}>
-                    <Chip label={`${props.userInfo.balanceInUSDT} USDT`} className="user-chips"/>
+                    <Chip label={`${props.userInfo.balanceInUSDT} USDT`} className="user-chips non-mobile"/>
                     <Chip icon={<EmojiEmotionsIcon />} id="username-chip"
                         className="user-chips"
                         label={props.username?props.username:"Anonymous"}
