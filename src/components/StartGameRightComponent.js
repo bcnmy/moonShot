@@ -17,6 +17,9 @@ class StartGameRightComponent extends Component{
         </div>);
         return(
             <section className="start-page-right">
+                <div className="mobile current-bets">
+                    Current Bets
+                </div>
                 <div className="players">
                     <div className="player-list">
                         <div id="player-up-bet" className="player-header">Bet Up

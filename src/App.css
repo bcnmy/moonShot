@@ -21,6 +21,39 @@ body {
   flex-direction: column-reverse;
 }
 
+.stamp {
+  transform: rotate(12deg);
+  color: #555;
+  font-size: 30px;
+  font-weight: 700;
+  /* border: 0.25rem solid #555; */
+  display: inline-block;
+  padding: 0.25rem 0rem;
+  text-transform: uppercase;
+  border-radius: 1rem;
+  font-family: 'Courier';
+  -webkit-mask-image: url(/images/grunge.png);
+  -webkit-mask-size: 944px 604px;
+  mix-blend-mode: multiply;
+}
+
+.is-approved {
+	color: #54B644;
+	border: none;
+	-webkit-mask-position: 13rem 6rem;
+	transform: rotate(-25deg);
+  border-radius: 5px;
+}
+
+.is-lost {
+	color: #b71c1c;
+	border: none;
+	-webkit-mask-position: 13rem 6rem;
+	transform: rotate(-25deg);
+  border-radius: 5px;
+}
+
+
 .price-unit{
   font-size: 10px;
   margin-left: 5px;
@@ -284,12 +317,12 @@ body {
   padding-left: 14%;
   padding-right: 14%;
 }
-
-.center{
+.main-container {
   display: flex;
   flex-direction: row;
   height: 520px;
 }
+
 
 /*  ----Home -> Left component ---- */
 .time-remaining-counter {
@@ -750,6 +783,12 @@ svgx circle {
   justify-content: space-between;
 }
 
+.bet-buttons button {
+  font-size: inherit;
+  height: 40px;
+  border-radius: 4px!important;
+}
+
 .place-bet-cover {
   position: absolute;
   top: -5%;
@@ -794,14 +833,12 @@ svgx circle {
   /* border:2px solid grey; */
   background-color: rgb(219, 219, 219);
   color:#1b5e20;
-  font-size: 20px;
   font-weight: 800;
 }
 #down-button{
   /* border:2px solid black; */
   background-color: rgb(219, 219, 219);
   color:#b71c1c;
-  font-size: 20px;
   font-weight: 800;
 }
 
@@ -996,6 +1033,7 @@ svgx circle {
   justify-content: center;
   text-align:left;
   text-align: center;
+  position: relative;
 }
 
 .result-content{
@@ -1191,7 +1229,7 @@ svgx circle {
 .staking-price{
   color: #fff;
   border-radius: 50%;
-  width: 350px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1276,8 +1314,9 @@ svgx circle {
   top: 10.5px;
   fill: #3bc56c;
 }
+
 .price-gauge-bars {
-  width: 0.25%;
+  width: 2px;
   height: 100%;
   background: #eee;
   top: 50%;
@@ -1441,4 +1480,236 @@ svgx circle {
   border-radius: 5px;
   font-size: 12px;
 }
+
 /********* ENDS **********/
+
+/******** MOBILE *************/
+.mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .mobile {
+    display: block;
+  }
+
+  .non-mobile {
+    display: none;
+  }
+
+  .main-section {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .leftSection {
+    width: 100%;
+    height: auto;
+  }
+
+  .rightSection {
+    width: 100%;
+    height: auto;
+  }
+
+  .description-heading {
+    margin-top: 40px;
+  }
+
+  .launch-button {
+    margin-top: 20px;
+  }
+
+  .play-button {
+    width: 50%;
+  }
+
+  .rules-heading {
+    margin-top: 45px;
+    text-align: center;
+    background: rgb(0,0,0,0.4);
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  .disclaimer {
+    margin-top: 10px;
+    justify-content: center;
+  }
+
+  .icons {
+    justify-content: center;
+  }
+
+  .rule-item {
+    margin-bottom: 15px;
+  }
+
+  .social-icons {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .menu-bar {
+    flex-direction: column;
+    height: auto;
+    border-bottom: none;
+    padding-top: 25px;
+  }
+
+  .login-section {
+    padding: 21px 0 10px 10px;
+  }
+
+  .stepper.MuiStepper-root {
+    padding: 0px;
+    height: 46px;
+    background-color: rgb(0,0,0,.4)!important;
+    margin-top: 10px;
+  }
+
+  .stepper .MuiStepLabel-label {
+    font-size: 12px;
+  }
+
+  .stepper .MuiStepIcon-root {
+    height: 1rem;
+    width: 1rem;
+  }
+
+  .stepper .MuiStepIcon-root .MuiStepIcon-text {
+    font-size: 18px;
+  }
+
+  .start-page-left {
+    padding: 0px;
+    border-right: none;
+    height: auto;
+  }
+
+  .start-page-right {
+    height: auto;
+  }
+
+  .state-page-heading {
+    padding: 0px;
+    margin-top: 10px;
+  }
+
+  .field {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .place-bet {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .bet-buttons {
+    padding: 0px;
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .place-bet-min-balance-label {
+    top: -22px;
+  }
+
+  .start-page-user-balance {
+    max-width: 50%;
+    height: 20px!important;
+    top: -24px;
+  }
+
+  .bet-buttons button {
+    height: 40px;
+    font-size: 14px!important;
+  }
+
+  .place-bet-cover {
+    width: 100%;
+    left: 0px;
+  }
+
+  .current-bets {
+    padding: 5px 10px;
+    letter-spacing: 1px;
+    color: #ddd;
+    font-size: 20px;
+    background-color: rgb(0,0,0,.4);
+    text-align: center;
+  }
+
+  .footer {
+    padding-bottom: 25px;
+  }
+
+  .prepare-page-right {
+    border-left: none;
+  }
+
+  .state-heading-timer {
+    width: 50%;
+  }
+
+  .state-heading-desc {
+    margin-left: 20px;
+    text-align: justify;
+    flex: 1;
+  }
+
+  .wait-page-content {
+    width: 90%;
+    margin-top: 120px;
+  }
+
+  .wait-page-content .staking-price {
+    height: 100px;
+  }
+
+  .result-page-content {
+    margin-top: 140px;
+  }
+
+  .winner {
+    width: 148px;
+    position: absolute;
+    top: -108px;
+    font-size: 30px;
+    left: -18px;
+    color: #101010;
+    background: #54B654;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+  }
+
+  .looser {
+    width: 168px;
+    position: absolute;
+    top: -108px;
+    font-size: 30px;
+    left: -18px;
+    color: #fff;
+    background: #b71c1c;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+  }
+
+  .focus-style {
+    background-color: rgb(0, 0, 0, 0.4);
+  }
+}

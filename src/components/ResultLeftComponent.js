@@ -53,6 +53,13 @@ class ResultLeftComponent extends Component{
                     </div>
                 </div>
                 <div className="result-page-content">
+                    {this.props.betPlaced && this.props.betPlaced.betValueString && this.props.isWinner &&
+                        <span className="winner stamp is-approved mobile">You Won</span>
+                    }
+
+                    {this.props.betPlaced && this.props.betPlaced.betValueString && !this.props.isWinner &&
+                        <span className="looser stamp is-lost mobile">You Lost</span>
+                    }
 
                     <PriceScaleGauge stakePrice={this.props.stakePrice} stakePriceUnit={this.props.lastPriceUnit}
                         currentPrice={this.props.resultPrice} currentPriceUnit={this.props.lastPriceUnit}
@@ -69,7 +76,7 @@ class ResultLeftComponent extends Component{
                     <div className="final-result">
                         {this.props.betPlaced && this.props.betPlaced.betValueString && this.props.isWinner &&
                         <div className="result-content">
-                            <span className="winner">Hurray!! You Won</span>
+                            <span className="winner stamp is-approved non-mobile">Hurray!! You Won</span>
                             <span className="result-span focus-style">Prize money is transfered to your account</span>
                             <span className="result-span buckle-up focus-style">Buckle up! Next game is about to start</span>
                         </div>
@@ -77,7 +84,7 @@ class ResultLeftComponent extends Component{
 
                         {this.props.betPlaced && this.props.betPlaced.betValueString && !this.props.isWinner &&
                         <div className="result-content">
-                            <span className="looser focus-style">You Lost</span>
+                            <span className="looser focus-style non-mobile">You Lost</span>
                             <span className="result-span">Next game is about to start</span>
                             <span className="result-span buckle-up focus-style">May the Odds be in your Favor</span>
                         </div>

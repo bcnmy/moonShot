@@ -14,7 +14,7 @@ import Biconomy from "@biconomy/mexa";
 import LoadingOverlay from 'react-loading-overlay';
 import openSocket from 'socket.io-client';
 const notistackRef = React.createRef();
-const {getTimeInSeconds} = require("./utils");
+const {getTimeInSeconds, trim} = require("./utils");
 
 const useStyles = makeStyles(theme => ({
   close: {
@@ -465,7 +465,6 @@ function App(props) {
   }
 
   const initUserInfo = async ()=>{
-
     try {
       console.log("Getting user info now");
       // Get user balance
@@ -481,7 +480,7 @@ function App(props) {
       let userInfo = {};
       try {
         let balanceInUSDT = parseFloat(maticUSDTPrice) * parseInt(balanceInEther);
-        userInfo.balanceInUSDT = balanceInUSDT;
+        userInfo.balanceInUSDT = trim(balanceInUSDT,5);
       } catch(error) {
         console.log(error);
         console.log("Error while converting matic balance to USDT");
