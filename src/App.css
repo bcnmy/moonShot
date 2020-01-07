@@ -1563,7 +1563,7 @@ svgx circle {
   .logo {
     height: auto;
     width: 100%;
-    border-radius: 13px;
+    /* border-radius: 13px; */
   }
 
   .login-section {
