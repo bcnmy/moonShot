@@ -94,16 +94,16 @@ body {
   width:100%;
 }
 .logo{
-  height: 60px;
+  height: 45px;
   /* padding:20px; */
-  border-radius: 20px;
+  /* border-radius: 20px; */
   color:#444;
 }
 .game-fullform{
-  color:#444;
+  color:#fff;
   font-weight: 400;
-  font-size: 15px;
-  text-align: center;
+  font-size: 12px;
+  text-align: right;
   width:100%;
 }
 

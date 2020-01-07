@@ -35,7 +35,7 @@ export default function Header(props) {
                     <img className="logo" src="/images/moonshot.png" alt="Biconomy logo white" />
                     {/* <div className="logo">MoonShot</div> */}
                 </div>
-                <div className="game-fullform">  </div>
+                <div className="game-fullform"> powered by Biconomy </div>
             </div>
             <div className="login-section" ref={loginSectionRef}>
                 <Button id="login-button" className={`gtp-buttons ${props.userLogin ? "hidden":""}`} variant="contained"
