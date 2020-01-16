@@ -26,7 +26,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">PREPARATION</span>
                             </span>
                             <span className="rule-text">
-                                <span>Matic's average price is selected called Stake Price</span>
+                                <span>Average price of the coin, called as Stake Price, is calculated. </span>
                             </span>
                         </div>
                         <div className="rule-item">
@@ -35,7 +35,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">START</span>
                             </span>
                             <span className="rule-text">
-                                <span>Predict and bet whether price will go UP or DOWN</span>
+                                <span>Predict and bet whether the price will go UP or DOWN.</span>
                             </span>
                         </div>
                         <div className="rule-item">
@@ -44,7 +44,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">WAITING</span>
                             </span>
                             <span className="rule-text">
-                                <span>Matic average price is again calculated called Result Price</span>
+                                <span>Again the average price, called as Result Price, is calculated.</span>
                             </span>
                         </div>
                         <div className="rule-item">
@@ -53,7 +53,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">RESULT</span>
                             </span>
                             <span className="rule-text">
-                                <span>Whoa!! If your prediction comes true, you win and become a trading champ</span>
+                                <span>Whoa!!...</span>
                             </span>
                         </div>
                     </div>
