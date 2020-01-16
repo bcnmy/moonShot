@@ -9,9 +9,9 @@
 }
 
 body {
-  background: #0C3863;
+  background: #061E3A;
   background-image: url("/images/space/space.jpg");
-  background-repeat: no-repeat;
+  /* background: fixed; */
   font-family: GTPFont, Rubik, sans-serif;
 }
 
