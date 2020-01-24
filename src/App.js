@@ -744,7 +744,7 @@ function App(props) {
       id="receiver-address" label="Reciever" type="text" fullWidth onChange={onReceiverAddressChange} />
       <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
       <TextField autoFocus margin="dense"
-      id="withdraw-amount" label="Amount(in Matic)" type="text" fullWidth  onChange={onWithdrawAmountChange}/>
+      id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
       <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
     </div>
 
