@@ -646,25 +646,44 @@ function App(props) {
     }
   }
 
+  const getBalance = () => {
+    let balance = 0;
+    if(userInfo.balanceInEther) {
+      balance = Math.round(userInfo.balanceInEther * 100) / 100
+    }
+    return balance;
+  }
+
   const handleWithdrawDialogAction = async ()=>{
     try{
-      if(biconomy){
-        let result = await biconomy.withdrawFunds(receiverAddress,withdrawAmount);
-        console.log(result);
+      let isAddress = web3.utils.isAddress(receiverAddress);
+      if(!isAddress){
+        console.log("Invalid Address");
+        showSnack(`Invalid Address`, {variant: 'error'});
+        return;
+      }
+      if(withdrawAmount<=getBalance()){
+        if(biconomy){
+          let result = await biconomy.withdrawFunds(receiverAddress,withdrawAmount*1e18);
+          console.log(result);
 
-        if(result && result.txHash){
-          showSnack(`Transaction sent to blockchain`, {variant: 'info'});
-          withdrawInterval = setInterval(function(){
-            getWithdrawTransactionReceipt(result.txHash) 
-          }, 3000);
+          if(result && result.txHash){
+            showSnack(`Transaction sent to blockchain`, {variant: 'info'});
+            withdrawInterval = setInterval(function(){
+              getWithdrawTransactionReceipt(result.txHash) 
+            }, 3000);
+          }
+          else{
+            showSnack(result.log, {variant: 'error'});
+          }
+          setOpenWithdrawDialog(false);
+        }else{
+          console.log("Biconomy is not Defined");
+          showSnack(`Game is not initialized Properly`, {variant: 'error'});
         }
-        else{
-          showSnack(result.log, {variant: 'error'});
-        }
-        setOpenWithdrawDialog(false);
       }else{
-        console.log("Biconomy is not Defined");
-        showSnack(`Game is not initialized Properly`, {variant: 'error'});
+        console.log("Insufficient Funds");
+        showSnack(`Insufficient funds`, {variant: 'error'});
       }
     }catch(error){
       console.log(error);
@@ -717,11 +736,15 @@ function App(props) {
     </div>
 
   const withdrawDialogContent = <div id="username-form">
+    <div id="current-balance-container">
+      <div id="current-balance-label">Current Balance : </div>
+      <div id="current-balance"> {getBalance()} MATIC</div>
+    </div>
     <TextField autoFocus margin="dense"
       id="receiver-address" label="Reciever" type="text" fullWidth onChange={onReceiverAddressChange} />
       <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
       <TextField autoFocus margin="dense"
-      id="withdraw-amount" label="Amount" type="text" fullWidth  onChange={onWithdrawAmountChange}/>
+      id="withdraw-amount" label="Amount(in Matic)" type="text" fullWidth  onChange={onWithdrawAmountChange}/>
       <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
     </div>
 

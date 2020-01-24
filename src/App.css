@@ -326,6 +326,25 @@ body {
   margin-bottom: 0px;
 }
 
+#current-balance-label{
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 5px;
+ 
+}
+
+#current-balance-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#current-balance {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+
 .balance-row {
   margin-top: 50px!important;
   display: flex;
