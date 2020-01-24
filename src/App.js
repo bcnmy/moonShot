@@ -46,7 +46,10 @@ function App(props) {
   const [currentState, changeState] = useState(LAUNCH);
   const [userLogin, setUserLogin] = useState(false);
   const [openNameDialog, setOpenNameDialog] = useState(false);
+  const [openWithdrawDialog, setOpenWithdrawDialog] = useState(false);
   const [username, setUsername] = useState("");
+  const [receiverAddress, setReceiverAddress] = useState("");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
   const [userInfo, setUserInfo] = useState({balanceInWei: 0, balanceInEther: 0, balanceInUSDT: 0});
   const [userAddress, setUserAddress] = useState("");
   const [userContract, setUserContract] = useState("");
@@ -90,6 +93,7 @@ function App(props) {
   ]);
   const setOverlayActive = props.setOverlayActive;
   const setOverlayMessage = props.setOverlayMessage;
+  let withdrawInterval;
 
   // Similar to componentDidMount and componentDidUpdate. Pass empty array as second argument,
   // to stop this effect from running each time any state or props changes
@@ -338,6 +342,10 @@ function App(props) {
 
   const promptForUserName = async () => {
     setOpenNameDialog(true);
+  }
+
+  const promptForWithdraw = async () =>{
+    setOpenWithdrawDialog(true);
   }
 
   const requestCurrentPrice = () => {
@@ -614,14 +622,71 @@ function App(props) {
   const handleDialogClose = ()=>{
     setOpenNameDialog(false);
     setUpdateUserMessage("");
+    setOpenWithdrawDialog(false);
   }
 
   const handleDialogAction = ()=>{
     updateUser(userAddress, username);
   }
 
+  const getWithdrawTransactionReceipt = async (txHash) => {
+    var receipt = await web3.eth.getTransactionReceipt(txHash);
+
+    if(receipt){ 
+      if(receipt.status){
+        showSnack(`Withdraw successful`, {variant: 'success'});
+        initUserInfo();
+      }
+      else if(!receipt.status){
+        showSnack(`Withdraw successful`, {variant: 'success'});
+      }
+      if(withdrawInterval){
+        clearInterval(withdrawInterval);
+      }
+    }
+  }
+
+  const handleWithdrawDialogAction = async ()=>{
+    try{
+      if(biconomy){
+        let result = await biconomy.withdrawFunds(receiverAddress,withdrawAmount);
+        console.log(result);
+
+        if(result && result.txHash){
+          showSnack(`Transaction sent to blockchain`, {variant: 'info'});
+          withdrawInterval = setInterval(function(){
+            getWithdrawTransactionReceipt(result.txHash) 
+          }, 3000);
+        }
+        else{
+          showSnack(result.log, {variant: 'error'});
+        }
+        setOpenWithdrawDialog(false);
+      }else{
+        console.log("Biconomy is not Defined");
+        showSnack(`Game is not initialized Properly`, {variant: 'error'});
+      }
+    }catch(error){
+      console.log(error);
+      if(typeof error==="string"){
+        showSnack(error, {variant: 'error'});
+      }
+      else{
+        showSnack("Error while withdrawing Funds", {variant: 'error'});
+      }   
+    }
+  }
+
   const onUsernameChange = (event) => {
     setUsername(event.target.value);
+  }
+
+  const onReceiverAddressChange = (event) => {
+    setReceiverAddress(event.target.value);
+  }
+
+  const onWithdrawAmountChange = (event) => {
+    setWithdrawAmount(event.target.value);
   }
 
   const getPrice = async (symbol) => {
@@ -651,6 +716,15 @@ function App(props) {
       <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
     </div>
 
+  const withdrawDialogContent = <div id="username-form">
+    <TextField autoFocus margin="dense"
+      id="receiver-address" label="Reciever" type="text" fullWidth onChange={onReceiverAddressChange} />
+      <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
+      <TextField autoFocus margin="dense"
+      id="withdraw-amount" label="Amount" type="text" fullWidth  onChange={onWithdrawAmountChange}/>
+      <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
+    </div>
+
   return (
       <div className="App" id="Home">
         <LandingPage currentState={currentState} changeState={changeState} onLogin={onLogin}
@@ -661,11 +735,15 @@ function App(props) {
           stakePrice={stakePrice} requestStakePrice={requestStakePrice} userAddress={userAddress}
           placeBet={placeBet} betUpList={betUpList} betDownList={betDownList} winners={winners}
           loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced} isWinner={isWinner}
-          resultPrice={resultPrice} userContract={userContract}/>
+          resultPrice={resultPrice} userContract={userContract} promptForWithdraw={promptForWithdraw}/>
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}
           children={nameDialogContent} cancelText="Skip"/>
+
+        <FormDialog open={openWithdrawDialog} title="Withdraw Funds"
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleWithdrawDialogAction}
+          children={withdrawDialogContent} cancelText="Cancel" />
       </div>
   );
 }

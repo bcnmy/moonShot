@@ -74,7 +74,7 @@ export default function UserInfoPopover(props) {
                 <Button startIcon={<OpenInNewIcon />} onClick={openWallet}>Open Wallet</Button>
             </div>
           )}
-
+         
           <div className="user-info-row balance-row">
                 <div id="user-balance-container">
                   <label id="user-balance-amount">{getBalance()}</label>
@@ -83,6 +83,9 @@ export default function UserInfoPopover(props) {
                 <div id="user-balance-usd">
                   {`${props.userInfo.balanceInUSDT} USDT`}
                 </div>
+                <div className="user-info-row show-withdraw-button">
+                  <Button startIcon={<OpenInNewIcon />} onClick={props.promptForWithdraw}>Withdraw</Button>
+                </div>
                 {/* <div id="user-balance-usd">
                   <Chip label="$ 56" color="primary"/>
                 </div> */}
@@ -90,6 +93,11 @@ export default function UserInfoPopover(props) {
           <div className="user-info-row">
             <div className="user-info-deposit-label">Deposit funds to below address</div>
             <div className="user-info-deposit-address">{props.userInfo.userAddress}</div>
+            <div className="user-info-deposit-info">
+              <div className="tooltipLabel">why this address is different than my portis address?
+                <div className="tooltiptext">Tooltip text Tooltip text Tooltip textTooltip text Tooltip text Tooltip text Tooltip textTooltip text Tooltip text Tooltip text Tooltip textTooltip text</div>
+              </div>
+            </div>
           </div>
           {/* <div className="user-info-row deposit-withdraw-row">
             <Button variant="contained">Deposit</Button>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PriceScaleGauge from './PriceScaleGauge';
+import TwitterIcon from '@material-ui/icons/Twitter';
 
 class ResultLeftComponent extends Component{
 
@@ -95,7 +96,14 @@ class ResultLeftComponent extends Component{
                             <span className="focus-style">You did not place any bet</span>
                         </div>
                         }
-
+                        <div className="twitter-share">
+                            <div id="share-on-twitter">Share on Twitter</div>
+                            <div id="twitter-share-button">
+                                <a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Ftest-moonshot.biconomy.io&text=Like%2C%20Share%20%26%20Win%20free%20Matic%20tokens!!%0AFirst%20hundred%20participants%20get%20100%20matic%20tokens%20each%20by%20following%20the%20simple%20steps%0A%0A%2D%20Follow%20%40maticnetwork%20and%20%40biconomy%0A%2D%20Like%20and%20Retweet%20with%20a%20comment%20on%20the%20moonshot%20post%0A%2D%20Tag%205%20of%20your%20friends" target="_">
+                                  <TwitterIcon fontSize="large"/>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
