@@ -16,7 +16,7 @@ class LaunchRightComponent extends Component{
      render() {
         return(
             <div className="launch-right-section">
-                <div className="rules-heading">Game Rules</div>
+                <div className="rules-heading">Game Flow</div>
                 <div className="launch-page-content">
 
                     <div id="rule-content-container">
@@ -26,7 +26,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">PREPARATION</span>
                             </span>
                             <span className="rule-text">
-                                <span>Matic's average price is selected called Stake Price</span>
+                                <span>30 seconds average price of matic, called as stake price, is calculated from binancee exchange.</span>
                             </span>
                         </div>
                         <div className="rule-item">
@@ -35,7 +35,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">START</span>
                             </span>
                             <span className="rule-text">
-                                <span>Predict and bet whether price will go UP or DOWN</span>
+                                <span>In Next 30 seconds, you can predict whether the price will go above or below the stake price and invest your money. </span>
                             </span>
                         </div>
                         <div className="rule-item">
@@ -44,7 +44,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">WAITING</span>
                             </span>
                             <span className="rule-text">
-                                <span>Matic average price is again calculated called Result Price</span>
+                                <span>Again, the average price of coin will be calculated in the next 30 seconds. This price is known as result price.</span>
                             </span>
                         </div>
                         <div className="rule-item">
@@ -53,7 +53,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">RESULT</span>
                             </span>
                             <span className="rule-text">
-                                <span>Whoa!! If your prediction comes true, you win and become a trading champ</span>
+                                <span>If you prediction comes true, you win and money will be credited in your account</span>
                             </span>
                         </div>
                     </div>
