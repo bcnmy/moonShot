@@ -9,8 +9,7 @@
 }
 
 body {
-  background-color: black;
-  /* background-image: url("/images/space2.jpg"); */
+  background-image: url("/images/space2.jpg");
   font-family: GTPFont, Rubik, sans-serif;
 }
 

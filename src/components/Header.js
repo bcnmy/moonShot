@@ -19,7 +19,7 @@ class SubMenuComponent extends Component{
                     </div>
                 </div>
                 <div className="game-rules">
-                    <a className="game-Rules-display" onClick={this.props.promptForGameRules}>Game Rules</a>
+                    <a href="#" className="game-Rules-display" onClick={this.props.promptForGameRules}>Game Rules</a>
                 </div>
             </div>
         );

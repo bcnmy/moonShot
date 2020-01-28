@@ -638,7 +638,8 @@ function App(props) {
   }
 
   const handleGameRulesDialogAction = async ()=>{
-    setOpenWithdrawDialog(false);
+    setGameRulesDialog(false);
+    changeState(PREPARE);
   }
 
   const handleWithdrawDialogAction = async ()=>{
@@ -775,8 +776,7 @@ function App(props) {
           children={withdrawDialogContent} cancelText="Cancel" />
 
         <FormDialog open={openGameRulesDialog} title="Game Rules"
-          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogClose}
-          // handleAction={handleGameRulesDialogAction}
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleGameRulesDialogAction}
           children={gameRulesDialogContent} cancelText="Cancel" actionText="Skip and Play"/>
       </div>
   );
