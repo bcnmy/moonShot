@@ -53,7 +53,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">RESULT</span>
                             </span>
                             <span className="rule-text">
-                                <span>If you prediction comes true, you win and money will be credited in your account</span>
+                                <span>If your prediction comes true, you win and money will be credited in your account</span>
                             </span>
                         </div>
                     </div>
