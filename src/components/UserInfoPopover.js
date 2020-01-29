@@ -95,7 +95,11 @@ export default function UserInfoPopover(props) {
             <div className="user-info-deposit-address">{props.userInfo.userAddress}</div>
             <div className="user-info-deposit-info">
               <div className="tooltipLabel">why this address is different than my portis address?
-                <div className="tooltiptext">Tooltip text Tooltip text Tooltip textTooltip text Tooltip text Tooltip text Tooltip textTooltip text Tooltip text Tooltip text Tooltip textTooltip text</div>
+                <div className="tooltiptext">
+                  This address is your wallet address on blockchain whose owner is your portis account address. 
+                  Funds can be withdrawn only with your permission from this wallet. This on-chain wallet allows
+                  us to do gasless transactions for you so you do not have to pay the gas fees for your transactions.
+                </div>
               </div>
             </div>
           </div>
