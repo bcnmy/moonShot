@@ -175,7 +175,7 @@ body {
   font-size: 13px;
   text-align: center;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .user-info-deposit-label {
@@ -184,6 +184,43 @@ body {
   font-size: 14px;
 }
 
+.user-info-deposit-info {
+  text-align: center;
+  color: green;
+  font-size: 14px;
+}
+
+.tooltipLabel {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px dotted black;
+}
+
+.tooltiptext{
+  margin-top:-60px;
+  width: 70%;
+  margin-left: 20px;
+  /* margin-right: auto; */
+}
+
+.tooltipLabel .tooltiptext {
+  visibility: hidden;
+  background-color: wheat;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  opacity: 1!important;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 10;
+}
+
+.tooltipLabel:hover .tooltiptext {
+  visibility: visible;
+}
 .user-info-row .MuiTableCell-head {
   font-weight: 600;
 }
@@ -238,6 +275,16 @@ body {
   margin-top: 0px;
 }
 
+.show-withdraw-button {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0px;
+  font-size: 14px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* .show-wallet-row .MuiButton-text {
   color: white;
 } */
@@ -277,6 +324,25 @@ body {
 #user-balance-unit {
   padding: 5px 0 5px 0;
   margin-bottom: 0px;
+}
+
+#current-balance-label{
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 5px;
+ 
+}
+
+#current-balance-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#current-balance {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 5px;
 }
 
 .balance-row {
@@ -1090,6 +1156,27 @@ svgx circle {
   margin-top:510px;
   /* background: #A92626; */
   margin:auto;
+}
+
+.twitter-share{
+  display: flex;
+  width:200px;
+  flex-direction: column;
+  margin-right: 100%;
+  margin-top: 150px;
+}
+
+#share-on-twitter{
+  display: flex;
+  font-size: 16px;
+  color:grey;
+  align-items: center;
+}
+
+#twitter-share-button{
+  font-size: 16px;
+  color:grey;
+  width:100px;
 }
 /*--- result Page-> Right component --- */
 
