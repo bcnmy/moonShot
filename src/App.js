@@ -47,6 +47,7 @@ function App(props) {
   const [userLogin, setUserLogin] = useState(false);
   const [openNameDialog, setOpenNameDialog] = useState(false);
   const [openWithdrawDialog, setOpenWithdrawDialog] = useState(false);
+  const [openGameRulesDialog, setGameRulesDialog] = useState(false);
   const [username, setUsername] = useState("");
   const [receiverAddress, setReceiverAddress] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
@@ -58,11 +59,6 @@ function App(props) {
   const [lastPrice, setLastPrice] = useState(0);
   const [stakePrice, setStakePrice] = useState(0);
   const [winners, setWinners] = useState([
-    // {
-    //   username: "sachin",
-    //   betAmountUSDT: "0.02",
-    //   winAmountUSDT: "0.019"
-    // }
   ]);
   const [loosers, setLoosers] = useState([]);
   const [isWinner, setIsWinner] = useState(false);
@@ -70,26 +66,8 @@ function App(props) {
   const [resultPrice, setResultPrice] = useState(0);
   const [betPlaced, setBetPlaced] = useState({betCurrency: config.betCurrency});
   const [betUpList, setBetUpList] = useState([
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'}
   ]);
   const [betDownList, setBetDownList] = useState([
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'},
-    // {userName: 'sachint', betAmountUSDT: '0.017'}
   ]);
   const setOverlayActive = props.setOverlayActive;
   const setOverlayMessage = props.setOverlayMessage;
@@ -346,6 +324,10 @@ function App(props) {
 
   const promptForWithdraw = async () =>{
     setOpenWithdrawDialog(true);
+  }
+
+  const promptForGameRules = async () =>{
+    setGameRulesDialog(true);
   }
 
   const requestCurrentPrice = () => {
@@ -623,6 +605,7 @@ function App(props) {
     setOpenNameDialog(false);
     setUpdateUserMessage("");
     setOpenWithdrawDialog(false);
+    setGameRulesDialog(false);
   }
 
   const handleDialogAction = ()=>{
@@ -652,6 +635,11 @@ function App(props) {
       balance = Math.round(userInfo.balanceInEther * 100) / 100
     }
     return balance;
+  }
+
+  const handleGameRulesDialogAction = async ()=>{
+    setGameRulesDialog(false);
+    changeState(PREPARE);
   }
 
   const handleWithdrawDialogAction = async ()=>{
@@ -735,6 +723,24 @@ function App(props) {
       <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
     </div>
 
+  const gameRulesDialogContent = <div id="username-form">
+    <div className="topRow">Go through the game rules and start playing!!!</div>
+
+    <div className="middleRow">
+      - The maximum amount you can bet in a single game is 1000 matic tokens.
+      However, there is no limit of number of games that can be played.
+    </div>
+    <div className="middleRow">- In case no one wins the game, the entire loser money will go to Reserve pool.</div>
+    <div className="middleRow">- In case everyone wins the game, the money will be distributed from the reserve pool to the winners.
+    Each user will get 10% of his invested amount with a maximum of 100 matic tokens from the reserve pool.</div>
+    <div className="middleRow">- User can withdraw their tokens during the course of game </div>
+
+    <div className="lastRowDisclaimer">
+      <span>Disclaimer </span>: Moonshot is a peer to peer trading platform where we don’t hold any of your private keys. 
+      Biconomy won’t be liable any money lost or hacked.
+    </div>
+  </div>
+
   const withdrawDialogContent = <div id="username-form">
     <div id="current-balance-container">
       <div id="current-balance-label">Current Balance : </div>
@@ -756,7 +762,8 @@ function App(props) {
           stakePrice={stakePrice} requestStakePrice={requestStakePrice} userAddress={userAddress}
           placeBet={placeBet} betUpList={betUpList} betDownList={betDownList} winners={winners}
           loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced} isWinner={isWinner}
-          resultPrice={resultPrice} userContract={userContract} promptForWithdraw={promptForWithdraw}/>
+          resultPrice={resultPrice} userContract={userContract} promptForWithdraw={promptForWithdraw}
+          promptForGameRules={promptForGameRules}/>
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}
@@ -765,6 +772,10 @@ function App(props) {
         <FormDialog open={openWithdrawDialog} title="Withdraw Funds"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleWithdrawDialogAction}
           children={withdrawDialogContent} cancelText="Cancel" />
+
+        <FormDialog open={openGameRulesDialog} title="Game Rules"
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleGameRulesDialogAction}
+          children={gameRulesDialogContent} cancelText="Cancel" actionText="Skip and Play"/>
       </div>
   );
 }

@@ -9,9 +9,7 @@
 }
 
 body {
-  /* background: #0E0731; */
   background-image: url("/images/space2.jpg");
-  /* background-size: 100%; */
   font-family: GTPFont, Rubik, sans-serif;
 }
 
@@ -26,7 +24,6 @@ body {
   color: #555;
   font-size: 30px;
   font-weight: 700;
-  /* border: 0.25rem solid #555; */
   display: inline-block;
   padding: 0.25rem 0rem;
   text-transform: uppercase;
@@ -84,7 +81,6 @@ body {
 }
 
 .App-header {
-  /* background-color: #091647; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -103,15 +99,21 @@ body {
 }
 
 /* MAIN HEADER */
+
+.main-menu{
+  width :100%;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  align-items: center;
+  justify-content: space-between;
+}
 .menu-bar{
   width :100%;
   display: flex;
   flex-direction: row;
   height: 100px;
-  /* background-color: #091647; */
-  /* background-color:red; */
   border-bottom: 1px solid #444;
-  /* border-right: 1px solid grey; */
   align-items: center;
   justify-content: space-between;
 }
@@ -120,10 +122,58 @@ body {
   flex-direction: column;
 }
 
+.sub-menu{
+  display: flex;
+  flex-direction: row;
+}
+
+.subMenuComponent{
+  display: flex;
+}
+
+.feedback , .game-Rules-display{
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.game-Rules-display{
+  margin: 0 30px;
+  color : #fff!important;
+}
+
+.feedback a{
+  color : #fff!important;
+}
+
+.topRow{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.middleRow{
+  margin-left: 30px;
+  text-align: justify;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.lastRowDisclaimer{
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.lastRowDisclaimer span{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 .logo{
   height: 45px;
-  /* padding:20px; */
-  /* border-radius: 20px; */
   color:#444;
 }
 .game-fullform{
@@ -1570,6 +1620,25 @@ svgx circle {
 }
 
 @media only screen and (max-width: 768px) {
+
+  .subMenuComponent{
+    margin-top: 20px;
+  }
+
+  .feedback-link, .game-rules{
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    padding: 0 30px;
+    /* margin: 0 10px; */
+  }
+
+  .feedback , .game-Rules-display{
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
   .mobile {
     display: block!important;
   }
@@ -1636,8 +1705,14 @@ svgx circle {
     margin-right: 16px;
   }
 
-  .menu-bar {
+  .main-menu{
+    display: flex;
     flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .menu-bar {
+    flex-direction: column;
     height: auto;
     border-bottom: none;
     padding-top: 25px;
