@@ -638,7 +638,7 @@ function App(props) {
         initUserInfo();
       }
       else if(!receipt.status){
-        showSnack(`Withdraw successful`, {variant: 'success'});
+        showSnack(`Withdraw failed. Please contact support@biconomy.io with given info : {txhash : ${txHash}}`, {variant: 'error'});
       }
       if(withdrawInterval){
         clearInterval(withdrawInterval);
@@ -671,7 +671,7 @@ function App(props) {
             showSnack(`Transaction sent to blockchain`, {variant: 'info'});
             withdrawInterval = setInterval(function(){
               getWithdrawTransactionReceipt(result.txHash) 
-            }, 3000);
+            }, 2000);
           }
           else{
             showSnack(result.log, {variant: 'error'});
@@ -742,10 +742,8 @@ function App(props) {
     </div>
     <TextField autoFocus margin="dense"
       id="receiver-address" label="Reciever" type="text" fullWidth onChange={onReceiverAddressChange} />
-      <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
       <TextField autoFocus margin="dense"
       id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
-      <div className={`dialog-error-message ${!updateUserMessage?"hidden":""}`}>{updateUserMessage}</div>
     </div>
 
   return (
