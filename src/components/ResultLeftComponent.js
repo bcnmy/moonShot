@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PriceScaleGauge from './PriceScaleGauge';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import Link from '@material-ui/core/Link';
 
 class ResultLeftComponent extends Component{
 
@@ -65,11 +66,10 @@ class ResultLeftComponent extends Component{
                     <PriceScaleGauge stakePrice={this.props.stakePrice} stakePriceUnit={this.props.lastPriceUnit}
                         currentPrice={this.props.resultPrice} currentPriceUnit={this.props.lastPriceUnit}
                         getPrice={this.props.getPrice} isLive={false} currentPriceText="result price"/>
-
                     <div className="bet-result-string focus-style">
-                        {this.props.resultBetValue === 1 && this.props.resultPrice.toString() !== this.props.stakePrice
+                        {this.props.resultBetValue === 1 && this.props.resultPrice !== parseFloat(this.props.stakePrice)
                              && <span>Price went UP</span>}
-                        {this.props.resultBetValue === 1 && this.props.resultPrice.toString() === this.props.stakePrice
+                        {this.props.resultBetValue === 1 && this.props.resultPrice === parseFloat(this.props.stakePrice)
                              && <span>Price remained SAME</span>}
                         {this.props.resultBetValue === 2 && <span>Price went DOWN</span>}
                     </div>
@@ -77,7 +77,7 @@ class ResultLeftComponent extends Component{
                     <div className="final-result">
                         {this.props.betPlaced && this.props.betPlaced.betValueString && this.props.isWinner &&
                         <div className="result-content">
-                            <span className="winner stamp is-approved non-mobile">Hurray!! You Won</span>
+                            <span className="winner non-mobile">Hurray!! You Won</span>
                             <span className="result-span focus-style">Prize money is transfered to your account</span>
                             <span className="result-span buckle-up focus-style">Buckle up! Next game is about to start</span>
                         </div>
@@ -97,12 +97,12 @@ class ResultLeftComponent extends Component{
                         </div>
                         }
                         <div className="twitter-share">
-                            <div id="share-on-twitter">Share on Twitter</div>
-                            <div id="twitter-share-button">
-                                <a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Ftest-moonshot.biconomy.io&text=Easy%2C%20fun%20and%20simple%20options%20trading%20platform%20on%20Blockchain%21%20Play%20https%3A%2F%2Ftest%2Dmoonshot.biconomy.io%20now%21%20It%27s%20gasless%20too%20%3AD%0a%0aMoonshot%21%20powered%20by%20%40biconomy" target="_">
-                                  <TwitterIcon fontSize="large"/>
-                                </a>
-                            </div>
+                            <Link href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Ftest-moonshot.biconomy.io&text=Easy%2C%20fun%20and%20simple%20options%20trading%20platform%20on%20Blockchain%21%20Play%20https%3A%2F%2Ftest%2Dmoonshot.biconomy.io%20now%21%20It%27s%20gasless%20too%20%3AD%0a%0aMoonshot%21%20powered%20by%20%40biconomy" target="_">
+                                <div id="twitter-share-button">
+                                    <TwitterIcon fontSize="large"/>
+                                </div>
+                                <div id="share-on-twitter">Share on Twitter</div>
+                            </Link>
                         </div>
                     </div>
                 </div>

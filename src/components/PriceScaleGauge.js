@@ -72,6 +72,23 @@ export default function PriceScaleGauge(props) {
         return trimmedPrice;
     }
 
+    const setResultEffect = function(currentPrice, stakePrice) {
+        if(currentPrice && currentPrice > 0 && stakePrice && stakePrice > 0) {
+            let priceDiff = 0;
+            priceDiff = parseInt((currentPrice - stakePrice)*(10e5));
+            console.log(`Difference in price is ${priceDiff}`)
+
+            if(priceDiff > maxPriceDiff) {
+                priceDiff = maxPriceDiff;
+            } else if(priceDiff < minPriceDiff) {
+                priceDiff = minPriceDiff;
+            }
+            console.log("PRICE DIFFF",priceDiff)
+            setDiff(diff=>priceDiff);
+            setCurrentAnimationState("result");
+        }
+    }
+
     useEffect(() => {
         console.log(`type of props.currentPrice ${typeof props.currentPrice}`)
         console.log(`type of props.stakePrice ${typeof props.stakePrice}`)
@@ -114,22 +131,15 @@ export default function PriceScaleGauge(props) {
                 clearTimeout(interval);
             };
         } else {
-
-            let priceDiff = 0;
-            priceDiff = parseInt((props.currentPrice - props.stakePrice)*(10e5));
-            console.log(`Difference in price is ${priceDiff}`)
-
-            if(priceDiff > maxPriceDiff) {
-                priceDiff = maxPriceDiff;
-            } else if(priceDiff < minPriceDiff) {
-                priceDiff = minPriceDiff;
-            }
-            console.log("PRICE DIFFF",priceDiff)
-            setDiff(diff=>priceDiff);
-            setCurrentAnimationState("result");
-
+            setResultEffect(props.currentPrice, props.stakePrice);
         }
     }, []);
+
+
+
+    useEffect(()=>{
+        setResultEffect(props.currentPrice, props.stakePrice);
+    },[props.stakePrice]);
 
     useEffect(()=>{
         currentAnimationRef.current = currentAnimationState;

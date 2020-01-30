@@ -9,10 +9,6 @@ const {LAUNCH} = config.state;
 
 class LandingPage extends Component{
 
-    componentDidMount() {
-        console.log(this.props.betUpList);
-    }
-
     render() {
         return(
             <div className="main-section">
@@ -21,7 +17,7 @@ class LandingPage extends Component{
                 onLogout={this.props.onLogout} wallet={this.props.wallet} userInfo={this.props.userInfo} getPrice={this.props.getPrice}
                 setOverlayActive={this.props.setOverlayActive} setOverlayMessage={this.props.setOverlayMessage}
                 showSnack={this.props.showSnack} userContract={this.props.userContract} promptForWithdraw={this.props.promptForWithdraw}
-                promptForGameRules={this.props.promptForGameRules}/>
+                promptForGameRules={this.props.promptForGameRules} initUserInfo={this.props.initUserInfo}/>
                 <div className="main-container">
                     <LeftSection currentState={this.props.currentState} changeState={this.props.changeState}
                     getPrice={this.props.getPrice} counter={this.props.counter} lastPrice={this.props.lastPrice}
