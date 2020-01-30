@@ -26,7 +26,7 @@ class LaunchRightComponent extends Component{
                                 <span className="rule-text-heading">PREPARATION</span>
                             </span>
                             <span className="rule-text">
-                                <span>30 seconds average price of matic, called as stake price, is calculated from binancee exchange.</span>
+                                <span>15 seconds average price of matic, called as stake price, is calculated from the Binance exchange.</span>
                             </span>
                         </div>
                         <div className="rule-item">

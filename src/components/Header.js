@@ -55,12 +55,12 @@ export default function Header(props) {
                     </div>
                     <div className="game-fullform"> powered by Biconomy </div>
                 </div>
-                
+
                 <div className="login-section" ref={loginSectionRef}>
                     <div className="sub-menu">
                         <div className="non-mobile">
                             <SubMenuComponent displayHome={displayHome} promptForGameRules={props.promptForGameRules}/>
-                        </div>                    
+                        </div>
                         <Button id="login-button" className={`gtp-buttons ${props.userLogin ? "hidden":""}`} variant="contained"
                             onClick={props.onLogin}>
                             Login
@@ -78,10 +78,10 @@ export default function Header(props) {
                             wallet={props.wallet} userInfo={props.userInfo} getPrice={props.getPrice} setOverlayActive={props.setOverlayActive}
                             setOverlayMessage={props.setOverlayMessage} showSnack={props.showSnack} promptForWithdraw={props.promptForWithdraw}/>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
-            <div className="mobile">
+            <div className="mobile submenu-mobile-container">
                 <SubMenuComponent displayHome={displayHome} promptForGameRules={props.promptForGameRules}/>
             </div>
         </section>

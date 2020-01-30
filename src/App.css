@@ -9,8 +9,17 @@
 }
 
 body {
-  background-image: url("/images/space2.jpg");
+  background-image: url("/images/black-stars.png");
+  background-color: #000;
   font-family: GTPFont, Rubik, sans-serif;
+  background-size: 50%!important;
+}
+
+.moon-image {
+  position: fixed;
+  top: 61%;
+  right: -159px;
+  z-index: -1;
 }
 
 .input-price-unit {
@@ -137,13 +146,22 @@ body {
   font-weight: 600;
 }
 
+.game-Rules-display:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.feedback-link a:hover {
+  text-decoration: none;
+}
+
 .game-Rules-display{
   margin: 0 30px;
-  color : #fff!important;
+  color: #000;
 }
 
 .feedback a{
-  color : #fff!important;
+  color: #000;
 }
 
 .topRow{
@@ -175,7 +193,9 @@ body {
 .logo{
   height: 45px;
   color:#444;
+  cursor: pointer;
 }
+
 .game-fullform{
   color:#fff;
   font-weight: 400;
@@ -196,6 +216,19 @@ body {
   color: #444;
   display: flex;
   align-items: center;
+}
+
+.faucet-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.faucet-row a:hover {
+  text-decoration: none!important;
+  color: #fff;
 }
 
 .user-info-popover .MuiPopover-paper{
@@ -228,24 +261,31 @@ body {
   margin-bottom: 10px;
 }
 
+.copy-contract-address {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 .user-info-deposit-label {
   text-align: center;
-  color: #888;
-  font-size: 14px;
+  color: #222;
+  font-size: 16px;
 }
 
 .user-info-deposit-info {
   text-align: center;
-  color: green;
+  color: #666;
   font-size: 14px;
 }
 
 .tooltipLabel {
+  position: relative;
   display: flex;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  border-bottom: 1px dotted black;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 .tooltiptext{
@@ -256,16 +296,23 @@ body {
 }
 
 .tooltipLabel .tooltiptext {
-  visibility: hidden;
-  background-color: wheat;
-  color: #000;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  opacity: 1!important;
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 10;
+    visibility: hidden;
+    background-color: #222;
+    color: #eee;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    opacity: 1!important;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    left: 0px;
+    top: -110px;
+    font-size: 13px;
+    overflow: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
 }
 
 .tooltipLabel:hover .tooltiptext {
@@ -278,6 +325,7 @@ body {
 .user-info-popover .user-info-row {
   margin-top: 10px;
 }
+
 
 #username-chip {
   min-width: 120px;
@@ -328,11 +376,16 @@ body {
 .show-withdraw-button {
   display: flex;
   flex-direction: row;
-  margin-top: 0px;
+  margin-top: 40px!important;
   font-size: 14px;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
+}
+
+.show-withdraw-button button {
+  background: #444!important;
+  color: #fff;
 }
 
 /* .show-wallet-row .MuiButton-text {
@@ -380,13 +433,13 @@ body {
   font-size: 18px;
   font-weight: 500;
   padding-bottom: 5px;
- 
 }
 
 #current-balance-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 #current-balance {
@@ -401,6 +454,20 @@ body {
   justify-content: center;
   flex-direction: column;
   padding-bottom: 50px;
+}
+
+.deposit-row {
+  margin-bottom: 10px;
+}
+
+.user-balance-matic {
+  font-size: 14px;
+  padding: 2px 10px;
+  /* min-width: 144px; */
+  width: fit-content;
+  background-color: #3f51b5;
+  color: #fff;
+  border-radius: 5px;
 }
 
 #user-balance-usd {
@@ -516,7 +583,9 @@ body {
   font-size: 18px;
   font-weight: 600;
   vertical-align: middle;
-  color: #fff !important;
+  color: #000 !important;
+  width: fit-content;
+  background: #fff!important;
 }
 
 /* ----Home -> Right component ----- */
@@ -1208,25 +1277,39 @@ svgx circle {
   margin:auto;
 }
 
-.twitter-share{
+.twitter-share {
   display: flex;
-  width:200px;
-  flex-direction: column;
-  margin-right: 100%;
-  margin-top: 150px;
+  flex-direction: row;
+  margin-top: 30px;
+  justify-content: center;
+  width: fit-content;
+  background: #5DBEE9;
+  padding: 1px 10px;
+  border-radius: 9px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.twitter-share a {
+  display: flex;
+}
+
+.twitter-share a:hover {
+  text-decoration: none;
 }
 
 #share-on-twitter{
   display: flex;
   font-size: 16px;
-  color:grey;
+  color:#111;
   align-items: center;
 }
 
 #twitter-share-button{
   font-size: 16px;
-  color:grey;
-  width:100px;
+  color:white;
+  margin-right: 10px;
 }
 /*--- result Page-> Right component --- */
 
@@ -1621,22 +1704,53 @@ svgx circle {
 
 @media only screen and (max-width: 768px) {
 
+  .moon-image {
+    position: fixed;
+    right: -96%;
+    top: 35%;
+    z-index: -1;
+  }
+
   .subMenuComponent{
     margin-top: 20px;
+    justify-content: space-around;
   }
 
-  .feedback-link, .game-rules{
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
+  .feedback-link {
     padding: 0 30px;
-    /* margin: 0 10px; */
   }
 
-  .feedback , .game-Rules-display{
+  .game-Rules-display {
     margin: 0;
     text-align: center;
     font-size: 20px;
     font-weight: 500;
+  }
+
+  .submenu-mobile-container {
+    width: 100%;
+  }
+
+  .feedback {
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    background: #fff!important;
+    color: #000;
+    border-radius: 5px;
+    padding: 5px 0px;
+    width: 45%;
+  }
+
+  .game-rules {
+    text-align: center;
+    padding: 0 30px;
+    width: 45%;
+    background: #fff!important;
+    color: #000;
+    border-radius: 5px;
+    padding: 5px 0px;
   }
 
   .mobile {
@@ -1831,7 +1945,7 @@ svgx circle {
 
   .state-heading-desc {
     margin-left: 20px;
-    text-align: justify;
+    text-align: right;
     flex: 1;
   }
 

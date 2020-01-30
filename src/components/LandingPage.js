@@ -9,10 +9,6 @@ const {LAUNCH} = config.state;
 
 class LandingPage extends Component{
 
-    componentDidMount() {
-        console.log(this.props.betUpList);
-    }
-
     render() {
         return(
             <div className="main-section">

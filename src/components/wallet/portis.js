@@ -1,5 +1,5 @@
 const Portis = require('@portis/web3');
-const portis = new Portis('bedf09f0-224f-45a9-a54e-f1629c9d9592', 'maticTestnet', { registerPageByDefault: true });
+const portis = new Portis('bedf09f0-224f-45a9-a54e-f1629c9d9592', 'maticTestnet');
 
 const portisWallet = {
     getProvider : () => {
