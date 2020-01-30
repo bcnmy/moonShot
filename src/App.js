@@ -60,6 +60,7 @@ function App(props) {
   const [counter, setCounter] = useState(0);
   const [lastPrice, setLastPrice] = useState(0);
   const [stakePrice, setStakePrice] = useState(0);
+  const [gamePaused, setGamePaused] = useState(false);
   const [winners, setWinners] = useState([
   ]);
   const [loosers, setLoosers] = useState([]);
@@ -148,6 +149,7 @@ function App(props) {
             setStakePrice(data.stakePrice);
           }
           if(data.state === PREPARE) {
+            setGamePaused(false);
             setBetUpList([]);
             setBetDownList([]);
             setWinners([]);
@@ -198,6 +200,12 @@ function App(props) {
         if(data && data.lastPrice) {
           setLastPrice(data.lastPrice);
         }
+      });
+
+      socket.on("gamePaused", (data) => {
+        showSnack(data.data, {variant: 'info', persist: true});
+        setGamePaused(true);
+        changeState(LAUNCH);
       });
 
       socket.on("error", (data)=> {
@@ -741,16 +749,24 @@ function App(props) {
 
   const gameRulesDialogContent = <div id="username-form">
     <div className="topRow">Go through the game rules and start playing!!!</div>
-
-    <div className="middleRow">
-      - The maximum amount you can bet in a single game is 1000 matic tokens.
-      However, there is no limit of number of games that can be played.
-    </div>
-    <div className="middleRow">- In case no one wins the game, the entire loser money will go to Reserve pool.</div>
-    <div className="middleRow">- In case everyone wins the game, the money will be distributed from the reserve pool to the winners.
-    Each user will get 10% of his invested amount with a maximum of 100 matic tokens from the reserve pool.</div>
-    <div className="middleRow">- User can withdraw their tokens during the course of game </div>
-
+    <ul>
+      <li>
+        <div className="middleRow">
+          The maximum amount you can bet in a single game is 1000 matic tokens.
+          However, there is no limit on the number of games that can be played.
+        </div>
+      </li>
+      <li>
+        <div className="middleRow">In case no one wins the game, the entire loser money will go to the Game Reserve Pool.</div>
+      </li>
+      <li>
+        <div className="middleRow">In case everyone wins the game, the money will be distributed from the reserve pool to the winners.
+        Each winning user will get 10% of his bet amount upto 100 matic tokens from the Reserve Pool.</div>
+      </li>
+      <li>
+        <div  className="middleRow">User can withdraw their tokens any time during the course of game without paying any transaction fee.</div>
+      </li>
+    </ul>
     <div className="lastRowDisclaimer">
       <span>Disclaimer </span>: Moonshot is a peer to peer trading platform where we don’t hold any of your private keys.
       Biconomy won’t be liable any money lost or hacked.
@@ -781,7 +797,7 @@ function App(props) {
           placeBet={placeBet} betUpList={betUpList} betDownList={betDownList} winners={winners}
           loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced} isWinner={isWinner}
           resultPrice={resultPrice} userContract={userContract} promptForWithdraw={promptForWithdraw}
-          promptForGameRules={promptForGameRules}/>
+          promptForGameRules={promptForGameRules} initUserInfo={initUserInfo}/>
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}

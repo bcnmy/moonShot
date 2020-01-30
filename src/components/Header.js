@@ -73,7 +73,7 @@ export default function Header(props) {
                                 onDelete={handleAccountClick}
                                 deleteIcon = {< KeyboardArrowDownIcon />}/>
                             <UserInfoPopover open={openUserInfo} anchorEl={anchorEl} handleClose={handleCloseUserInfo}
-                            userContract={props.userContract}
+                            userContract={props.userContract} initUserInfo={props.initUserInfo}
                             username={props.username} promptForUsername={props.promptForUsername} onLogout={props.onLogout}
                             wallet={props.wallet} userInfo={props.userInfo} getPrice={props.getPrice} setOverlayActive={props.setOverlayActive}
                             setOverlayMessage={props.setOverlayMessage} showSnack={props.showSnack} promptForWithdraw={props.promptForWithdraw}/>

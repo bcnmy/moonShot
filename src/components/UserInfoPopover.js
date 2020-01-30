@@ -6,6 +6,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tooltip from '@material-ui/core/Tooltip';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 export default function UserInfoPopover(props) {
 
@@ -18,6 +19,11 @@ export default function UserInfoPopover(props) {
   const onLogout = ()=>{
     setLogout(true);
     props.handleClose();
+  }
+
+  const refreshBalance = ()=> {
+    props.initUserInfo();
+    props.showSnack("Refreshing your balance", {variant: "info", autoHideDuration: 2000});
   }
 
   const openWallet = async ()=>{
@@ -86,6 +92,7 @@ export default function UserInfoPopover(props) {
               <div id="user-balance-container">
                 <label id="user-balance-amount">{getBalance()}</label>
                 <label id="user-balance-unit">MATIC</label>
+                <label className="refresh-balance-button" onClick={refreshBalance}><RefreshIcon /></label>
               </div>
               <div id="user-balance-usd">
                 {`${props.userInfo.balanceInUSDT} USDT`}

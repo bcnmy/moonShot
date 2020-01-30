@@ -146,6 +146,10 @@ body {
   font-weight: 600;
 }
 
+.game-rules {
+  display: flex;
+}
+
 .game-Rules-display:hover {
   cursor: pointer;
   text-decoration: none;
@@ -157,11 +161,11 @@ body {
 
 .game-Rules-display{
   margin: 0 30px;
-  color: #000;
+  color: #fff;
 }
 
 .feedback a{
-  color: #000;
+  color: #fff;
 }
 
 .topRow{
@@ -171,7 +175,6 @@ body {
 }
 
 .middleRow{
-  margin-left: 30px;
   text-align: justify;
   font-size: 18px;
   font-weight: 400;
@@ -252,6 +255,12 @@ body {
 .username-missing button {
   width: fit-content;
   margin-left: 10px;
+}
+
+.refresh-balance-button {
+  margin-bottom: 4px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .user-info-deposit-address {
