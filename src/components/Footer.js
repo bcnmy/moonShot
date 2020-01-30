@@ -28,7 +28,7 @@ class Footer extends Component{
                     </div>
                 </div>
                 <div className="disclaimer">
-                All rights reserved. Biconomy© 2019.
+                All rights reserved. Biconomy© 2020.
                 </div>
             </div>
         );
