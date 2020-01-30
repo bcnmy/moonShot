@@ -221,12 +221,21 @@ body {
   align-items: center;
 }
 
+.faucet-note {
+  font-size: 13px;
+  font-style: italic;
+  width: 63%;
+  text-align: center;
+  color: #444;
+}
+
 .faucet-row {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
   margin-top: 20px;
+  flex-direction: column;
 }
 
 .faucet-row a:hover {
