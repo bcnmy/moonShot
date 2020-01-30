@@ -757,11 +757,13 @@ function App(props) {
         </div>
       </li>
       <li>
-        <div className="middleRow">In case no one wins the game, the entire loser money will go to the Game Reserve Pool.</div>
+        <div className="middleRow">In case there are no winners in a game, the entire pot of the money lost will go to the Reserve Pool.</div>
+        <div className="middleRow">Reserve Pool is the pool of funds that is used to distribute winning amount to users when every player wins the game as there is no loosing money in that game.</div>
       </li>
       <li>
         <div className="middleRow">In case everyone wins the game, the money will be distributed from the reserve pool to the winners.
-        Each winning user will get 10% of his bet amount upto 100 matic tokens from the Reserve Pool.</div>
+        In this case, each winning user will get back their bet amount + 10% of his bet amount upto 100 matic tokens from the Reserve Pool.</div>
+        <div className="middleRow">For example, Alice and Bob both placed a bet of 10 Matic Tokens that price will go up and both wins the game, then both players will get 10 + 1 = 11 Matic Tokens each.</div>
       </li>
       <li>
         <div  className="middleRow">User can withdraw their tokens any time during the course of game without paying any transaction fee.</div>
