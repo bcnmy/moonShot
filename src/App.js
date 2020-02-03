@@ -83,14 +83,11 @@ function App(props) {
     setOverlayMessage("Initializing the game ...");
     biconomy.on(biconomy.READY, async () => {
       // Initialize your dapp here
-      let isLoggedIn = localStorage.getItem(LS_KEY.LOGGED_IN);
-      if(isLoggedIn) {
+      if(biconomy.isLogin) {
         setUserLogin(true);
         setUsername(localStorage.getItem(LS_KEY.USERNAME));
-        if(biconomy.isLogin) {
-          setUserContract(await biconomy.getUserContract(localStorage.getItem(LS_KEY.USER_ADDRESS)));
-          setUserAddress(await biconomy.getUserAccount());
-        }
+        setUserContract(await biconomy.getUserContract(localStorage.getItem(LS_KEY.USER_ADDRESS)));
+        setUserAddress(await biconomy.getUserAccount());
       } else {
         setOverlayActive(false);
         clearUserLoginData();
