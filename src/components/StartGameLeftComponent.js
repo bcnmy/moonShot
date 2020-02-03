@@ -173,8 +173,8 @@ class StartGameLeftComponent extends Component {
                                 <div className="input-price-buttons">
                                     <Chip
                                         className="input-price-chip"
-                                        label={<span>0.02 <span className="input-price-unit">USDT</span></span>}
-                                        onClick={ (e) => this.handleSelectPriceClick(e, 0.02) }/>
+                                        label={<span> 0.015 <span className="input-price-unit">USDT</span></span>}
+                                        onClick={ (e) => this.handleSelectPriceClick(e, 0.015) }/>
                                     <Chip
                                         className="input-price-chip"
                                         label={<span>0.5 <span className="input-price-unit">USDT</span></span>}

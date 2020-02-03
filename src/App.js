@@ -562,6 +562,13 @@ function App(props) {
       } else {
         const data = response.data;
         if(data.code === 200) {
+          if(data.airdrop) {
+            showSnack(`${web3.utils.fromWei(data.airdropAmount)} matic tokens are being transfered to your wallet.`,
+            {variant: "success", persist: true});
+            showSnack(`Reload your wallet balance in few seconds and start playing.`,
+            {variant: "success", persist: true});
+            initUserInfo();
+          }
           showSnack(`User identity updated.`, {variant: "success"});
         } else {
           showSnack(data.message, {variant: "error"});
