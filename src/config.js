@@ -15,8 +15,8 @@ config.betSignMessage = "To confirm your bet, press the sign button below. Tacki
 config.endGameTopicId="0x80686c7634c916b5d7c21079bc76aa69e483abbe9cb82d47addb4cc7cb3a90d4";
 config.betPlacedTopicId="0x129d4e83dabdc677d13f18c9aa3ec10b867b7ca29240cd9c6f8f30611e8f10c5";
 
-config.biconomyDappId = "5e0e2984401a143065a4b069";
-config.biconomyAPIKey = "DHBigbvSJ.23ec95d7-e976-4072-8058-c4f8b422ebc2";
+config.biconomyDappId = "5e389e2fcdbe6d2ddbc27d97";
+config.biconomyAPIKey = "Ks6sfLzT0.d82ce0fe-8d59-4809-986e-361cd4959ae7";
 
 config.state = {
     LAUNCH: "LAUNCH",
