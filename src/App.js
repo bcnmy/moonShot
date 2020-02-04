@@ -775,7 +775,7 @@ function App(props) {
     </ul>
     <div className="lastRowDisclaimer">
       <span>Disclaimer </span>: Moonshot is a peer to peer trading platform where we don’t hold any of your private keys.
-      Biconomy won’t be liable any money lost or hacked.
+      Biconomy won’t be liable for any money lost or hacked.
     </div>
   </div>
 
