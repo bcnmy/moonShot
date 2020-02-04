@@ -97,7 +97,7 @@ class ResultLeftComponent extends Component{
                         </div>
                         }
                         <div className="twitter-share">
-                        <Link href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Ftest-moonshot.biconomy.io&text=I%20played%20this%20amazing%20game%20today%20%40moonshot%20powered%20by%20%40biconomy%20and%20%40maticnetwork%0AIt%27s%20gasless%20too%21%0A%0APlay%20Now%3A%20https%3A%2F%2Fmoonshot.biconomy.io" target="_">
+                        <Link href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Ftest-moonshot.biconomy.io&text=I%20played%20this%20amazing%20game%20today%2C%20%23Moonshot%20powered%20by%20%40biconomy%20and%20%40maticnetwork%0AIt%27s%20gasless%20too%21%0A%0APlay%20Now%3A%20https%3A%2F%2Fmoonshot.biconomy.io" target="_">
                                 <div id="twitter-share-button">
                                     <TwitterIcon fontSize="large"/>
                                 </div>
