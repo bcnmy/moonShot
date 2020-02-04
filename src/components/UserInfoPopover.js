@@ -121,12 +121,12 @@ export default function UserInfoPopover(props) {
               </div>
             </div>
           </div>
-          <div className="user-info-row faucet-row">
+          {/* <div className="user-info-row faucet-row">
             <Tooltip title="Select 'Matic ETH' token and 'Testnet2' network on faucet " placement="bottom" arrow leaveDelay="10000">
               <Button href="https://faucet.matic.network/" target="_blank" color="primary" variant="contained">Get tokens from faucet</Button>
             </Tooltip>
             <div className="mobile faucet-note">Select 'Matic ETH' token and 'Testnet2' network on faucet </div>
-          </div>
+          </div> */}
           {/* <div className="user-info-row deposit-withdraw-row">
             <Button variant="contained">Deposit</Button>
             <Button variant="contained">Withdraw</Button>

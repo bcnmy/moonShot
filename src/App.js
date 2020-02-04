@@ -667,7 +667,7 @@ function App(props) {
 
   const handleGameRulesDialogAction = async ()=>{
     setGameRulesDialog(false);
-    changeState(PREPARE);
+    // changeState(PREPARE);
   }
 
   const handleWithdrawDialogAction = async ()=>{
