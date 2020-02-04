@@ -112,11 +112,13 @@ export default function UserInfoPopover(props) {
             </div>
 
             <div className="user-info-deposit-info">
-              <div className="tooltipLabel">Why this address is different than my portis address?
+              <div className="tooltipLabel">Why is this address different to the address on portis Wallet?
                 <div className="tooltiptext">
-                  This address is your wallet address on blockchain whose owner is your portis account address.<br/>
-                  Funds can be withdrawn only with your permission from this wallet.<br/><br/>This on-chain wallet allows
-                  us to do gasless transactions for you so you do not have to pay the gas fees for your transactions.
+                This address is your Wallet Address and is the account from which you will be trading from, and sending/receiving Matic tokens to trade. <br/>
+Do note the address that your Portis Wallet (after pressing Open Wallet) will display for its Ethereum and corresponding ERC 20 token addresses will be different to the Wallet Address displayed here.<br/>
+
+                  <br/><br/>This on-chain wallet allows us to help you facilitate gasless transactions for you so you do not have to pay the gas fees for your transactions.
+<br/><br/>Remember, funds can be withdrawn only with your permission from this wallet.
                 </div>
               </div>
             </div>
