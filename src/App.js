@@ -10,6 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Web3 from 'web3';
 import axios from 'axios';
 import Biconomy from "@biconomy/mexa";
+import WarningIcon from '@material-ui/icons/Warning';
 
 import LoadingOverlay from 'react-loading-overlay';
 import openSocket from 'socket.io-client';
@@ -780,12 +781,21 @@ function App(props) {
   </div>
 
   const withdrawDialogContent = <div id="username-form">
+    <div className="withdraw-dialog-note">
+      <div className="warning-heading">
+        <WarningIcon/>
+      </div>
+      <div className="warning-content">
+        Token withdrawal is only supported on Matic Beta-Mainnet.
+        Withdrawal to Ethereum Main Network (eg Binance Wallet) will be supported soon.<br/> Any tokens withdrawn to Ethereum Mainnet will be lost.
+      </div>
+    </div>
     <div id="current-balance-container">
       <div id="current-balance-label">Current Balance</div>
       <div id="current-balance" className="user-balance-matic"> {getBalance()} MATIC</div>
     </div>
     <TextField autoFocus margin="dense"
-      id="receiver-address" label="Reciever Wallet Address" type="text" fullWidth onChange={onReceiverAddressChange} />
+      id="receiver-address" label="Reciever Wallet Address (Matic Beta Mainnet only)" type="text" fullWidth onChange={onReceiverAddressChange} />
       <TextField autoFocus margin="dense"
       id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
     </div>
