@@ -372,6 +372,24 @@ body {
   text-align: right;
 }
 
+.withdraw-dialog-note {
+  padding: 5px;
+  margin-bottom: 10px;
+  color: #9F6000;
+  background-color: #FEEFB3;
+  display: flex;
+}
+
+.warning-heading {
+  display: flex;
+  align-items: top;
+  padding-top: 10px;
+}
+
+.warning-content {
+  padding: 10px;
+}
+
 .deposit-withdraw-row {
   display: flex;
   justify-content: center;
