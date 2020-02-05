@@ -781,7 +781,7 @@ function App(props) {
   </div>
 
   const withdrawDialogContent = <div id="username-form">
-    <div className="withdraw-dialog-note" ref={withdrawWarningRef}>
+    <div className="withdraw-dialog-note">
       <div className="warning-heading">
         <WarningIcon/>
       </div>
