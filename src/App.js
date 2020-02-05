@@ -781,7 +781,7 @@ function App(props) {
   </div>
 
   const withdrawDialogContent = <div id="username-form">
-    <div className="withdraw-dialog-note">
+    <div className="withdraw-dialog-note" ref={withdrawWarningRef}>
       <div className="warning-heading">
         <WarningIcon/>
       </div>
@@ -795,8 +795,8 @@ function App(props) {
       <div id="current-balance" className="user-balance-matic"> {getBalance()} MATIC</div>
     </div>
     <TextField autoFocus margin="dense"
-      id="receiver-address" label="Reciever Wallet Address (Matic Beta Mainnet only)" type="text" fullWidth onChange={onReceiverAddressChange} />
-      <TextField autoFocus margin="dense"
+      id="receiver-address" label="Reciever Address (Matic Beta Mainnet)" type="text" fullWidth onChange={onReceiverAddressChange} />
+    <TextField autoFocus margin="dense"
       id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
     </div>
 
