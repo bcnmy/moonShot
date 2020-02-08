@@ -170,7 +170,7 @@ function App(props) {
             console.log(betPlaced);
             console.log(game);
             if(betPlaced && betPlaced.betValue) {
-              if(betPlaced.betValue === resultBetValue.toString()) {
+              if(resultBetValue && betPlaced.betValue === resultBetValue.toString()) {
                 setIsWinner(true);
               }
             }
