@@ -3,11 +3,29 @@ import Header from './Header';
 import LeftSection from './LeftSection';
 import RightSection from './RightSection';
 import Footer from './Footer';
+import { Widget, addResponseMessage, addLinkSnippet, addUserMessage } from 'react-chat-widget';
+import 'react-chat-widget/lib/styles.css';
 
 const {config} = require("./../config");
 const {LAUNCH} = config.state;
 
 class LandingPage extends Component{
+    componentDidMount() {
+        addResponseMessage("Welcome to this awesome chat!");
+    }
+
+    handleNewUserMessage = (newMessage) => {
+        console.log(newMessage.indexOf('.')> -1);
+        if(newMessage.indexOf('.')> -1){
+            alert("true");
+            // let urlLink = newMessage.link(newMessage);
+            addLinkSnippet({title:newMessage,link:newMessage});
+        }
+        else{
+            addUserMessage(newMessage);
+        }
+        // Now send the message throught the backend API
+    }
 
     render() {
         return(
@@ -36,6 +54,15 @@ class LandingPage extends Component{
                     loosers={this.props.loosers} resultBetValue={this.props.resultBetValue} userAddress={this.props.userAddress}
                     betPlaced={this.props.betPlaced}/>
                 </div>
+                <div className="trollBox">
+                    <Widget
+                    handleNewUserMessage={this.handleNewUserMessage}
+                    // profileAvatar={logo}
+                    title=""
+                    subtitle=""
+                    />
+                </div>
+
                 {this.props.currentState===LAUNCH && <Footer />}
             </div>
         );

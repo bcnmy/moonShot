@@ -695,7 +695,29 @@ body {
 .launch-page-content h5 {
   color: #fff;
 }
+.rcw-launcher{
+  background-color: gold!important;
+}
 
+.rcw-client {
+  background-color: gold!important;
+  margin-left: auto;
+}
+
+.rcw-conversation-container .rcw-header {
+  background-color: gold!important;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 15px 0 25px;
+}
+
+.rcw-message > .rcw-response {
+  background-color: grey;
+  color: white;
+}
 /************** STEPPER *****************/
 .stepper {
   background-color: transparent!important;
