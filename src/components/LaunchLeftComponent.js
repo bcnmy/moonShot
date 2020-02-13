@@ -26,7 +26,7 @@ class LaunchLeftComponent extends Component{
                 <div className="description-content">
                     <div id="content">
                     Learn to trade in one minute.  Moonshot is on a mission to spread
-                    awareness about trading in the most simplest and fun way possible.
+                    awareness about trading in the simplest and fun way possible.
                     With Moonshot, anyone can simply trade and become a trading champ!
 
                     </div>

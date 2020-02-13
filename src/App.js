@@ -290,7 +290,7 @@ function App(props) {
                 console.log(`Bet placed with value ${betIndicator} and betAmount ${betAmount} with txHash ${hash}`);
                 showSnack("Place bet transaction sent", {variant: 'info'});
               })
-              .once('confirmation', function(confirmationNumber, receipt){
+              .once('receipt', function(receipt){
                 if(receipt.status) {
                   showSnack("Successfully placed the bet", {variant: 'success'});
                 } else {
@@ -699,6 +699,10 @@ function App(props) {
     // changeState(PREPARE);
   }
 
+  const handleLoginDialogAction = async ()=>{
+    setLoginDialog(false);
+  }
+
   const handleWithdrawDialogAction = async ()=>{
     try{
       let isAddress = web3.utils.isAddress(receiverAddress);
@@ -828,12 +832,13 @@ function App(props) {
       id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
     </div>
 
-  const loginDialogContent = <div id="username-form">
-      <div className="portisLogin">
-        <img src="/images/portis-logo.png" alt="portis" className="wallet-logo" id="portis" onClick={() => onLogin("portis")}/>
-      </div>
+  const loginDialogContent = <div id="login-wallet-form">
+      
       <div className="fortMaticLogin">
         <img src="/images/fortmatic-logo.png" alt="fortmatic" className="wallet-logo" id="fortmatic" onClick={() => onLogin("fortmatic")}/>
+      </div>
+      <div className="portisLogin">
+        <img src="/images/portis-logo.png" alt="portis" className="wallet-logo" id="portis" onClick={() => onLogin("portis")}/>
       </div>
     </div>
 
@@ -862,11 +867,11 @@ function App(props) {
 
         <FormDialog open={openGameRulesDialog} title="Game Rules"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleGameRulesDialogAction}
-          children={gameRulesDialogContent} cancelText="Cancel" actionText="Skip and Play"/>
+          children={gameRulesDialogContent} cancelText="Cancel" actionText=""/>
 
         <FormDialog className="loginWallets" open={openLoginDialog} title="Select a wallet"
-          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleGameRulesDialogAction}
-          children={loginDialogContent} cancelText="Cancel" actionText="Skip and Play"/>
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleLoginDialogAction}
+          children={loginDialogContent} cancelText="Cancel" actionText=""/>
 
       </div>
   );
