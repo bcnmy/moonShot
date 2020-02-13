@@ -215,6 +215,30 @@ body {
   font-weight: bold;
 }
 
+#username-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.wallet-logo{
+  padding:20px;
+  margin:0 20px;
+}
+
+#portis{
+  margin:0 20px;
+  width:150px;
+}
+#fortmatic{
+  margin:0 20px;
+  width:200px;
+}
+
+.loginWallets{
+  width:20%;
+}
+
 .user-info-container {
   color: #444;
   display: flex;

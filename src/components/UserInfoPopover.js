@@ -82,7 +82,7 @@ export default function UserInfoPopover(props) {
                 </div>
               }
           </div>
-          {props.wallet.isWalletOpenSupported && (
+          {props.wallet && props.wallet.isWalletOpenSupported && (
             <div className="user-info-row show-wallet-row">
                 <Button startIcon={<OpenInNewIcon />} onClick={openWallet}>Open Wallet</Button>
             </div>

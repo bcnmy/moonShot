@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 const {config} = require("./../config");
+const {trim} = require("../utils");
 
 class ResultRightComponent extends Component{
 
@@ -9,7 +10,7 @@ class ResultRightComponent extends Component{
         if(this.props.winners) {
             winners = this.props.winners.map((item, key) => {return <div className="result-list-item">
                 <span className="user-name">{item.username}</span>
-                <span className="user-name">{(parseFloat(item.betAmountUSDT) + parseFloat(item.winAmountUSDT))} {config.betDisplayUnit}</span>
+                <span className="user-name">{ trim((parseFloat(item.betAmountUSDT) + parseFloat(item.winAmountUSDT)),5)} {config.betDisplayUnit}</span>
             </div>});
         }
 
