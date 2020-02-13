@@ -56,6 +56,7 @@ if(process.env.REACT_APP_STAGE === "prod") {
 let LS_KEY = {
     LOGGED_IN : "LI",
     USERNAME: "UN",
-    USER_ADDRESS: "UA"
+    USER_ADDRESS: "UA",
+    WALLET_SELECTED: "WS"
 }
 module.exports = {config, LS_KEY};

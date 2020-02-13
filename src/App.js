@@ -77,6 +77,27 @@ function App(props) {
   // to stop this effect from running each time any state or props changes
 
   useEffect(()=>{
+    let walletSelected = localStorage.getItem(LS_KEY.WALLET_SELECTED);
+    let isLoggedIn = localStorage.getItem(LS_KEY.LOGGED_IN);
+    if(walletSelected && isLoggedIn){
+      switch (walletSelected){
+        case "portis" : 
+          wallet = require("./components/wallet/portis").default;
+          break;
+        case "fortmatic" : 
+          wallet = require("./components/wallet/fortmatic").default;
+          break;
+      }
+      localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
+      initializeBiconomy();
+      setLoginDialog(false);
+      setOverlayActive(true);
+      setOverlayMessage("Connecting with your wallet ...");
+      console.log("Connecting with your wallet ...");
+    }
+  }, []);
+
+  useEffect(()=>{
     if(userContract && userContract !== "") {
       initUserInfo();
     }
@@ -607,6 +628,8 @@ function App(props) {
         wallet = require("./components/wallet/fortmatic").default;
         break;
     }
+
+    localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
     initializeBiconomy();
     setLoginDialog(false);
     setOverlayActive(true);
@@ -859,7 +882,7 @@ function App(props) {
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}
-          children={nameDialogContent} cancelText="Skip"/>
+          children={nameDialogContent} cancelText="Skip" actionText="Submit"/>
 
         <FormDialog open={openWithdrawDialog} title="Withdraw Funds"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleWithdrawDialogAction}
