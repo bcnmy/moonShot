@@ -27,16 +27,11 @@ let appRoot = require('app-root-path');
 const {config, LS_KEY} = require(`${appRoot}/config`);
 const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
-let wallet = require("./components/wallet/portis").default;
-const biconomy = new Biconomy(wallet.getProvider(), {
-    dappId: config.biconomyDappId,
-    apiKey: config.biconomyAPIKey,
-    loginMessageToSign: config.loginMessageToSign,
-    messageToSign: config.betSignMessage,
-    strictMode: true
-  });
+let wallet;
 
-const web3 = new Web3(biconomy);
+let biconomy;
+
+let web3 ;
 
 let socket;
 let smartContract;
@@ -51,6 +46,7 @@ function App(props) {
   const [openNameDialog, setOpenNameDialog] = useState(false);
   const [openWithdrawDialog, setOpenWithdrawDialog] = useState(false);
   const [openGameRulesDialog, setGameRulesDialog] = useState(false);
+  const [openLoginDialog, setLoginDialog] = useState(false);
   const [username, setUsername] = useState("");
   const [receiverAddress, setReceiverAddress] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
@@ -79,35 +75,6 @@ function App(props) {
 
   // Similar to componentDidMount and componentDidUpdate. Pass empty array as second argument,
   // to stop this effect from running each time any state or props changes
-  useEffect(() => {
-    setOverlayActive(true);
-    setOverlayMessage("Initializing the game ...");
-    biconomy.on(biconomy.READY, async () => {
-      // Initialize your dapp here
-      if(biconomy.isLogin) {
-        setUserLogin(true);
-        setUsername(localStorage.getItem(LS_KEY.USERNAME));
-        setUserContract(await biconomy.getUserContract(localStorage.getItem(LS_KEY.USER_ADDRESS)));
-        setUserAddress(await biconomy.getUserAccount());
-      } else {
-        setOverlayActive(false);
-        clearUserLoginData();
-      }
-    }).on(biconomy.ERROR, (error, message) => {
-      console.log(error);
-      setOverlayActive(false);
-      // Handle error while initializing mexa
-      showSnack(`Error while initializing Biconomy`, {variant: 'error'});
-    });
-
-    biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
-      // User's Contract Wallet creation successful
-      let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
-      showSnack("On-chain identity created", {variant: 'success'});
-      setUserContract(userContract);
-      updateUserContract(userAddress, userContract);
-    });
-  }, []);
 
   useEffect(()=>{
     if(userContract && userContract !== "") {
@@ -116,7 +83,7 @@ function App(props) {
   }, [userContract]);
 
   useEffect(()=>{
-    getSmartContract();
+   
     console.log( `current state is now ${currentState}`);
     stateValue = currentState;
     if(currentState !== LAUNCH) {
@@ -130,6 +97,50 @@ function App(props) {
       }
     }
   },[currentState]);
+
+  const initializeBiconomy = () => {
+    setOverlayActive(true);
+    setOverlayMessage("Initializing the game ...");
+
+    biconomy = new Biconomy(wallet.getProvider(), {
+      dappId: config.biconomyDappId,
+      apiKey: config.biconomyAPIKey,
+      loginMessageToSign: config.loginMessageToSign,
+      messageToSign: config.betSignMessage,
+      strictMode: true
+    });
+  
+    web3 = new Web3(biconomy);
+
+    biconomy.on(biconomy.READY, async () => {
+      // Initialize your dapp here
+      if(biconomy.isLogin) {
+        setUserLogin(true);
+        setUsername(localStorage.getItem(LS_KEY.USERNAME));
+        setUserContract(await biconomy.getUserContract(localStorage.getItem(LS_KEY.USER_ADDRESS)));
+        setUserAddress(await biconomy.getUserAccount());
+      } else {
+        setOverlayActive(false);
+        clearUserLoginData();
+      }
+    }).on(biconomy.ERROR, (error, message) => {
+      console.log(error);
+      console.log(message);
+      setOverlayActive(false);
+      // Handle error while initializing mexa
+      showSnack(`Error while initializing Biconomy`, {variant: 'error'});
+    });
+
+    biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
+      // User's Contract Wallet creation successful
+      let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
+      showSnack("On-chain identity created", {variant: 'success'});
+      setUserContract(userContract);
+      updateUserContract(userAddress, userContract);
+    });
+
+    getSmartContract();
+  }
 
   const startSocketConnection = () => {
     if(!socket || !socket.connected) {
@@ -347,6 +358,10 @@ function App(props) {
 
   const promptForGameRules = async () =>{
     setGameRulesDialog(true);
+  }
+
+  const promptForLoginOptions = async () =>{
+    setLoginDialog(true);
   }
 
   const requestCurrentPrice = () => {
@@ -583,9 +598,20 @@ function App(props) {
     });
   };
 
-  const onLogin = async () => {
+  const onLogin = async (walletSelected) => {
+    switch (walletSelected){
+      case "portis" : 
+        wallet = require("./components/wallet/portis").default;
+        break;
+      case "fortmatic" : 
+        wallet = require("./components/wallet/fortmatic").default;
+        break;
+    }
+    initializeBiconomy();
+    setLoginDialog(false);
     setOverlayActive(true);
     setOverlayMessage("Connecting with your wallet ...");
+    console.log("Connecting with your wallet ...");
     try {
       await wallet.init();
       web3.eth.getAccounts((error, accounts) => {
@@ -606,6 +632,7 @@ function App(props) {
       });
     } catch(error) {
       setOverlayActive(false);
+      console.log(error);
       showSnack(`Error while getting your public address. Make sure your wallet is unlocked.`, {variant: 'error'});
     }
   }
@@ -635,6 +662,7 @@ function App(props) {
     setUpdateUserMessage("");
     setOpenWithdrawDialog(false);
     setGameRulesDialog(false);
+    setLoginDialog(false);
   }
 
   const handleDialogAction = ()=>{
@@ -800,6 +828,15 @@ function App(props) {
       id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
     </div>
 
+  const loginDialogContent = <div id="username-form">
+      <div className="portisLogin">
+        <img src="/images/portis-logo.png" alt="portis" className="wallet-logo" id="portis" onClick={() => onLogin("portis")}/>
+      </div>
+      <div className="fortMaticLogin">
+        <img src="/images/fortmatic-logo.png" alt="fortmatic" className="wallet-logo" id="fortmatic" onClick={() => onLogin("fortmatic")}/>
+      </div>
+    </div>
+
   return (
       <div className="App" id="Home">
         <img src="/images/moon.png" alt="moon" className="moon-image"/>
@@ -813,7 +850,7 @@ function App(props) {
           placeBet={placeBet} betUpList={betUpList} betDownList={betDownList} winners={winners}
           loosers={loosers} resultBetValue={resultBetValue} betPlaced={betPlaced} isWinner={isWinner}
           resultPrice={resultPrice} userContract={userContract} promptForWithdraw={promptForWithdraw}
-          promptForGameRules={promptForGameRules} initUserInfo={initUserInfo}/>
+          promptForGameRules={promptForGameRules} promptForLoginOptions={promptForLoginOptions} initUserInfo={initUserInfo}/>
 
         <FormDialog open={openNameDialog} title="One last thing" contentText="What should we call you?"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDialogAction}
@@ -826,6 +863,10 @@ function App(props) {
         <FormDialog open={openGameRulesDialog} title="Game Rules"
           handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleGameRulesDialogAction}
           children={gameRulesDialogContent} cancelText="Cancel" actionText="Skip and Play"/>
+
+        <FormDialog className="loginWallets" open={openLoginDialog} title="Select a wallet"
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleGameRulesDialogAction}
+          children={loginDialogContent} cancelText="Cancel" actionText="Skip and Play"/>
 
       </div>
   );
