@@ -62,7 +62,7 @@ export default function Header(props) {
                             <SubMenuComponent displayHome={displayHome} promptForGameRules={props.promptForGameRules}/>
                         </div>
                         <Button id="login-button" className={`gtp-buttons ${props.userLogin ? "hidden":""}`} variant="contained"
-                            onClick={props.onLogin}>
+                            onClick={props.promptForLoginOptions}>
                             Login
                         </Button>
                         <div id="logged-in-user-info" className={props.userLogin ? "user-info-container":"hidden"}>

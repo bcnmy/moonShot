@@ -21,9 +21,11 @@ export default function FormDialog(props) {
           <Button onClick={props.handleCancel} color="primary">
             {props.cancelText?props.cancelText:"Cancel"}
           </Button>
+          {props.actionText &&
           <Button onClick={props.handleAction} color="primary">
             {props.actionText?props.actionText:"Submit"}
           </Button>
+          }
         </DialogActions>
       </Dialog>
     </div>

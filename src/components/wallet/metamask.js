@@ -7,7 +7,7 @@ const metamaskWallet = {
     },
 
     getWalletId: ()=>{
-        return 2;
+        return 3;
     },
     getUserAccount: async (web3)=> {
         await window.ethereum.enable();

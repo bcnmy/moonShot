@@ -7,8 +7,7 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tooltip from '@material-ui/core/Tooltip';
 import RefreshIcon from '@material-ui/icons/Refresh';
-
-const {config} = require("../config");
+const {config,LS_KEY} = require("../config");
 
 export default function UserInfoPopover(props) {
 
@@ -84,7 +83,7 @@ export default function UserInfoPopover(props) {
                 </div>
               }
           </div>
-          {props.wallet.isWalletOpenSupported && (
+          {props.wallet && props.wallet.isWalletOpenSupported && (
             <div className="user-info-row show-wallet-row">
                 <Button startIcon={<OpenInNewIcon />} onClick={openWallet}>Open Wallet</Button>
             </div>
@@ -112,7 +111,7 @@ export default function UserInfoPopover(props) {
                 <svg className="copy-contract-address" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
               </CopyToClipboard>
             </div>
-
+            {localStorage.getItem(LS_KEY.WALLET_SELECTED)==="portis" && 
             <div className="user-info-deposit-info">
               <div className="tooltipLabel">Why is this address different to the address on portis Wallet?
                 <div className="tooltiptext">
@@ -124,6 +123,7 @@ Do note the address that your Portis Wallet (after pressing Open Wallet) will di
                 </div>
               </div>
             </div>
+            }
           </div>
           { config.env === "test" && <div className="user-info-row faucet-row">
             <Tooltip title="Select 'Matic ETH' token and 'Testnet2' network on faucet " placement="bottom" arrow>
