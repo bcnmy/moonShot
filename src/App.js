@@ -81,12 +81,13 @@ function App(props) {
     let isLoggedIn = localStorage.getItem(LS_KEY.LOGGED_IN);
     if(walletSelected && isLoggedIn){
       switch (walletSelected){
-        case "portis" : 
+        case "portis" :
           wallet = require("./components/wallet/portis").default;
           break;
-        case "fortmatic" : 
+        case "fortmatic" :
           wallet = require("./components/wallet/fortmatic").default;
           break;
+        default:
       }
       localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
       initializeBiconomy();
@@ -104,7 +105,7 @@ function App(props) {
   }, [userContract]);
 
   useEffect(()=>{
-   
+
     console.log( `current state is now ${currentState}`);
     stateValue = currentState;
     if(currentState !== LAUNCH) {
@@ -119,7 +120,7 @@ function App(props) {
     }
   },[currentState]);
 
-  const initializeBiconomy = () => {
+  const initializeBiconomy = (initViaLogin, walletSelected) => {
     setOverlayActive(true);
     setOverlayMessage("Initializing the game ...");
 
@@ -130,7 +131,7 @@ function App(props) {
       messageToSign: config.betSignMessage,
       strictMode: true
     });
-  
+
     web3 = new Web3(biconomy);
 
     biconomy.on(biconomy.READY, async () => {
@@ -143,6 +144,9 @@ function App(props) {
       } else {
         setOverlayActive(false);
         clearUserLoginData();
+        if(initViaLogin) {
+          onLogin(walletSelected);
+        }
       }
     }).on(biconomy.ERROR, (error, message) => {
       console.log(error);
@@ -215,6 +219,16 @@ function App(props) {
           if(currentState !== LAUNCH) {
             changeState(data.state);
           }
+          if(data.bets) {
+            for (var key in data.bets) {
+              if (data.bets.hasOwnProperty(key)) {
+                var bet = data.bets[key];
+                if(bet) {
+                  handleBetPlaceEvent(bet);
+                }
+              }
+            }
+          }
         }
       })
 
@@ -245,32 +259,7 @@ function App(props) {
 
       socket.on("betPlaced", (data) => {
         console.log(`Bet placed: ${JSON.stringify(data)}`);
-        let {gameId, betAmount, betValue, userName, betAmountUSDT} = data;
-
-        let betUserAddress = data.userAddress;
-        if(betUserAddress.toLowerCase() === userContract.toLowerCase()) {
-          showSnack("Successfully placed the bet", {variant: 'success'});
-          console.log(`User placing bet with betValue ${betValue}`);
-          console.log(`typeof betValue ${typeof betValue}`)
-          let betPlaced = {};
-          betPlaced.betAmountUSDT = betAmountUSDT;
-          betPlaced.betValue = betValue;
-          if(betValue === "1") {
-            betPlaced.betValueString = "UP";
-          } else if(betValue === "2") {
-            betPlaced.betValueString = "DOWN";
-          }
-          setBetPlaced(betPlaced);
-          initUserInfo();
-        }
-
-        if(betValue === "1") {
-          betUpList.push({gameId, betUserAddress, betAmount, betValue, userName, betAmountUSDT});
-          setBetUpList([...betUpList]);
-        } else if(betValue === "2") {
-          betDownList.push({gameId, betUserAddress, betAmount, betValue, userName, betAmountUSDT});
-          setBetDownList([...betDownList]);
-        }
+        handleBetPlaceEvent(data)
         console.log(betUpList);
         console.log(betDownList);
       });
@@ -280,6 +269,36 @@ function App(props) {
     }
   }
 
+  const handleBetPlaceEvent = (data) => {
+    if(data) {
+      let {gameId, betAmount, betValue, userName, betAmountUSDT} = data;
+
+      let betUserAddress = data.userAddress;
+      if(betUserAddress.toLowerCase() === userContract.toLowerCase()) {
+        showSnack("Successfully placed the bet", {variant: 'success'});
+        console.log(`User placing bet with betValue ${betValue}`);
+        console.log(`typeof betValue ${typeof betValue}`)
+        let betPlaced = {};
+        betPlaced.betAmountUSDT = betAmountUSDT;
+        betPlaced.betValue = betValue;
+        if(betValue === "1") {
+          betPlaced.betValueString = "UP";
+        } else if(betValue === "2") {
+          betPlaced.betValueString = "DOWN";
+        }
+        setBetPlaced(betPlaced);
+        initUserInfo();
+      }
+
+      if(betValue === "1") {
+        betUpList.push({gameId, betUserAddress, betAmount, betValue, userName, betAmountUSDT});
+        setBetUpList([...betUpList]);
+      } else if(betValue === "2") {
+        betDownList.push({gameId, betUserAddress, betAmount, betValue, userName, betAmountUSDT});
+        setBetDownList([...betDownList]);
+      }
+    }
+  }
 
   const placeBet = async(betValue, betAmount) => {
     try {
@@ -434,7 +453,7 @@ function App(props) {
       return;
   }
 
-  const login = async (userAddress)=>{
+  const login = async (userAddress, walletSelected)=>{
     let userLoginPath = `${config.baseURL}${config.loginPath}`;
     try {
       const messageToSign = await biconomy.getLoginMessageToSign(userAddress);
@@ -463,6 +482,7 @@ function App(props) {
             console.log(data);
             if(data.code === 200) {
               localStorage.setItem(LS_KEY.LOGGED_IN, true);
+              localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
               localStorage.setItem(LS_KEY.USER_ADDRESS, userAddress);
               if(data.name) {
                 localStorage.setItem(LS_KEY.USERNAME, data.name);
@@ -625,22 +645,27 @@ function App(props) {
     });
   };
 
-  const onLogin = async (walletSelected) => {
+  const onWalletSelected = async(walletSelected) => {
     switch (walletSelected){
-      case "portis" : 
+      case "portis" :
         wallet = require("./components/wallet/portis").default;
         break;
-      case "fortmatic" : 
+      case "fortmatic" :
         wallet = require("./components/wallet/fortmatic").default;
         break;
+      default:
     }
 
     localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
-    initializeBiconomy();
+    initializeBiconomy(true, walletSelected);
     setLoginDialog(false);
     setOverlayActive(true);
     setOverlayMessage("Connecting with your wallet ...");
     console.log("Connecting with your wallet ...");
+  }
+
+  const onLogin = async (walletSelected) => {
+    setOverlayActive(true);
     try {
       await wallet.init();
       web3.eth.getAccounts((error, accounts) => {
@@ -652,7 +677,7 @@ function App(props) {
           if(accounts && accounts.length > 0) {
             let userAddress = accounts[0];
             setOverlayMessage(`Getting your account ..`);
-            login(userAddress);
+            login(userAddress, walletSelected);
           } else {
             setOverlayActive(false);
             showSnack(`Error while fetching your account`, {variant: 'error'});
@@ -863,12 +888,12 @@ function App(props) {
     </div>
 
   const loginDialogContent = <div id="login-wallet-form">
-      
+
       <div className="fortMaticLogin">
-        <img src="/images/fortmatic-logo.png" alt="fortmatic" className="wallet-logo" id="fortmatic" onClick={() => onLogin("fortmatic")}/>
+        <img src="/images/fortmatic-logo.png" alt="fortmatic" className="wallet-logo" id="fortmatic" onClick={() => onWalletSelected("fortmatic")}/>
       </div>
       <div className="portisLogin">
-        <img src="/images/portis-logo.png" alt="portis" className="wallet-logo" id="portis" onClick={() => onLogin("portis")}/>
+        <img src="/images/portis-logo.png" alt="portis" className="wallet-logo" id="portis" onClick={() => onWalletSelected("portis")}/>
       </div>
     </div>
 
