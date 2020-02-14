@@ -323,12 +323,17 @@ function App(props) {
                 console.log(receipt);
               })
               .on('error', function(error, receipt) {
-                console.error(error);
-                console.log(stateValue);
-                if(stateValue !== START) {
-                  showSnack("Betting phase is over. Try to place bet early in next game.", {variant: 'error'});
-                } else {
-                  showSnack('Error while placing the bet.', {variant: 'error'});
+                console.log(`error ${error.toString()}`);
+                if(localStorage.getItem(LS_KEY.WALLET_SELECTED)==="fortmatic" && error.toString().includes(config.fortmaticError)){
+                  showSnack("Successfully placed the bet", {variant: 'success'});
+                }
+                else{
+                  console.log(stateValue);
+                  if(stateValue !== START) {
+                    showSnack("Betting phase is over. Try to place bet early in next game.", {variant: 'error'});
+                  } else {
+                    showSnack('Error while placing the bet.', {variant: 'error'});
+                  }
                 }
               });
             })
