@@ -30,7 +30,7 @@ if(process.env.REACT_APP_STAGE === "prod") {
     config.RPCURL = "https://betav2.matic.network";
     config.networkID="16110";
     config.portisDappId = "bedf09f0-224f-45a9-a54e-f1629c9d9592";
-    config.fortmaticId="pk_live_B854A73ECD01198D";
+    config.fortmaticId="pk_test_E711F7ECCF0C5727";
     config.env = "prod";
 } else if(process.env.REACT_APP_STAGE === "test") {
     config.baseURL = `https://test.api.moonshot.biconomy.io`;
