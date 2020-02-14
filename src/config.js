@@ -1,4 +1,5 @@
 let config = {};
+config.fortmaticError="Error: Failed to subscribe to new newBlockHeaders to confirm the transaction receipts.";
 config.loginPath = `/v1/users/login`;
 config.updatePath = `/v1/users/update`;
 config.getNoncePath = `/v1/users/getNonce`;

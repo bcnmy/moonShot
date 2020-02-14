@@ -249,6 +249,7 @@ function App(props) {
 
         let betUserAddress = data.userAddress;
         if(betUserAddress.toLowerCase() === userContract.toLowerCase()) {
+          showSnack("Successfully placed the bet", {variant: 'success'});
           console.log(`User placing bet with betValue ${betValue}`);
           console.log(`typeof betValue ${typeof betValue}`)
           let betPlaced = {};
@@ -323,12 +324,17 @@ function App(props) {
                 console.log(receipt);
               })
               .on('error', function(error, receipt) {
-                console.error(error);
-                console.log(stateValue);
-                if(stateValue !== START) {
-                  showSnack("Betting phase is over. Try to place bet early in next game.", {variant: 'error'});
-                } else {
-                  showSnack('Error while placing the bet.', {variant: 'error'});
+                console.log(`error ${error.toString()}`);
+                if(localStorage.getItem(LS_KEY.WALLET_SELECTED)==="fortmatic" && error.toString().includes(config.fortmaticError)){
+                  console.error('Error while placing the bet');
+                }
+                else{
+                  console.log(stateValue);
+                  if(stateValue !== START) {
+                    showSnack("Betting phase is over. Try to place bet early in next game.", {variant: 'error'});
+                  } else {
+                    showSnack('Error while placing the bet.', {variant: 'error'});
+                  }
                 }
               });
             })
@@ -674,6 +680,7 @@ function App(props) {
     localStorage.removeItem(LS_KEY.LOGGED_IN);
     localStorage.removeItem(LS_KEY.USER_ADDRESS);
     localStorage.removeItem(LS_KEY.USERNAME);
+    localStorage.removeItem(LS_KEY.WALLET_SELECTED);
   }
 
   const showSnack = (content, options) => {
