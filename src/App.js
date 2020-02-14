@@ -249,6 +249,7 @@ function App(props) {
 
         let betUserAddress = data.userAddress;
         if(betUserAddress.toLowerCase() === userContract.toLowerCase()) {
+          showSnack("Successfully placed the bet", {variant: 'success'});
           console.log(`User placing bet with betValue ${betValue}`);
           console.log(`typeof betValue ${typeof betValue}`)
           let betPlaced = {};
@@ -679,6 +680,7 @@ function App(props) {
     localStorage.removeItem(LS_KEY.LOGGED_IN);
     localStorage.removeItem(LS_KEY.USER_ADDRESS);
     localStorage.removeItem(LS_KEY.USERNAME);
+    localStorage.removeItem(LS_KEY.WALLET_SELECTED);
   }
 
   const showSnack = (content, options) => {
