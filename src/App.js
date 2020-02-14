@@ -326,7 +326,7 @@ function App(props) {
               .on('error', function(error, receipt) {
                 console.log(`error ${error.toString()}`);
                 if(localStorage.getItem(LS_KEY.WALLET_SELECTED)==="fortmatic" && error.toString().includes(config.fortmaticError)){
-                  showSnack("Successfully placed the bet", {variant: 'success'});
+                  console.error('Error while placing the bet');
                 }
                 else{
                   console.log(stateValue);
