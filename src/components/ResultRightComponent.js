@@ -8,7 +8,7 @@ class ResultRightComponent extends Component{
 
         let winners = [];
         if(this.props.winners) {
-            winners = this.props.winners.map((item, key) => {return <div className="result-list-item">
+            winners = this.props.winners.map((item, key) => {return <div key={key} className="result-list-item">
                 <span className="user-name">{item.username}</span>
                 <span className="user-name">{ trim((parseFloat(item.betAmountUSDT) + parseFloat(item.winAmountUSDT)),5)} {config.betDisplayUnit}</span>
             </div>});
