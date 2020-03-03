@@ -76,7 +76,8 @@ export default function Header(props) {
                             userContract={props.userContract} initUserInfo={props.initUserInfo}
                             username={props.username} promptForUsername={props.promptForUsername} onLogout={props.onLogout}
                             wallet={props.wallet} userInfo={props.userInfo} getPrice={props.getPrice} setOverlayActive={props.setOverlayActive}
-                            setOverlayMessage={props.setOverlayMessage} showSnack={props.showSnack} promptForWithdraw={props.promptForWithdraw}/>
+                            setOverlayMessage={props.setOverlayMessage} showSnack={props.showSnack} promptForWithdraw={props.promptForWithdraw}
+                            promptForDeposit={props.promptForDeposit}/>
                         </div>
                     </div>
                 </div>

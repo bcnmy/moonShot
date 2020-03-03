@@ -4,6 +4,8 @@ config.loginPath = `/v1/users/login`;
 config.updatePath = `/v1/users/update`;
 config.getNoncePath = `/v1/users/getNonce`;
 config.getPricePath = `/v1/price/getPrice`;
+config.withdrawFunds = `/v1/users/withdraw`;
+config.updateTxn = `/v1/users/withdraw/update-hash`;
 config.getSmartContractPath = `/v1/game/smartContract`;
 config.symbol = "MATICUSDT";
 config.lastPriceUnit = "USDT";
@@ -43,10 +45,10 @@ if(process.env.REACT_APP_STAGE === "prod") {
     config.fortmaticId="pk_test_E711F7ECCF0C5727";
     config.env = "test";
 } else {
-    config.baseURL = `http://localhost:3010`;
-    config.socketConnectionURL = `http://localhost:3010`;
-    config.biconomyDappId = "5e0e2984401a143065a4b069";
-    config.biconomyAPIKey = "DHBigbvSJ.23ec95d7-e976-4072-8058-c4f8b422ebc2";
+    config.baseURL = `http://localhost:5000`;
+    config.socketConnectionURL = `http://localhost:5000`;
+    config.biconomyDappId = "5e4fbfeb017972c16c62d934";
+    config.biconomyAPIKey = "895snrqRM.6208f104-4ff3-4051-b818-8ab73d951acb";
     config.RPCURL = "https://testnet2.matic.network";
     config.networkID="8995";
     config.portisDappId = "f5515b6f-1f87-4988-9ecc-9d0556ed50d2";

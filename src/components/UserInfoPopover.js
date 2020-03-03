@@ -101,6 +101,9 @@ export default function UserInfoPopover(props) {
               <div className="user-info-row show-withdraw-button">
                 <Button variant="contained" color="primary" startIcon={<MonetizationOnIcon />} onClick={props.promptForWithdraw}>Withdraw Funds</Button>
               </div>
+              <div className="user-info-row show-withdraw-button">
+                <Button variant="contained" color="primary" startIcon={<MonetizationOnIcon />} onClick={props.promptForDeposit}>Deposit Funds</Button>
+              </div>
           </div>
           <div className="user-info-row deposit-row">
             <div className="user-info-deposit-label">Deposit funds to below address</div>
