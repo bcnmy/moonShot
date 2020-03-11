@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tooltip from '@material-ui/core/Tooltip';
 import RefreshIcon from '@material-ui/icons/Refresh';
 const {config,LS_KEY} = require("../config");
@@ -51,10 +50,6 @@ export default function UserInfoPopover(props) {
       balance = Math.round(props.userInfo.balanceInEther * 100) / 100
     }
     return balance;
-  }
-
-  const onCopyAddress = () => {
-    props.showSnack("Address copied to clipboard", {variant: "info", autoHideDuration: 2000});
   }
 
   return (
@@ -105,29 +100,7 @@ export default function UserInfoPopover(props) {
                 <Button variant="contained" color="primary" startIcon={<MonetizationOnIcon />} onClick={props.promptForDeposit}>Deposit Funds</Button>
               </div>
           </div>
-          <div className="user-info-row deposit-row">
-            <div className="user-info-deposit-label">Deposit funds to below address</div>
-
-            <div className="user-info-deposit-address">
-              <span>{props.userInfo.userAddress}</span>
-              <CopyToClipboard text={props.userInfo.userAddress} onCopy={onCopyAddress}>
-                <svg className="copy-contract-address" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              </CopyToClipboard>
-            </div>
-            {localStorage.getItem(LS_KEY.WALLET_SELECTED)==="portis" && 
-            <div className="user-info-deposit-info">
-              <div className="tooltipLabel">Why is this address different to the address on portis Wallet?
-                <div className="tooltiptext">
-                This address is your Wallet Address and is the account from which you will be trading from, and sending/receiving Matic tokens to trade. <br/>
-Do note the address that your Portis Wallet (after pressing Open Wallet) will display for its Ethereum and corresponding ERC 20 token addresses will be different to the Wallet Address displayed here.<br/>
-
-                  <br/><br/>This on-chain wallet allows us to help you facilitate gasless transactions for you so you do not have to pay the gas fees for your transactions.
-<br/><br/>Remember, funds can be withdrawn only with your permission from this wallet.
-                </div>
-              </div>
-            </div>
-            }
-          </div>
+          
           { config.env === "test" && <div className="user-info-row faucet-row">
             <Tooltip title="Select 'Matic ETH' token and 'Testnet2' network on faucet " placement="bottom" arrow>
               <Button href="https://faucet.matic.network/" target="_blank" color="primary" variant="contained">Get tokens from faucet</Button>

@@ -5,6 +5,7 @@ config.updatePath = `/v1/users/update`;
 config.getNoncePath = `/v1/users/getNonce`;
 config.getPricePath = `/v1/price/getPrice`;
 config.withdrawFunds = `/v1/users/withdraw`;
+config.depositFunds = `/v1/deposit/deposit-funds`;
 config.updateTxn = `/v1/users/withdraw/update-hash`;
 config.getSmartContractPath = `/v1/game/smartContract`;
 config.symbol = "MATICUSDT";

@@ -4,21 +4,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import LandingPage from './components/LandingPage';
+import DepositAddressDisplay from './components/DepositAddressDisplay';
+import InternalDeposit from './components/InternalDeposit';
+import DepositRequest from './components/DepositRequest';
 import TextField from '@material-ui/core/TextField';
 import FormDialog from './components/reusable/FormDialog';
-import TabPanel from './components/reusable/TabPanel';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Web3 from 'web3';
 import axios from 'axios';
 import Biconomy from "@biconomy/mexa";
-import WarningIcon from '@material-ui/icons/Warning';
+import TabPanel from './components/reusable/TabPanel';
 
 import LoadingOverlay from 'react-loading-overlay';
 import openSocket from 'socket.io-client';
@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 let appRoot = require('app-root-path');
 const {config, LS_KEY} = require(`${appRoot}/config`);
+
 const {LAUNCH, PREPARE, WAITING, START, RESULT} = config.state;
 
 let wallet;
@@ -58,8 +59,7 @@ function App(props) {
   const [openLoginDialog, setLoginDialog] = useState(false);
   const [username, setUsername] = useState("");
   const [userReceiveAddress, setUserReceiveAddress] = useState("");
-  const [depositAmount, setDepositAmount] = useState("");
-  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [amount, setAmount] = useState("");
   const [userInfo, setUserInfo] = useState({balanceInWei: 0, balanceInEther: 0, balanceInUSDT: 0});
   const [userAddress, setUserAddress] = useState("");
   const [userContract, setUserContract] = useState("");
@@ -279,9 +279,9 @@ function App(props) {
         console.log(betDownList);
       });
       
-      socket.on("fundsWithdrawReceipt", (data) => {
+      socket.on("withdrawFundsReceipt", (data) => {
         if(data.code=="200" && data.result && data.result.status==="ETHEREUM_TRANSFERRED"){
-          showSnack(`Transferred to Ethereum chain successfull. Transaction Hash ${data.result.transactionHashEthereum}`, {variant: 'success'});
+          showSnack(`Funds Transferred ${data.result.transactionHashEthereum}`, {variant: 'success'});
         }
         else if(data.code=="500" || data.code=="404"){
           showSnack(`Error while Ethereum Transfer.`, {variant: 'error'});
@@ -291,7 +291,21 @@ function App(props) {
             socket.emit("getWithdrawFundsReceipt", {txHash: data.maticTxHash})
           }, 10000);
         }
-        
+      });
+      socket.on("depositFundsReceipt", (data) => {
+        if(data.code=="200" && data.result.transactionHashMatic){
+          let hash = data.result.transactionHashMatic;
+          showSnack(`Funds Transferred ${hash}.`, {variant: 'success',persist: 'true'});
+        }
+        else if(data.code=="500" || data.code=="404"){
+          showSnack(`Error while Ethereum Transfer.`, {variant: 'error', persist: 'true'});
+        }
+        else{
+          console.log("calling socket ");
+          setTimeout(()=>{
+            socket.emit("getDepositFundsReceipt",data.result._id)
+          }, 10000);
+        }
       });
 
       requestCurrentPrice();
@@ -699,6 +713,10 @@ function App(props) {
     }
   }
 
+  const getDepositFundsTransactionReceipt = async (mappedAddress)=>{
+
+  }
+
   const getWithdrawFundsTransactionReceipt = async (txHash) => {
     var receipt = await web3.eth.getTransactionReceipt(txHash);
 
@@ -833,9 +851,9 @@ function App(props) {
         showSnack(`Invalid Address`, {variant: 'error'});
         return;
       }
-      if(withdrawAmount<=getBalance()){
+      if(amount<=getBalance()){
         if(biconomy){
-          let result = await biconomy.withdrawFunds(userReceiveAddress,withdrawAmount*1e18);
+          let result = await biconomy.withdrawFunds(userReceiveAddress,amount*1e18);
           console.log(result);
 
           if(result && result.txHash){
@@ -867,6 +885,50 @@ function App(props) {
     }
   }
 
+  const handleDepositDialogAction = async () => {
+    try{
+
+      let depositFundsPath = `${config.baseURL}${config.depositFunds}`;
+      console.log(depositFundsPath);
+      let payload = {};
+      payload.userContract = userContract;
+      payload.receiver = "0xF86B30C63E068dBB6bdDEa6fe76bf92F194Dc53c";
+      axios
+      .post(depositFundsPath, payload)
+      .then(async function(response) {
+        setOverlayActive(false);
+        if(response && response.status !== 200) {
+          showSnack(`Error while saving to DB`, {variant: 'error'});
+        } 
+        else {
+            const data = response.data;
+            console.log(data);
+            if(data.code === 200) {
+              console.log("saved to DB successful");
+              showSnack("saved to DB successful", {variant: 'success'});
+
+              if(!socket || !socket.connected) {
+                socket = openSocket(config.socketConnectionURL);
+              }
+          
+              if(socket) {
+                console.log(`socket done`);
+                socket.emit("getDepositFundsReceipt",data.depositFundsId);
+              }
+            }
+        }
+      });
+    }catch(error){
+      console.log(error);
+      if(typeof error==="string"){
+        showSnack(error, {variant: 'error'});
+      }
+      else{
+        showSnack("Error while deposit Funds", {variant: 'error'});
+      }
+    }
+  };
+
   const handleWithdrawDialogAction = async ()=>{
     try{
       let withdrawFundsPath = `${config.baseURL}${config.withdrawFunds}`;
@@ -877,13 +939,13 @@ function App(props) {
         showSnack(`Invalid Address`, {variant: 'error'});
         return;
       }
-      if(withdrawAmount<=getBalance()){
+      if(amount<=getBalance()){
         if(biconomy){
           // Save withdraw data to DB
           let payload = {};
           payload.to = userReceiveAddress;
           payload.from = userContract;
-          payload.amount =  withdrawAmount*1e18;
+          payload.amount =  amount*1e18;
           axios
           .post(withdrawFundsPath, payload)
           .then(async function(response) {
@@ -897,7 +959,7 @@ function App(props) {
                 console.log("saved to DB successful");
 
                 //sending data to Biconomy Contract on Beta Net
-                let result = await biconomy.withdrawFunds(data.fundReceiverAddressOnBeta,withdrawAmount*1e18);
+                let result = await biconomy.withdrawFunds(data.fundReceiverAddressOnBeta,amount*1e18);
                 console.log(result);
       
                 if(result && result.txHash){
@@ -922,8 +984,6 @@ function App(props) {
                   withdrawInterval = setInterval(function(){
                     getWithdrawFundsTransactionReceipt(result.txHash)
                   }, 2000);
-
-
                 }
                 else{
                   showSnack(result.log, {variant: 'error'});
@@ -951,10 +1011,6 @@ function App(props) {
     }
   }
 
-  const handleDepositDialogAction = async ()=>{
-
-  }
-
   const onUsernameChange = (event) => {
     setUsername(event.target.value);
   }
@@ -963,12 +1019,8 @@ function App(props) {
     setUserReceiveAddress(event.target.value);
   }
 
-  const onWithdrawAmountChange = (event) => {
-    setWithdrawAmount(event.target.value);
-  }
-
-  const onDepositAmountChange= (event) => {
-    setDepositAmount(event.target.value);
+  const onAmountChange = (event) => {
+    setAmount(event.target.value);
   }
 
   const getPrice = async (symbol) => {
@@ -1029,6 +1081,10 @@ function App(props) {
     setValue(newValue);
   };
 
+  const onCopyAddress = () => {
+    showSnack("Address copied to clipboard", {variant: "info", autoHideDuration: 2000});
+  }
+  
   const depositDialogContent = <div id="username-form">
     <AppBar position="static">
       <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
@@ -1037,30 +1093,12 @@ function App(props) {
       </Tabs>
     </AppBar>
     <TabPanel value={value} index={0}>
-      <div id="current-balance-container">
-        <div id="current-balance-label">Current Balance</div>
-        <div id="current-balance" className="user-balance-matic"> {getBalance()} MATIC</div>
-      </div>
-      <TextField autoFocus margin="dense"
-        id="receiver-address" label="Reciever Address (Matic Beta Mainnet)" type="text" fullWidth onChange={onUserReceiveAddressChange} />
-      <TextField autoFocus margin="dense"
-        id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
-      <DialogActions>
-        <Button onClick={handleTransferDialogAction} color="primary">Submit</Button>
-      </DialogActions>
+      <InternalDeposit userInfo={userInfo} onCopyAddress={onCopyAddress} LS_KEY={LS_KEY} />
     </TabPanel>
     <TabPanel value={value} index={1}>
-      <div id="current-balance-container">
-        <div id="current-balance-label">Current Balance</div>
-        <div id="current-balance" className="user-balance-matic"> {getBalance()} MATIC</div>
-      </div>
-      <TextField autoFocus margin="dense"
-        id="receiver-address" label="Reciever Address (Ethereum Mainnet)" type="text" fullWidth onChange={onUserReceiveAddressChange} />
-      <TextField autoFocus margin="dense"
-        id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
-      <DialogActions>
-        <Button onClick={handleWithdrawDialogAction} color="primary">Submit</Button>
-      </DialogActions>
+      <DepositAddressDisplay className="displayAddress"/>
+      <DepositRequest className="depositeRequest" handleDepositDialogAction={handleDepositDialogAction} 
+      onUserReceiveAddressChange={onUserReceiveAddressChange} onAmountChange = {onAmountChange}/>
     </TabPanel>
   </div>
 
@@ -1079,7 +1117,7 @@ function App(props) {
       <TextField autoFocus margin="dense"
         id="receiver-address" label="Reciever Address (Matic Beta Mainnet)" type="text" fullWidth onChange={onUserReceiveAddressChange} />
       <TextField autoFocus margin="dense"
-        id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
+        id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onAmountChange}/>
       <DialogActions>
         <Button onClick={handleTransferDialogAction} color="primary">Submit</Button>
       </DialogActions>
@@ -1092,13 +1130,12 @@ function App(props) {
       <TextField autoFocus margin="dense"
         id="receiver-address" label="Reciever Address (Ethereum Mainnet)" type="text" fullWidth onChange={onUserReceiveAddressChange} />
       <TextField autoFocus margin="dense"
-        id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onWithdrawAmountChange}/>
+        id="withdraw-amount" label="Amount(in Matic)" type="number" fullWidth  onChange={onAmountChange}/>
       <DialogActions>
         <Button onClick={handleWithdrawDialogAction} color="primary">Submit</Button>
       </DialogActions>
     </TabPanel>
-    
-    </div>
+  </div>
 
   const loginDialogContent = <div id="login-wallet-form">
 
@@ -1131,11 +1168,11 @@ function App(props) {
           children={nameDialogContent} cancelText="Skip" actionText="Submit"/>
 
         <FormDialog open={openWithdrawDialog} title="Withdraw Funds"
-          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleWithdrawDialogAction}
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} 
           children={withdrawDialogContent} cancelText="Cancel" actionText="" />
 
         <FormDialog open={openDepositDialog} title="Deposit Funds"
-          handleClose={handleDialogClose} handleCancel={handleDialogClose} handleAction={handleDepositDialogAction}
+          handleClose={handleDialogClose} handleCancel={handleDialogClose} 
           children={depositDialogContent} cancelText="Cancel" actionText="" />
 
         <FormDialog open={openGameRulesDialog} title="Game Rules"
