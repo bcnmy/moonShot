@@ -134,7 +134,7 @@ function App(props) {
 
     web3 = new Web3(biconomy);
 
-    biconomy.on(biconomy.READY, async () => {
+    biconomy.onEvent(biconomy.READY, async () => {
       // Initialize your dapp here
       if(biconomy.isLogin) {
         setUserLogin(true);
@@ -148,7 +148,7 @@ function App(props) {
           onLogin(walletSelected);
         }
       }
-    }).on(biconomy.ERROR, (error, message) => {
+    }).onEvent(biconomy.ERROR, (error, message) => {
       console.log(error);
       console.log(message);
       setOverlayActive(false);
@@ -156,7 +156,7 @@ function App(props) {
       showSnack(`Error while initializing Biconomy`, {variant: 'error'});
     });
 
-    biconomy.on(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
+    biconomy.onEvent(biconomy.LOGIN_CONFIRMATION, (log, userContract) => {
       // User's Contract Wallet creation successful
       let userAddress = localStorage.getItem(LS_KEY.USER_ADDRESS);
       showSnack("On-chain identity created", {variant: 'success'});
