@@ -127,9 +127,9 @@ function App(props) {
     biconomy = new Biconomy(wallet.getProvider(), {
       dappId: config.biconomyDappId,
       apiKey: config.biconomyAPIKey,
-      loginMessageToSign: config.loginMessageToSign,
-      messageToSign: config.betSignMessage,
-      strictMode: true
+      debug: true,
+      strictMode: true,
+      providerId: wallet.getWalletId()
     });
 
     web3 = new Web3(biconomy);
@@ -139,8 +139,10 @@ function App(props) {
       if(biconomy.isLogin) {
         setUserLogin(true);
         setUsername(localStorage.getItem(LS_KEY.USERNAME));
-        setUserContract(await biconomy.getUserContract(localStorage.getItem(LS_KEY.USER_ADDRESS)));
-        setUserAddress(await biconomy.getUserAccount());
+        let userContract = await biconomy.getUserContract(localStorage.getItem(LS_KEY.USER_ADDRESS));
+        let userAccount = await biconomy.getUserAccount();
+        setUserContract(userContract.userContract);
+        setUserAddress(await biconomy.getUserAccount(userAccount));
       } else {
         setOverlayActive(false);
         clearUserLoginData();
@@ -458,75 +460,87 @@ function App(props) {
     try {
       const messageToSign = await biconomy.getLoginMessageToSign(userAddress);
       setOverlayMessage(`Getting your signature ..`);
-      const signedMessage = await web3.eth.personal.sign(
-        messageToSign,
-        userAddress
-      );
-
-      if(signedMessage) {
-        console.log(signedMessage);
-        let payload = {};
-        payload.walletId = wallet.getWalletId();
-        payload.publicAddress = userAddress;
-        payload.signature =  signedMessage;
-        payload.message = config.loginMessageToSign;
-        payload.signer = userAddress;
-        axios
-        .post(userLoginPath, payload)
-        .then(function(response) {
+      web3.currentProvider.send({
+        jsonrpc: "2.0",
+        id: "99999",
+        method: "eth_signTypedData_v3",
+        params: [userAddress, JSON.stringify(messageToSign)]
+      }, function(error, response) {
+        if(error || response.error) {
+          console.log(error || response.error);
           setOverlayActive(false);
-          if(response && response.status !== 200) {
-            showSnack(`Login failed. Please tell us about it on support@biconomy.io.`, {variant: 'error'});
-          } else {
-            const data = response.data;
-            console.log(data);
-            if(data.code === 200) {
-              localStorage.setItem(LS_KEY.LOGGED_IN, true);
-              localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
-              localStorage.setItem(LS_KEY.USER_ADDRESS, userAddress);
-              if(data.name) {
-                localStorage.setItem(LS_KEY.USERNAME, data.name);
-                setUsername(data.name);
-              }
-              setUserAddress(userAddress);
-              setUserLogin(true);
-              if(data.existingUser) {
-                showSnack(`Login successfull`, {variant: 'success'});
+          showSnack(`Could not get user signature`, {variant: 'error'});
+          return;
+        }
+        if(response && response.result) {
+          let signedMessage = response.result;
+          if(signedMessage) {
+            console.log(signedMessage);
+            let payload = {};
+            payload.walletId = wallet.getWalletId();
+            payload.publicAddress = userAddress;
+            payload.signature =  signedMessage;
+            payload.signer = userAddress;
+            payload.providerId = wallet.getWalletId();
+            axios
+            .post(userLoginPath, payload)
+            .then(function(response) {
+              setOverlayActive(false);
+              if(response && response.status !== 200) {
+                showSnack(`Login failed. Please tell us about it on support@biconomy.io.`, {variant: 'error'});
               } else {
-                showSnack(`Registration successfull`, {variant: 'success'});
-                promptForUserName();
-              }
-
-              biconomy.accountLogin(userAddress, signedMessage, (error, response)=>{
-                if(error) {
-                  showSnack("Error while login to Biconomy", {variant: "error"});
-                  return;
-                }
-
-                if(response.transactionHash) {
-                  // First time user. Contract wallet transaction pending.
-                  showSnack("Creating your identity on chain. Please wait", {variant: "info"});
-                } else if(response.userContract) {
-                  console.log(response);
-                  // Existing user login successful
-                  setUserContract(response.userContract);
-                  if(!data.userContract) {
-                    updateUserContract(userAddress, response.userContract);
+                const data = response.data;
+                console.log(data);
+                if(data.code === 200) {
+                  localStorage.setItem(LS_KEY.LOGGED_IN, true);
+                  localStorage.setItem(LS_KEY.WALLET_SELECTED, walletSelected);
+                  localStorage.setItem(LS_KEY.USER_ADDRESS, userAddress);
+                  if(data.name) {
+                    localStorage.setItem(LS_KEY.USERNAME, data.name);
+                    setUsername(data.name);
                   }
+                  setUserAddress(userAddress);
+                  setUserLogin(true);
+                  if(data.existingUser) {
+                    showSnack(`Login successfull`, {variant: 'success'});
+                  } else {
+                    showSnack(`Registration successfull`, {variant: 'success'});
+                    promptForUserName();
+                  }
+
+                  biconomy.accountLogin(userAddress, signedMessage, (error, response)=>{
+                    if(error) {
+                      showSnack("Error while login to Biconomy", {variant: "error"});
+                      return;
+                    }
+
+                    if(response.transactionHash) {
+                      // First time user. Contract wallet transaction pending.
+                      showSnack("Creating your identity on chain. Please wait", {variant: "info"});
+                    } else if(response.userContract) {
+                      console.log(response);
+                      // Existing user login successful
+                      setUserContract(response.userContract);
+                      if(!data.userContract) {
+                        updateUserContract(userAddress, response.userContract);
+                      }
+                    }
+                  });
                 }
-              });
-            }
+              }
+            })
+            .catch(function(error) {
+              setOverlayActive(false);
+              console.log(error);
+              showSnack(`Error during login ${error.message}`, {variant: 'error'});
+            });
+          } else {
+            setOverlayActive(false);
+            showSnack(`Could not get user signature`, {variant: 'error'});
           }
-        })
-        .catch(function(error) {
-          setOverlayActive(false);
-          console.log(error);
-          showSnack(`Error during login ${error.message}`, {variant: 'error'});
-        });
-      } else {
-        setOverlayActive(false);
-        showSnack(`Could not get user signature`, {variant: 'error'});
-      }
+        }
+
+      });
     } catch(error) {
       console.log(error);
       setOverlayActive(false);
@@ -537,6 +551,7 @@ function App(props) {
   const initUserInfo = async ()=>{
     try {
       console.log("Getting user info now");
+      console.log(userContract);
       // Get user balance
       if(userContract) {
         setOverlayMessage("Getting your balance ...");

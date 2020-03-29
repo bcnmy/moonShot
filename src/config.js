@@ -45,8 +45,8 @@ if(process.env.REACT_APP_STAGE === "prod") {
 } else {
     config.baseURL = `http://localhost:3010`;
     config.socketConnectionURL = `http://localhost:3010`;
-    config.biconomyDappId = "5e0e2984401a143065a4b069";
-    config.biconomyAPIKey = "DHBigbvSJ.23ec95d7-e976-4072-8058-c4f8b422ebc2";
+    config.biconomyDappId = "5e0e2cfe89d37f47e43373d8";
+    config.biconomyAPIKey = "oc8NX5_Ms.c44f6d74-3e90-4db4-b86e-fe846e6eecee";
     config.RPCURL = "https://testnet2.matic.network";
     config.networkID="8995";
     config.portisDappId = "f5515b6f-1f87-4988-9ecc-9d0556ed50d2";
