@@ -35,8 +35,8 @@ if(process.env.REACT_APP_STAGE === "prod") {
 } else if(process.env.REACT_APP_STAGE === "test") {
     config.baseURL = `https://test.api.moonshot.biconomy.io`;
     config.socketConnectionURL = `https://test.api.moonshot.biconomy.io`;
-    config.biconomyDappId = "5e0e2984401a143065a4b069";
-    config.biconomyAPIKey = "DHBigbvSJ.23ec95d7-e976-4072-8058-c4f8b422ebc2";
+    config.biconomyDappId = "5e10f21c632d84341959d982";
+    config.biconomyAPIKey = "w5hwHhRkt.882c2f39-e94d-4ed2-be6e-3068d5e2ab6f";
     config.RPCURL = "https://testnet2.matic.network";
     config.networkID="8995";
     config.portisDappId = "f5515b6f-1f87-4988-9ecc-9d0556ed50d2";
